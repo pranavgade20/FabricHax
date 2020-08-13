@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.github.pranavgade20.autohotbar.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "KeyboardManager",
+    "PlayerManager",
+    "PlayerRespawnManager",
+    "ChannelManager"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

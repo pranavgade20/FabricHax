@@ -1,12 +1,14 @@
 package io.github.pranavgade20.autohotbar;
 
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -34,8 +36,7 @@ public class BlockClickChange implements AttackBlockCallback {
         }
 
         if (slot == -1) {
-            slot = inventory.selectedSlot;
-            maxSpeed = getBlockBreakingSpeed(inventory.getStack(slot), block);
+            maxSpeed = Float.MIN_VALUE;
             for (int i = 0; i < 9; i++) {
                 ItemStack tool = inventory.getStack(i);
                 float speed = getBlockBreakingSpeed(tool, block);
@@ -48,10 +49,19 @@ public class BlockClickChange implements AttackBlockCallback {
             }
         }
 
-        int toScroll = 9 + (inventory.selectedSlot - slot);
-        toScroll %= 9;
-        for (int i = 0; i < toScroll; i++) {
-            inventory.scrollInHotbar(1);
+        if (getBlockBreakingSpeed(inventory.getMainHandStack(), block) < maxSpeed){
+            int toScroll = 9 + (inventory.selectedSlot - slot);
+            toScroll %= 9;
+            for (int i = 0; i < toScroll; i++) {
+                inventory.scrollInHotbar(1);
+            }
+        }
+
+        if (Instamine.enabled) {
+            ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, blockPos, direction));
+            ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, blockPos, direction));
+            world.removeBlock(blockPos, false);
+            return ActionResult.FAIL;
         }
 
         return ActionResult.PASS;

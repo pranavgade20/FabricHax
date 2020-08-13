@@ -22,6 +22,9 @@
       "io.github.pranavgade20.autohotbar.Main"
     ]
   },
+  "mixins": [
+    "modid.mixins.json"
+  ],
 
   "depends": {
     "fabricloader": ">=0.7.4",
