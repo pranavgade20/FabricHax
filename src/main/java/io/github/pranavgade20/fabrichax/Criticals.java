@@ -1,4 +1,4 @@
-package io.github.pranavgade20.autohotbar;
+package io.github.pranavgade20.fabrichax;
 
 public class Criticals {
     public static boolean enabled = false;

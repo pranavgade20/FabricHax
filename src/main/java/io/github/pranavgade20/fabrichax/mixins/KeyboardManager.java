@@ -1,6 +1,6 @@
-package io.github.pranavgade20.autohotbar.mixins;
+package io.github.pranavgade20.fabrichax.mixins;
 
-import io.github.pranavgade20.autohotbar.Settings;
+import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.client.Keyboard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

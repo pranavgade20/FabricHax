@@ -1,4 +1,4 @@
-package io.github.pranavgade20.autohotbar;
+package io.github.pranavgade20.fabrichax;
 
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;

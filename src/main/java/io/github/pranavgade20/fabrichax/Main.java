@@ -1,4 +1,4 @@
-package io.github.pranavgade20.autohotbar;
+package io.github.pranavgade20.fabrichax;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;

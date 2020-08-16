@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "id": "autohotbar",
+  "id": "fabrichax",
   "version": "${version}",
 
-  "name": "AutoHotbar",
-  "description": "Automatically switch to the correct tool/weapon in your hotbar.",
+  "name": "FabricHax",
+  "description": "A collection of hacks/cheats that runs as a fabric mod.",
   "authors": [
     "Pranav Gade"
   ],
   "contact": {
     "homepage": "",
-    "sources": "https://github.com/pranavgade20/autohotbar"
+    "sources": "https://github.com/pranavgade20/fabrichax"
   },
 
   "license": "CC0-1.0",
@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.pranavgade20.autohotbar.Main"
+      "io.github.pranavgade20.fabrichax.Main"
     ]
   },
   "mixins": [

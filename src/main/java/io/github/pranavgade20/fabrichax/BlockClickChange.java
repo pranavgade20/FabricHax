@@ -1,4 +1,4 @@
-package io.github.pranavgade20.autohotbar;
+package io.github.pranavgade20.fabrichax;
 
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
@@ -60,6 +60,7 @@ public class BlockClickChange implements AttackBlockCallback {
         if (Instamine.enabled) {
             ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, blockPos, direction));
             ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, blockPos, direction));
+
             world.removeBlock(blockPos, false);
             return ActionResult.FAIL;
         }

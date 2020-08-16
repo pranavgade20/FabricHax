@@ -1,9 +1,9 @@
-package io.github.pranavgade20.autohotbar;
+package io.github.pranavgade20.fabrichax;
 
 import io.netty.channel.Channel;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -11,8 +11,9 @@ import java.util.HashMap;
 public class Settings {
     public static HashMap<Integer, Class> toggles;
     public static PlayerEntity player;
-    public static World world;
+    public static ClientWorld world;
     public static Channel channel;
+    public static MinecraftClient client;
 
     public Settings() {
     }
@@ -34,5 +35,6 @@ public class Settings {
         toggles.put((int)'K', Fly.class);
         toggles.put((int)'I', Instamine.class);
         toggles.put((int)'H', ElytraFly.class);
+        toggles.put((int)'U', FreeCam.class);
     }
 }
