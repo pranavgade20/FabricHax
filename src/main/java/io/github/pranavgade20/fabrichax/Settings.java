@@ -33,8 +33,8 @@ public class Settings {
         // TODO: read a config file to load defaults
         toggles.put((int)'C', Criticals.class);
         toggles.put((int)'K', Fly.class);
-        toggles.put((int)'I', Instamine.class);
+        toggles.put((int)'I', Digger.class);
         toggles.put((int)'H', ElytraFly.class);
-        toggles.put((int)'U', FreeCam.class);
+        toggles.put((int)'U', AntiInvisibility.class);
     }
 }

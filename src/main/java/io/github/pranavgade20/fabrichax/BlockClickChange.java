@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
+import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -49,12 +50,9 @@ public class BlockClickChange implements AttackBlockCallback {
             }
         }
 
-        if (getBlockBreakingSpeed(inventory.getMainHandStack(), block) < maxSpeed){
-            int toScroll = 9 + (inventory.selectedSlot - slot);
-            toScroll %= 9;
-            for (int i = 0; i < toScroll; i++) {
-                inventory.scrollInHotbar(1);
-            }
+        if (AutoHotbar.enabled && getBlockBreakingSpeed(inventory.getMainHandStack(), block) < maxSpeed) {
+            inventory.selectedSlot = slot;
+            ClientSidePacketRegistry.INSTANCE.sendToServer(new UpdateSelectedSlotC2SPacket(slot));
         }
 
         if (Instamine.enabled) {
@@ -63,6 +61,10 @@ public class BlockClickChange implements AttackBlockCallback {
 
             world.removeBlock(blockPos, false);
             return ActionResult.FAIL;
+        }
+
+        if (Digger.enabled) {
+            if (Digger.dig(inventory.getMainHandStack(), world, blockPos, direction)) return ActionResult.FAIL;
         }
 
         return ActionResult.PASS;

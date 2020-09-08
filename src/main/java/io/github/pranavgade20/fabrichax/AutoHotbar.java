@@ -4,16 +4,17 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.MessageType;
 import net.minecraft.text.Text;
 
-public class Criticals {
+public class AutoHotbar {
     public static boolean enabled = false;
 
     public static void toggle() {
         if (enabled) {
             enabled = false;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled Criticals"), Settings.player.getUuid());
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled AutoHotbar"), Settings.player.getUuid());
         } else {
             enabled = true;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled Criticals"), Settings.player.getUuid());
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled AutoHotbar"), Settings.player.getUuid());
         }
     }
+
 }

@@ -20,7 +20,7 @@ public class KeyboardManager {
     private static HashSet<Integer> keys_pressed = new HashSet<>();
 
     @Inject(at = @At("HEAD"), method = "onKey(JIIII)V")
-    private void asdf(long window, int key, int scancode, int i, int j, CallbackInfo info) {
+    private void handleKeyPress(long window, int key, int scancode, int i, int j, CallbackInfo info) {
         if (i == 0) keys_pressed.remove(key);
 
         if (i == 1) {

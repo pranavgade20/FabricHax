@@ -16,18 +16,18 @@ public class ElytraFly {
         }
 
         if (!hasElytra) {
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.method_30163("get elytra dumbo"), Settings.player.getUuid());
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("get elytra dumbo"), Settings.player.getUuid());
             return;
         }
 
         if (enabled) {
             MinecraftClient.getInstance().player.abilities.flying = Fly.enabled;
             MinecraftClient.getInstance().player.abilities.allowFlying = false;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.method_30163("Disabled ElytraHax"), Settings.player.getUuid());
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled ElytraHax"), Settings.player.getUuid());
             enabled = false;
         } else {
             ClientSidePacketRegistry.INSTANCE.sendToServer(new ClientCommandC2SPacket(Settings.player, ClientCommandC2SPacket.Mode.START_FALL_FLYING));
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.method_30163("Enabled ElytraHax"), Settings.player.getUuid());
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled ElytraHax"), Settings.player.getUuid());
 
             MinecraftClient.getInstance().player.abilities.flying = true;
             MinecraftClient.getInstance().player.abilities.allowFlying = true;
