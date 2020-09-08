@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-public class Digger {
+public class Digger extends Hax {
     public static boolean enabled = false;
     public static int up = 3;
     public static int down = 1;

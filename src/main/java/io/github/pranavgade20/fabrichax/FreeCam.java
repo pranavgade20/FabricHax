@@ -1,12 +1,11 @@
 package io.github.pranavgade20.fabrichax;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 
-public class FreeCam {
+public class FreeCam extends Hax {
     public static boolean enabled = false;
     public static PlayerMoveC2SPacket.PositionOnly fakePacket = null;
     private static Vec3d position = null;

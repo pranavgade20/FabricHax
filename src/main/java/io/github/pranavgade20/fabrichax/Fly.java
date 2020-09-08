@@ -9,7 +9,7 @@ import net.minecraft.text.Text;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Fly {
+public class Fly extends Hax {
     public static boolean enabled = false;
     public static double count = 0d;
     static Timer noAfk = new Timer();

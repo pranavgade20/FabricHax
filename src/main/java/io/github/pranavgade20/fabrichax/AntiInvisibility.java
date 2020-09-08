@@ -6,7 +6,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.network.MessageType;
 import net.minecraft.text.Text;
 
-public class AntiInvisibility {
+public class AntiInvisibility extends Hax {
     public static boolean enabled = false;
     public static void toggle() {
         if (enabled) {
