@@ -4,8 +4,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.MessageType;
 import net.minecraft.text.Text;
 
-public class AutoHotbar extends Hax {
-    public static boolean enabled = false;
+public class AutoHotbar {
+    public static boolean enabled = true;
 
     public static void toggle() {
         if (enabled) {

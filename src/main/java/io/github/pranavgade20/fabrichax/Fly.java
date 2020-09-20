@@ -9,7 +9,7 @@ import net.minecraft.text.Text;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Fly extends Hax {
+public class Fly {
     public static boolean enabled = false;
     public static double count = 0d;
     static Timer noAfk = new Timer();
@@ -32,7 +32,7 @@ public class Fly extends Hax {
                 double prevCount = 0;
                 @Override
                 public void run() {
-                    if (!MinecraftClient.getInstance().player.abilities.flying) return;
+                    if (!Settings.player.abilities.flying) return;
                     if (prevCount == Fly.count) {
                         prevCount++;
                         //sending a packet so we arent just hanging there

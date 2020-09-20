@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-public class Digger extends Hax {
+public class Digger {
     public static boolean enabled = false;
     public static int up = 3;
     public static int down = 1;
@@ -58,7 +58,8 @@ public class Digger extends Hax {
                 }
             }
         }
-        return true;
+        if (getBlockBreakingSpeed(itemStack, world.getBlockState(blockPos)) >= 34f) return true;
+        else return false;
     }
 
     public static float getBlockBreakingSpeed(ItemStack tool, BlockState block) { // adapted from net.minecraft.entity.player.PlayerEntity.class
@@ -73,5 +74,35 @@ public class Digger extends Hax {
         }
 
         return f;
+    }
+
+    public static String getHelpMessage() {
+        return "Digger - mine large chunks of blocks quickly.\n" +
+                "You must be able to insta-mine the blocks for best results\n" +
+                "(for example, you need an efficiency 5 shovel to use Digger on sand)\n" +
+                "\nConfiguration information:\n" +
+                " ~ config Digger <direction> <size>\n" +
+                " (to configure shape to be dug out)\n" +
+                " where directions include 'up, down, left, right'\n" +
+                " and size is a non negative number" +
+                " for example, use `config Digger 2 left`\n" +
+                " to set this to mine 2 blocks to the left of your selected block.\n" +
+                " \n" +
+                " note: if you are kicked, try selecting a lower number for dig size";
+    }
+
+    public static void config(String params) {
+        try {
+            String direction = params.split(" ")[1].toLowerCase();
+            int size = Integer.parseInt(params.split(" ")[2]);
+
+            if (direction.equals("up")) up = size;
+            else if (direction.equals("down")) down = size;
+            else if (direction.equals("left")) left = size;
+            else if (direction.equals("right")) right = size;
+            else MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help digger) for more information."), Settings.player.getUuid());
+        } catch (Exception e) {
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help digger) for more information."), Settings.player.getUuid());
+        }
     }
 }

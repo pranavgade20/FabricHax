@@ -50,6 +50,8 @@ public class ChannelManager {
                     }
                 }
 
+                out.add(packet);
+
 //                if (packet instanceof PlayerMoveC2SPacket && FreeCam.enabled) {
 //                    out.add(FreeCam.fakePacket);
 //                }

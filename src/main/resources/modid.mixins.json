@@ -9,7 +9,8 @@
     "KeyboardManager",
     "PlayerRespawnManager",
     "ChannelManager",
-    "PlayerManager"
+    "PlayerManager",
+    "ChatManager"
   ],
   "injectors": {
     "defaultRequire": 1

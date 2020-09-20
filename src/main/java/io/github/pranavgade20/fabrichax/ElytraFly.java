@@ -7,7 +7,7 @@ import net.minecraft.network.MessageType;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.text.Text;
 
-public class ElytraFly extends Hax {
+public class ElytraFly {
     public static boolean enabled = false;
     public static void toggle() {
         boolean hasElytra = false;

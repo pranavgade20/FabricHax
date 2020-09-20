@@ -4,7 +4,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.MessageType;
 import net.minecraft.text.Text;
 
-public class Criticals extends Hax {
+public class Criticals {
     public static boolean enabled = false;
 
     public static void toggle() {

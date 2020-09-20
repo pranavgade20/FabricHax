@@ -36,5 +36,7 @@ public class Settings {
         toggles.put((int)'I', Digger.class);
         toggles.put((int)'H', ElytraFly.class);
         toggles.put((int)'U', AntiInvisibility.class);
+        toggles.put((int)'B', NearestBlockMove.class);
+        toggles.put(-1, AutoHotbar.class);
     }
 }

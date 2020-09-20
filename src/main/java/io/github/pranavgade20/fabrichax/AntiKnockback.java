@@ -11,7 +11,7 @@ import net.minecraft.text.Text;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AntiKnockback extends Hax {
+public class AntiKnockback {
     public static boolean enabled = false;
     private float resistance = 0;
 
