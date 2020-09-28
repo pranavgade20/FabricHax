@@ -11,7 +11,9 @@
     "ChannelManager",
     "PlayerManager",
     "ChatManager",
-    "InvisManager"
+    "InvisManager",
+    "KnockbackManager",
+    "SneakManager"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -71,22 +71,15 @@ public class ChannelManager {
 //        Settings.channel.pipeline().addAfter("decoder", "injected-in", new MessageToMessageDecoder<Packet<?>>() {
 //            @Override
 //            protected void decode(ChannelHandlerContext ctx, Packet<?> packet, List<Object> out) {
-////                if (packet instanceof WorldTimeUpdateS2CPacket) return;
-////                if (packet instanceof KeepAliveS2CPacket) return;
-////                if (packet instanceof LightUpdateS2CPacket) return;
-////                if (packet instanceof ChunkDataS2CPacket) return;
-////                if (packet instanceof ScreenHandlerSlotUpdateS2CPacket) return;
-////                if (packet instanceof UnloadChunkS2CPacket) return;
-//
-////                if (packet instanceof EntityStatusEffectS2CPacket){
-////                    System.out.println(((EntityStatusEffectS2CPacket) packet).getEffectId() + " " + StatusEffect.byRawId(((EntityStatusEffectS2CPacket) packet).getEffectId()).getName());
-////                    if (AntiInvisibility.enabled && ((EntityStatusEffectS2CPacket) packet).getEffectId() == 14)
-////                        out.add(new EntityStatusEffectS2CPacket(((EntityStatusEffectS2CPacket) packet).getEntityId(), new StatusEffectInstance(StatusEffects.GLOWING, ((EntityStatusEffectS2CPacket) packet).getDuration())));
-////                    return;
-////                }
-//
-////                System.out.println(packet.getClass().getName());
 //                out.add(packet);
+//                if (packet instanceof WorldTimeUpdateS2CPacket) return;
+//                if (packet instanceof KeepAliveS2CPacket) return;
+//                if (packet instanceof LightUpdateS2CPacket) return;
+//                if (packet instanceof ChunkDataS2CPacket) return;
+//                if (packet instanceof ScreenHandlerSlotUpdateS2CPacket) return;
+//                if (packet instanceof UnloadChunkS2CPacket) return;
+//
+//                System.out.println(packet.getClass().getName());
 //            }
 //        });
 

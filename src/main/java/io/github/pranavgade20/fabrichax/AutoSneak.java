@@ -4,16 +4,16 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.MessageType;
 import net.minecraft.text.Text;
 
-public class Scaffold {
+public class AutoSneak {
     public static boolean enabled = false;
 
     public static void toggle() {
         if (enabled) {
             enabled = false;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled Scaffold"), Settings.player.getUuid());
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled AutoSneak"), Settings.player.getUuid());
         } else {
             enabled = true;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled Scaffold"), Settings.player.getUuid());
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled AutoSneak"), Settings.player.getUuid());
         }
     }
 
