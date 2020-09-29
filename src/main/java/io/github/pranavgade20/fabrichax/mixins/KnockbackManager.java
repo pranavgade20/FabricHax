@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(LivingEntity.class)
 public class KnockbackManager {
-    @Inject(at = @At("HEAD"), method = "takeKnockback(FDD)V", cancellable = true, locals = LocalCapture.PRINT)
+    @Inject(at = @At("HEAD"), method = "takeKnockback(FDD)V", cancellable = true)
     private void handleKnockback(float f, double d, double e, CallbackInfo ci) {
-        System.out.println("didnt take kb lol");
+        //TODO this doesnt work, ignore velocity update packets
         if (AntiKnockback.enabled) ci.cancel();
     }
 }

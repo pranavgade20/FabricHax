@@ -13,6 +13,8 @@ public class AutoSneak {
             MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled AutoSneak"), Settings.player.getUuid());
         } else {
             enabled = true;
+            Settings.world = MinecraftClient.getInstance().world;
+            Settings.player = MinecraftClient.getInstance().player;
             MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled AutoSneak"), Settings.player.getUuid());
         }
     }
