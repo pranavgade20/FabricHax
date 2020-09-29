@@ -1,9 +1,6 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
-import io.github.pranavgade20.fabrichax.AntiInvisibility;
-import io.github.pranavgade20.fabrichax.Fly;
-import io.github.pranavgade20.fabrichax.FreeCam;
-import io.github.pranavgade20.fabrichax.Settings;
+import io.github.pranavgade20.fabrichax.*;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
 import io.netty.handler.codec.MessageToMessageEncoder;
@@ -31,22 +28,28 @@ public class ChannelManager {
             @Override
             protected void encode(ChannelHandlerContext ctx, Packet<?> packet, List<Object> out) {
 
-                if (Fly.enabled) {
+                if (Fly.enabled || ElytraFly.enabled) {
                     if (packet instanceof UpdatePlayerAbilitiesC2SPacket) {
                         out.add(new PlayerMoveC2SPacket.PositionOnly(Settings.player.getX(), Settings.player.getY(), Settings.player.getZ(), Settings.player.isOnGround()));
                         System.out.println("Dropped fly enable packet");
-                    } else {
-                        out.add(packet);
-                    }
-
-                    if (packet instanceof PlayerMoveC2SPacket.PositionOnly && Settings.player.abilities.flying) {
-                        PlayerMoveC2SPacket.PositionOnly p = (PlayerMoveC2SPacket.PositionOnly) packet;
+                    } else if (packet instanceof PlayerMoveC2SPacket.PositionOnly && Settings.player.abilities.flying) {
                         out.add(new PlayerMoveC2SPacket.PositionOnly(
                                 Settings.player.getX(),
                                 Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)),
                                 Settings.player.getZ(),
                                 Settings.player.isOnGround()
                         ));
+                    } else if (packet instanceof PlayerMoveC2SPacket.Both && Settings.player.abilities.flying) {
+                        out.add(new PlayerMoveC2SPacket.Both(
+                                Settings.player.getX(),
+                                Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)),
+                                Settings.player.getZ(),
+                                Settings.player.yaw,
+                                Settings.player.pitch,
+                                Settings.player.isOnGround()
+                        ));
+                    } else {
+                        out.add(packet);
                     }
                 }
 

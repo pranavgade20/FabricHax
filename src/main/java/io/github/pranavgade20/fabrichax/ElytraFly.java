@@ -22,7 +22,7 @@ public class ElytraFly {
 
         if (enabled) {
             MinecraftClient.getInstance().player.abilities.flying = Fly.enabled;
-            MinecraftClient.getInstance().player.abilities.allowFlying = false;
+//            MinecraftClient.getInstance().player.abilities.allowFlying = false;
             MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled ElytraHax"), Settings.player.getUuid());
             enabled = false;
         } else {
@@ -30,7 +30,7 @@ public class ElytraFly {
             MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled ElytraHax"), Settings.player.getUuid());
 
             MinecraftClient.getInstance().player.abilities.flying = true;
-            MinecraftClient.getInstance().player.abilities.allowFlying = true;
+//            MinecraftClient.getInstance().player.abilities.allowFlying = true;
             Settings.player.setPos(Settings.player.getX(), Settings.player.getY() + 0.5, Settings.player.getZ());
             enabled = true;
         }
