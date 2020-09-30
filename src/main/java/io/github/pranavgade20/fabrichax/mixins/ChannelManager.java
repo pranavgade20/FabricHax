@@ -72,23 +72,23 @@ public class ChannelManager {
             }
         });
 
-        Settings.channel.pipeline().addAfter("decoder", "injected-in", new MessageToMessageDecoder<Packet<?>>() {
-            @Override
-            protected void decode(ChannelHandlerContext ctx, Packet<?> packet, List<Object> out) {
-                out.add(packet);
-                if (packet instanceof WorldTimeUpdateS2CPacket) return;
-                if (packet instanceof KeepAliveS2CPacket) return;
-                if (packet instanceof LightUpdateS2CPacket) return;
-                if (packet instanceof ChunkDataS2CPacket) return;
-                if (packet instanceof ScreenHandlerSlotUpdateS2CPacket) return;
-                if (packet instanceof UnloadChunkS2CPacket) return;
-                if (packet instanceof EntitySetHeadYawS2CPacket) return;
-                if (packet instanceof EntityS2CPacket) return; //sus
-
-                if (packet instanceof EntityVelocityUpdateS2CPacket) System.out.println(((EntityVelocityUpdateS2CPacket)packet).getId());
-                System.out.println(packet.getClass().getName());
-            }
-        });
+//        Settings.channel.pipeline().addAfter("decoder", "injected-in", new MessageToMessageDecoder<Packet<?>>() {
+//            @Override
+//            protected void decode(ChannelHandlerContext ctx, Packet<?> packet, List<Object> out) {
+//                out.add(packet);
+//                if (packet instanceof WorldTimeUpdateS2CPacket) return;
+//                if (packet instanceof KeepAliveS2CPacket) return;
+//                if (packet instanceof LightUpdateS2CPacket) return;
+//                if (packet instanceof ChunkDataS2CPacket) return;
+//                if (packet instanceof ScreenHandlerSlotUpdateS2CPacket) return;
+//                if (packet instanceof UnloadChunkS2CPacket) return;
+//                if (packet instanceof EntitySetHeadYawS2CPacket) return;
+//                if (packet instanceof EntityS2CPacket) return; //sus
+//
+//                if (packet instanceof EntityVelocityUpdateS2CPacket) System.out.println(((EntityVelocityUpdateS2CPacket)packet).getId());
+//                System.out.println(packet.getClass().getName());
+//            }
+//        });
 
     }
 }

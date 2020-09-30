@@ -13,7 +13,8 @@
     "ChatManager",
     "InvisManager",
     "KnockbackManager",
-    "SneakManager"
+    "SneakManager",
+    "JeasusManager"
   ],
   "injectors": {
     "defaultRequire": 1

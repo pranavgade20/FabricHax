@@ -37,6 +37,7 @@ public class Settings {
         toggles.put((int)'H', ElytraFly.class);
         toggles.put((int)'U', AntiInvisibility.class);
         toggles.put((int)'L', AutoSneak.class);
+        toggles.put((int)'O', Jeasus.class);
         toggles.put(-1, AutoHotbar.class);
     }
 }
