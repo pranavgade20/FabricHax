@@ -9,6 +9,8 @@ public class Jeasus {
     public static boolean toggledFly = false;
 
     public static void toggle() {
+        if (Settings.player == null) return;
+
         if (enabled) {
             Settings.player.abilities.flying = false;
             enabled = false;

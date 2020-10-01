@@ -9,6 +9,8 @@ import net.minecraft.text.Text;
 public class AntiInvisibility {
     public static boolean enabled = false;
     public static void toggle() {
+        if (Settings.player == null) return;
+
         if (enabled) {
             MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled AntiInvisibility"), Settings.player.getUuid());
             enabled = false;

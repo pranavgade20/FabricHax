@@ -10,6 +10,8 @@ public class FreeCam {
     public static PlayerMoveC2SPacket.PositionOnly fakePacket = null;
     private static Vec3d position = null;
     public static void toggle() {
+        if (Settings.player == null) return;
+
         if (enabled) {
             enabled = false;
             MinecraftClient.getInstance().player.abilities.allowFlying = Fly.enabled;

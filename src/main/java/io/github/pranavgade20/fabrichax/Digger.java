@@ -20,6 +20,8 @@ public class Digger {
     public static int left = 3;
     public static int right = 3;
     public static void toggle() {
+        if (Settings.player == null) return;
+
         if (enabled) {
             enabled = false;
             MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled Digger"), Settings.player.getUuid());

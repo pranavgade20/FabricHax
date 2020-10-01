@@ -10,6 +10,8 @@ import net.minecraft.text.Text;
 public class ElytraFly {
     public static boolean enabled = false;
     public static void toggle() {
+        if (Settings.player == null) return;
+
         boolean hasElytra = false;
         for (ItemStack item : Settings.player.getArmorItems()) {
             if (item.getItem().asItem().getName().toString().toLowerCase().contains("elytra")) hasElytra = true;
