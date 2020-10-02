@@ -55,7 +55,7 @@ public class BlockClickChange implements AttackBlockCallback {
             ClientSidePacketRegistry.INSTANCE.sendToServer(new UpdateSelectedSlotC2SPacket(slot));
         }
 
-        if (Instamine.enabled) {
+        if (Fastmine.enabled) {
             ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, blockPos, direction));
             ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, blockPos, direction));
 
