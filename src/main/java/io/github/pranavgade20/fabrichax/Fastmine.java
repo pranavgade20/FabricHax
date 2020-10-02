@@ -21,10 +21,7 @@ public class Fastmine {
 
     public static String getHelpMessage() {
         return "Fastmine - allows you to mine blocks 30% faster.\n" +
-                "\nConfiguration information:\n" +
-                " ~ config Template <params>\n" +
-                " (to configure this class using the config method)\n" +
-                " where params are parameters\n";
+                "Just click on the block to mine once.";
     }
 
     public static void config(String params) {
