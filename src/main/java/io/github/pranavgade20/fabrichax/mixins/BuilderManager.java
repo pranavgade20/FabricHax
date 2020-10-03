@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ClientPlayerInteractionManager.class)
 public class BuilderManager {
-    @Inject(at = @At("RETURN"), method = "interactBlock(Lnet/minecraft/client/network/ClientPlayerEntityLnet/minecraft/client/world/ClientWorldLnet/minecraft/util/HandLnet/minecraft/util/hit/BlockHitResult;)Lnet/minecraft/util/ActionResult;")
+    @Inject(at = @At("RETURN"), method = "interactBlock")
     private ActionResult onInteractBlock(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
         if (Builder.enabled) Builder.build(hand, hitResult);
         return cir.getReturnValue();
