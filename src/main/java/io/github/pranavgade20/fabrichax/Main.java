@@ -7,8 +7,8 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 public class Main implements ModInitializer {
 	@Override
 	public void onInitialize() {
-		AttackBlockCallback.EVENT.register(new BlockClickChange());
-		AttackEntityCallback.EVENT.register(new EntityClickChange());
+		AttackBlockCallback.EVENT.register(new BlockClickManager());
+		AttackEntityCallback.EVENT.register(new EntityClickManager());
 
 		System.out.println("Loaded AutoHotbar!");
 	}

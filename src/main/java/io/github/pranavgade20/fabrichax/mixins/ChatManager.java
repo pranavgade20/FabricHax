@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -113,8 +112,8 @@ public class ChatManager {
                     Settings.toggles.values().forEach(v -> {
                         if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
                             try {
-                                v.getMethod("getHelpMessage").invoke(null);
-                            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                                MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of((String)v.getMethod("getHelpMessage").invoke(null)), Settings.player.getUuid());
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }

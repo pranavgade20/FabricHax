@@ -102,7 +102,11 @@ public class Digger {
             else if (direction.equals("down")) down = size;
             else if (direction.equals("left")) left = size;
             else if (direction.equals("right")) right = size;
-            else MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help digger) for more information."), Settings.player.getUuid());
+            else {
+                MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help digger) for more information."), Settings.player.getUuid());
+                return;
+            }
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("~ config Digger " + params), Settings.player.getUuid());
         } catch (Exception e) {
             MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help digger) for more information."), Settings.player.getUuid());
         }

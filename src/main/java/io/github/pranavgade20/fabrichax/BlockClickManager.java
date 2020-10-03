@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-public class BlockClickChange implements AttackBlockCallback {
+public class BlockClickManager implements AttackBlockCallback {
     @Override
     public ActionResult interact(PlayerEntity playerEntity, World world, Hand hand, BlockPos blockPos, Direction direction) {
         PlayerInventory inventory = playerEntity.inventory;

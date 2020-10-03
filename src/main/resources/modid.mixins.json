@@ -15,7 +15,8 @@
     "KnockbackManager",
     "SneakManager",
     "JeasusManager",
-    "PlayerDisconnectManager"
+    "PlayerDisconnectManager",
+    "BuilderManager"
   ],
   "injectors": {
     "defaultRequire": 1

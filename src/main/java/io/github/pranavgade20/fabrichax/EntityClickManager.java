@@ -17,7 +17,7 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 
 
-public class EntityClickChange implements AttackEntityCallback {
+public class EntityClickManager implements AttackEntityCallback {
     @Override
     public ActionResult interact(PlayerEntity playerEntity, World world, Hand hand, Entity entity, EntityHitResult entityHitResult) {
         PlayerInventory inventory = playerEntity.inventory;
