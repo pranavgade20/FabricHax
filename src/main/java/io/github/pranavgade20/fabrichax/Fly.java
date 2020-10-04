@@ -18,20 +18,20 @@ public class Fly {
 
         if (enabled) {
             enabled = false;
-            MinecraftClient.getInstance().player.abilities.flying = false;
-            MinecraftClient.getInstance().player.abilities.allowFlying = false;
+            Settings.player.abilities.flying = ElytraFly.enabled;
+            Settings.player.abilities.allowFlying = false;
             noAfk.cancel();
 
             count = 0;
             MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled Fly"), Settings.player.getUuid());
         } else {
             enabled = true;
-            MinecraftClient.getInstance().player.abilities.flying = true;
-            MinecraftClient.getInstance().player.abilities.allowFlying = true;
+            Settings.player.abilities.allowFlying = true;
             noAfk.scheduleAtFixedRate(new TimerTask() {
                 double prevCount = 0;
                 @Override
                 public void run() {
+                    if (Settings.player == null) return;
                     if (!Settings.player.abilities.flying) return;
                     if (prevCount == Fly.count) {
                         prevCount++;

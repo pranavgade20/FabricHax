@@ -39,6 +39,7 @@ public class Settings {
         toggles.put((int)'L', AutoSneak.class);
         toggles.put((int)'O', Jeasus.class);
         toggles.put((int)'B', Builder.class);
+        toggles.put((int)'Y', AntiFall.class);
         toggles.put(-1, AutoHotbar.class);
         toggles.put(-2, Fastmine.class);
     }

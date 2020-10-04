@@ -1,17 +1,14 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
-import io.github.pranavgade20.fabrichax.*;
+import io.github.pranavgade20.fabrichax.AntiFall;
+import io.github.pranavgade20.fabrichax.ElytraFly;
+import io.github.pranavgade20.fabrichax.Fly;
+import io.github.pranavgade20.fabrichax.Settings;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToMessageDecoder;
 import io.netty.handler.codec.MessageToMessageEncoder;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.Packet;
-import net.minecraft.network.packet.c2s.play.*;
-import net.minecraft.network.packet.s2c.play.*;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -28,12 +25,8 @@ public class ChannelManager {
         Settings.channel.pipeline().addAfter("encoder", "injected-out", new MessageToMessageEncoder<Packet<?>>() {
             @Override
             protected void encode(ChannelHandlerContext ctx, Packet<?> packet, List<Object> out) {
-
                 if (Fly.enabled || ElytraFly.enabled) {
-                    if (packet instanceof UpdatePlayerAbilitiesC2SPacket) {
-                        out.add(new PlayerMoveC2SPacket.PositionOnly(Settings.player.getX(), Settings.player.getY(), Settings.player.getZ(), Settings.player.isOnGround()));
-                        System.out.println("Dropped fly enable packet");
-                    } else if (packet instanceof PlayerMoveC2SPacket.PositionOnly && Settings.player.abilities.flying) {
+                    if (packet instanceof PlayerMoveC2SPacket.PositionOnly && Settings.player.abilities.flying) {
                         out.add(new PlayerMoveC2SPacket.PositionOnly(
                                 Settings.player.getX(),
                                 Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)),
@@ -52,10 +45,22 @@ public class ChannelManager {
                     } else {
                         out.add(packet);
                     }
+                } else if (AntiFall.enabled) {
+                    if (packet instanceof PlayerMoveC2SPacket.Both || packet instanceof PlayerMoveC2SPacket.PositionOnly) {
+                        if (!AntiFall.onGround && ((PlayerMoveC2SPacket) packet).isOnGround()) {
+                            out.add(new PlayerMoveC2SPacket.PositionOnly(
+                                    AntiFall.prevPos.x,
+                                    AntiFall.prevPos.y + (0.01),
+                                    AntiFall.prevPos.z,
+                                    false
+                            ));
+                        } else out.add(packet);
+                        AntiFall.prevPos = Settings.player.getPos();
+                        AntiFall.onGround = Settings.player.isOnGround();
+                    } else out.add(packet);
+                } else {
+                    out.add(packet);
                 }
-
-                out.add(packet);
-
 //                if (packet instanceof PlayerMoveC2SPacket && FreeCam.enabled) {
 //                    out.add(FreeCam.fakePacket);
 //                }
