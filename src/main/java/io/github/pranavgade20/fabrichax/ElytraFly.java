@@ -36,4 +36,9 @@ public class ElytraFly {
             enabled = true;
         }
     }
+
+    public static String getHelpMessage() {
+        return "ElytraFly - fly with elytra without rockets.\n" +
+                "You will be able to fly with an elytra on. You don't need firework rockets for propelling the elytra";
+    }
 }

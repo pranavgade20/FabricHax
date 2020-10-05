@@ -22,11 +22,9 @@ public class AutoSneak {
     }
 
     public static String getHelpMessage() {
-        return "Template - this is how all classes should look like.\n" +
-                "\nConfiguration information:\n" +
-                " ~ config Template <params>\n" +
-                " (to configure this class using the config90 method)\n" +
-                " where params are parameters\n";
+        return "AutoSneak - this allows you to bridge quickly.\n" +
+                "You will be able to make bridges quickly without falling.\n" +
+                "(You don't need to crouch while bridgin)";
     }
 
     public static void config(String params) {

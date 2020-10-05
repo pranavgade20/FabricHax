@@ -28,7 +28,7 @@ public class AntiFall {
     }
 
     public static String getHelpMessage() {
-        return "Template - this is how all classes should look like.\n" +
+        return "AntiFall - You won't take fall damage.\n" +
                 "\nConfiguration information:\n" +
                 " ~ config Template <params>\n" +
                 " (to configure this class using the config90 method)\n" +
