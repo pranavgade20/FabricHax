@@ -18,4 +18,9 @@ public class Criticals {
             MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled Criticals"), Settings.player.getUuid());
         }
     }
+
+    public static String getHelpMessage() {
+        return "Criticals - the player you hit, receives more damage.\n" +
+                "The player you hit, receives 25% more damage";
+    }
 }

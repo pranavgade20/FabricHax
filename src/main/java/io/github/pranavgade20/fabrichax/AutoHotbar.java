@@ -19,4 +19,11 @@ public class AutoHotbar {
         }
     }
 
+    public static String getHelpMessage() {
+        return "AutoHotbar - switches to the right tool from your hotbar.\n" +
+                "You won't need to switche between tools everytime, it automatically to the right tool from your hotbar according to your needs\n" +
+                "For example, if you want to break grassblock I'll switch to a shovel and then if you want to break stone it'll switch to a pickaxe\n" +
+                "note: The tools should be in your hotbar";
+    }
+
 }

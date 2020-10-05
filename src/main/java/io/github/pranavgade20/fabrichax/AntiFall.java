@@ -28,11 +28,8 @@ public class AntiFall {
     }
 
     public static String getHelpMessage() {
-        return "Template - this is how all classes should look like.\n" +
-                "\nConfiguration information:\n" +
-                " ~ config Template <params>\n" +
-                " (to configure this class using the config() method)\n" +
-                " where params are parameters\n";
+        return "AntiFall - You won't take fall damage.\n" +
+                " Even if you fall from a very high place, you won't loose any heart.\n";
     }
 
     public static void config(String params) {

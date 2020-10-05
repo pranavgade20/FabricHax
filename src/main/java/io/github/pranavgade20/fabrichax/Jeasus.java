@@ -24,11 +24,8 @@ public class Jeasus {
     }
 
     public static String getHelpMessage() {
-        return "Template - this is how all classes should look like.\n" +
-                "\nConfiguration information:\n" +
-                " ~ config Template <params>\n" +
-                " (to configure this class using the config() method)\n" +
-                " where params are parameters\n";
+        return "Jeasus - walk easily on water.\n" +
+                " You will be able to walk on water without drowning\n";
     }
 
     public static void config(String params) {
