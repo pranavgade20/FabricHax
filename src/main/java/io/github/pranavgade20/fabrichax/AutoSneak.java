@@ -24,7 +24,7 @@ public class AutoSneak {
     public static String getHelpMessage() {
         return "AutoSneak - this allows you to bridge quickly.\n" +
                 "You will be able to make bridges quickly without falling.\n" +
-                "(You don't need to crouch while bridgin)";
+                "(You don't need to crouch while bridging)";
     }
 
     public static void config(String params) {

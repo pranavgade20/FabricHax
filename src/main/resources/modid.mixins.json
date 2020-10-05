@@ -17,7 +17,8 @@
     "JeasusManager",
     "PlayerDisconnectManager",
     "BuilderManager",
-    "FlyManager"
+    "FlyManager",
+    "EffectsManager"
   ],
   "injectors": {
     "defaultRequire": 1
