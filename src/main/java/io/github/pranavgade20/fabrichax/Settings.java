@@ -42,5 +42,6 @@ public class Settings {
         toggles.put((int)'Y', AntiFall.class);
         toggles.put(-1, AutoHotbar.class);
         toggles.put(-2, Fastmine.class);
+        toggles.put(-3, Effects.class);
     }
 }

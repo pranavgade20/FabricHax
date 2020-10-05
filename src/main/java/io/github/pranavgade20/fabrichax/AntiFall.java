@@ -31,7 +31,7 @@ public class AntiFall {
         return "Template - this is how all classes should look like.\n" +
                 "\nConfiguration information:\n" +
                 " ~ config Template <params>\n" +
-                " (to configure this class using the config90 method)\n" +
+                " (to configure this class using the config() method)\n" +
                 " where params are parameters\n";
     }
 
