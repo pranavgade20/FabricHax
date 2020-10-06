@@ -24,8 +24,8 @@ public class Jeasus {
     }
 
     public static String getHelpMessage() {
-        return "Jeasus - walk easily on water.\n" +
-                " You will be able to walk on water without drowning\n";
+        return "Jeasus - walk on water.\n" +
+                "You will be able to walk on water without sinking.\n";
     }
 
     public static void config(String params) {

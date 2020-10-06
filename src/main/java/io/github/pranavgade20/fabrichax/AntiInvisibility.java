@@ -28,7 +28,6 @@ public class AntiInvisibility {
     }
 
     public static String getHelpMessage() {
-        return "AntiInvisibility - makes invisible players visible.\n" +
-                "You will be able to see all the player who have used invisibility potion to become invisible.";
+        return "AntiInvisibility - removes invisibility effect from all entities.\n";
     }
 }

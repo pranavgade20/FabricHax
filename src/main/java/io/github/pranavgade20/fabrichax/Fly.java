@@ -47,9 +47,8 @@ public class Fly {
     }
 
     public static String getHelpMessage() {
-        return "Fly - fly in survival mode.\n" +
-                "You will be able to fly without elytra even in survival mode\n" +
-                "(you just need to press space bar twice as you do in Creative mode)\n" +
+        return "Fly - Enables creative mode flight.\n" +
+                "You will be able to fly without elytra, just double-tap jump key.\n" +
                 "note: this isn't as stable as elytrafly, so you might be kicked depending on the server. Using elytrafly is recommended over using this.";
     }
 }

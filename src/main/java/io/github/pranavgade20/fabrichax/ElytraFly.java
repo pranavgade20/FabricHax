@@ -38,7 +38,8 @@ public class ElytraFly {
     }
 
     public static String getHelpMessage() {
-        return "ElytraFly - fly with elytra without rockets.\n" +
-                "You will be able to fly with an elytra on. You don't need firework rockets for propelling the elytra";
+        return "ElytraFly - Creative mode flight while wearing an elytra.\n" +
+                "You will be able to use your elytra in a much more stable way without using rockets. " +
+                "This is much more stable than using Fly";
     }
 }

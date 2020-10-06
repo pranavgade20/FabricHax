@@ -20,7 +20,7 @@ public class Criticals {
     }
 
     public static String getHelpMessage() {
-        return "Criticals - the player you hit, receives more damage.\n" +
-                "The player you hit, receives 25% more damage";
+        return "Criticals - All your attacks are critical hits.\n" +
+                "The entity you hit receives more damage per hit.";
     }
 }

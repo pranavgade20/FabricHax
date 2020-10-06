@@ -28,8 +28,8 @@ public class AntiFall {
     }
 
     public static String getHelpMessage() {
-        return "AntiFall - You won't take fall damage.\n" +
-                " Even if you fall from a very high place, you won't loose any heart.\n";
+        return "AntiFall - disables fall damage.\n" +
+                "You wont take fall damage.\n";
     }
 
     public static void config(String params) {

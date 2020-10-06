@@ -78,15 +78,14 @@ public class Builder {
     }
 
     public static String getHelpMessage() {
-        return "Builder - build large chunks of blocks quickly.\n" +
+        return "Builder - place large chunks of blocks quickly.\n" +
                 "Do not stand where the blocks will be placed for best results\n" +
                 "\nConfiguration information:\n" +
                 " ~ config Builder <direction> <size>\n" +
                 " (to configure shape to be built)\n" +
                 " where directions include 'left, right'\n" +
-                " and size is a non negative number" +
                 " for example, use `config Builder left 2`\n" +
-                " to set this to place 2 blocks to the left of your placed block.\n";
+                " to set this to place 2 blocks to the left of your placed block.";
     }
 
     public static void config(String params) {

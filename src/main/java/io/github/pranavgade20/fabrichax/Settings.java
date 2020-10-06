@@ -2,15 +2,15 @@ package io.github.pranavgade20.fabrichax;
 
 import io.netty.channel.Channel;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.player.PlayerEntity;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 public class Settings {
     public static HashMap<Integer, Class> toggles;
-    public static PlayerEntity player;
+    public static ClientPlayerEntity player;
     public static ClientWorld world;
     public static Channel channel;
     public static MinecraftClient client;
