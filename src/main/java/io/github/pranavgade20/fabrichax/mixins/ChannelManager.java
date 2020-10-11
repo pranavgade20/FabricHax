@@ -1,13 +1,11 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
-import io.github.pranavgade20.fabrichax.AntiFall;
-import io.github.pranavgade20.fabrichax.ElytraFly;
-import io.github.pranavgade20.fabrichax.Fly;
-import io.github.pranavgade20.fabrichax.Settings;
+import io.github.pranavgade20.fabrichax.*;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.Packet;
+import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -47,7 +45,7 @@ public class ChannelManager {
                     }
                 } else if (AntiFall.enabled) {
                     if (packet instanceof PlayerMoveC2SPacket.Both || packet instanceof PlayerMoveC2SPacket.PositionOnly) {
-                        if (!AntiFall.onGround && ((PlayerMoveC2SPacket) packet).isOnGround()) {
+                        if (!AntiFall.onGround && ((PlayerMoveC2SPacket) packet).isOnGround() && AntiFall.lastGround != null && Math.abs(AntiFall.lastGround.y-AntiFall.prevPos.y) > 3) {
                             out.add(new PlayerMoveC2SPacket.PositionOnly(
                                     AntiFall.prevPos.x,
                                     AntiFall.prevPos.y + (0.01),
@@ -57,6 +55,18 @@ public class ChannelManager {
                         } else out.add(packet);
                         AntiFall.prevPos = Settings.player.getPos();
                         AntiFall.onGround = Settings.player.isOnGround();
+                        if (!AntiFall.onGround && AntiFall.lastGround == null) AntiFall.lastGround = AntiFall.prevPos;
+                        if (AntiFall.onGround) AntiFall.lastGround = null;
+                    } else out.add(packet);
+                } else if (NoSprint.enabled) {
+                    if (packet instanceof ClientCommandC2SPacket && (((ClientCommandC2SPacket) packet).getMode() == ClientCommandC2SPacket.Mode.START_SPRINTING || ((ClientCommandC2SPacket) packet).getMode() == ClientCommandC2SPacket.Mode.STOP_SPRINTING)) {
+                        out.add(new PlayerMoveC2SPacket.PositionOnly(
+                                Settings.player.getX(),
+                                Settings.player.getY(),
+                                Settings.player.getZ(),
+                                Settings.player.isOnGround()
+                        ));
+                        System.out.println("Suppresed");
                     } else out.add(packet);
                 } else {
                     out.add(packet);

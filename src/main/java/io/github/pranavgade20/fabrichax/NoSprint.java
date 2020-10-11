@@ -3,35 +3,24 @@ package io.github.pranavgade20.fabrichax;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.MessageType;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.Vec3d;
 
-public class AntiFall {
+public class NoSprint {
     public static boolean enabled = false;
-
-    public static Vec3d prevPos = null;
-    public static Vec3d lastGround = null;
-    public static boolean onGround;
 
     public static void toggle() {
         if (Settings.player == null) return;
 
         if (enabled) {
             enabled = false;
-            prevPos = null;
-            lastGround = null;
-            onGround = false;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled AntiFall"), Settings.player.getUuid());
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled NoSprint"), Settings.player.getUuid());
         } else {
             enabled = true;
-            prevPos = Settings.player.getPos();
-            onGround = Settings.player.isOnGround();
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled AntiFall"), Settings.player.getUuid());
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled NoSprint"), Settings.player.getUuid());
         }
     }
 
     public static String getHelpMessage() {
-        return "AntiFall - disables fall damage.\n" +
-                "You wont take fall damage.\n";
+        return "NoSprint - Reduce hunger usage when sprinting.";
     }
 
     public static void config(String params) {
