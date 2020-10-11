@@ -118,10 +118,15 @@ public class ChatManager {
                             }
                         }
                     });
+                } else if (command.toLowerCase().equals("hotkeys")) {
+                    Settings.toggles.forEach((key, module) -> {
+                        if (key > 0) {
+                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of((char)key.intValue() + " - " + module.getSimpleName()), Settings.player.getUuid());
+                        }
+                    });
                 } else if (command.toLowerCase().equals("config")) {
                     String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
                     String params = text.substring(text.indexOf(" ", text.indexOf(" "))).trim();
-                    String finalText = text;
                     Settings.toggles.values().forEach(v -> {
                         if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
                             try {

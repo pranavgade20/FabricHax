@@ -5,7 +5,7 @@ import net.minecraft.network.MessageType;
 import net.minecraft.text.Text;
 
 public class Scaffold {
-    public static boolean enabled = true;
+    public static boolean enabled = false;
 
     public static void toggle() {
         if (Settings.player == null) return;
