@@ -3,10 +3,12 @@ package io.github.pranavgade20.fabrichax.mixins;
 import io.github.pranavgade20.fabrichax.AutoSneak;
 import io.github.pranavgade20.fabrichax.Scaffold;
 import io.github.pranavgade20.fabrichax.Settings;
+import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.input.KeyboardInput;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -16,6 +18,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Objects;
 
 @Mixin(KeyboardInput.class)
 public class SneakManager {
@@ -32,7 +36,7 @@ public class SneakManager {
         }
         if (Scaffold.enabled && flag && !Settings.player.abilities.flying) {
             try {
-                if (!Settings.player.inventory.getMainHandStack().getItem().getGroup().equals(ItemGroup.BUILDING_BLOCKS)) {
+                if (!Objects.equals(Settings.player.inventory.getMainHandStack().getItem().getGroup(), ItemGroup.BUILDING_BLOCKS)) {
                     return;
                 }
 
@@ -46,15 +50,17 @@ public class SneakManager {
                     direction = Direction.getFacing(-1, 0, 0);
                 if (!Settings.world.getBlockState(new BlockPos(Settings.player.getPos().add(-1, -1, 0))).isAir())
                     direction = Direction.getFacing(1, 0, 0);
-                ActionResult res = Settings.player.inventory.getMainHandStack().useOnBlock(new ItemPlacementContext(Settings.player, Hand.MAIN_HAND, Settings.player.inventory.getMainHandStack(), new BlockHitResult(
+                BlockHitResult hitResult = new BlockHitResult(
                         Settings.player.getPos(),
                         direction,
                         blockPos.offset(direction, -1),
                         false
-                )));
+                );
+                ActionResult res = Settings.player.inventory.getMainHandStack().useOnBlock(new ItemPlacementContext(Settings.player, Hand.MAIN_HAND, Settings.player.inventory.getMainHandStack(), hitResult));
 
                 if (res == ActionResult.SUCCESS) {
-                    if (AutoSneak.enabled && flag && !Settings.player.abilities.flying)
+                    ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, hitResult));
+                    if (AutoSneak.enabled)
                         Settings.player.input.sneaking = false;
                 }
             } catch (Exception e) {

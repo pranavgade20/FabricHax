@@ -23,6 +23,7 @@ public class ChannelManager {
         Settings.channel.pipeline().addAfter("encoder", "injected-out", new MessageToMessageEncoder<Packet<?>>() {
             @Override
             protected void encode(ChannelHandlerContext ctx, Packet<?> packet, List<Object> out) {
+                boolean added = false;
                 if (Fly.enabled || ElytraFly.enabled) {
                     if (packet instanceof PlayerMoveC2SPacket.PositionOnly && Settings.player.abilities.flying) {
                         out.add(new PlayerMoveC2SPacket.PositionOnly(
@@ -40,10 +41,10 @@ public class ChannelManager {
                                 Settings.player.pitch,
                                 Settings.player.isOnGround()
                         ));
-                    } else {
-                        out.add(packet);
                     }
-                } else if (AntiFall.enabled) {
+                    added = true;
+                }
+                if (AntiFall.enabled) {
                     if (packet instanceof PlayerMoveC2SPacket.Both || packet instanceof PlayerMoveC2SPacket.PositionOnly) {
                         if (!AntiFall.onGround && ((PlayerMoveC2SPacket) packet).isOnGround() && AntiFall.lastGround != null && Math.abs(AntiFall.lastGround.y-AntiFall.prevPos.y) > 3) {
                             out.add(new PlayerMoveC2SPacket.PositionOnly(
@@ -52,13 +53,15 @@ public class ChannelManager {
                                     AntiFall.prevPos.z,
                                     false
                             ));
-                        } else out.add(packet);
+                            added = true;
+                        }
                         AntiFall.prevPos = Settings.player.getPos();
                         AntiFall.onGround = Settings.player.isOnGround();
                         if (!AntiFall.onGround && AntiFall.lastGround == null) AntiFall.lastGround = AntiFall.prevPos;
                         if (AntiFall.onGround) AntiFall.lastGround = null;
-                    } else out.add(packet);
-                } else if (NoSprint.enabled) {
+                    }
+                }
+                if (NoSprint.enabled) {
                     if (packet instanceof ClientCommandC2SPacket && (((ClientCommandC2SPacket) packet).getMode() == ClientCommandC2SPacket.Mode.START_SPRINTING || ((ClientCommandC2SPacket) packet).getMode() == ClientCommandC2SPacket.Mode.STOP_SPRINTING)) {
                         out.add(new PlayerMoveC2SPacket.PositionOnly(
                                 Settings.player.getX(),
@@ -66,9 +69,11 @@ public class ChannelManager {
                                 Settings.player.getZ(),
                                 Settings.player.isOnGround()
                         ));
+                        added = true;
                         System.out.println("Suppresed");
-                    } else out.add(packet);
-                } else {
+                    }
+                }
+                if (!added) {
                     out.add(packet);
                 }
 //                if (packet instanceof PlayerMoveC2SPacket && FreeCam.enabled) {
