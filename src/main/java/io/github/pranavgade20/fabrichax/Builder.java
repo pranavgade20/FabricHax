@@ -35,41 +35,41 @@ public class Builder {
             switch (Settings.player.getHorizontalFacing()) {
                 case NORTH:
                     for (int j = 1; j <= left; j++) {
-                        BlockHitResult result = hitResult.withSide(Direction.EAST).method_29328(pos.west(j));
+                        BlockHitResult result = hitResult.withSide(Direction.EAST).withBlockPos(pos.west(j));
                         ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     for (int j = 1; j <= right; j++) {
-                        BlockHitResult result = hitResult.withSide(Direction.WEST).method_29328(pos.east(j));
+                        BlockHitResult result = hitResult.withSide(Direction.WEST).withBlockPos(pos.east(j));
                         ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     break;
                 case SOUTH:
                     for (int j = 1; j <= right; j++) {
-                        BlockHitResult result = hitResult.withSide(Direction.EAST).method_29328(pos.west(j));
+                        BlockHitResult result = hitResult.withSide(Direction.EAST).withBlockPos(pos.west(j));
                         ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     for (int j = 1; j <= left; j++) {
-                        BlockHitResult result = hitResult.withSide(Direction.WEST).method_29328(pos.east(j));
+                        BlockHitResult result = hitResult.withSide(Direction.WEST).withBlockPos(pos.east(j));
                         ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     break;
                 case EAST:
                     for (int j = 1; j <= left; j++) {
-                        BlockHitResult result = hitResult.withSide(Direction.SOUTH).method_29328(pos.north(j));
+                        BlockHitResult result = hitResult.withSide(Direction.SOUTH).withBlockPos(pos.north(j));
                         ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     for (int j = 1; j <= right; j++) {
-                        BlockHitResult result = hitResult.withSide(Direction.NORTH).method_29328(pos.south(j));
+                        BlockHitResult result = hitResult.withSide(Direction.NORTH).withBlockPos(pos.south(j));
                         ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     break;
                 case WEST:
                     for (int j = 1; j <= right; j++) {
-                        BlockHitResult result = hitResult.withSide(Direction.SOUTH).method_29328(pos.north(j));
+                        BlockHitResult result = hitResult.withSide(Direction.SOUTH).withBlockPos(pos.north(j));
                         ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     for (int j = 1; j <= left; j++) {
-                        BlockHitResult result = hitResult.withSide(Direction.NORTH).method_29328(pos.south(j));
+                        BlockHitResult result = hitResult.withSide(Direction.NORTH).withBlockPos(pos.south(j));
                         ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     break;
