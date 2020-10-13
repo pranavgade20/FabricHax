@@ -18,7 +18,8 @@
     "PlayerDisconnectManager",
     "BuilderManager",
     "FlyManager",
-    "EffectsManager"
+    "EffectsManager",
+    "WalkerManager"
   ],
   "injectors": {
     "defaultRequire": 1

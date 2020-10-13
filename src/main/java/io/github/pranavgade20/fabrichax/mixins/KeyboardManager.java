@@ -2,6 +2,8 @@ package io.github.pranavgade20.fabrichax.mixins;
 
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.client.Keyboard;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ChatScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,7 +29,7 @@ public class KeyboardManager {
             keys_pressed.add(key);
 
             if (keys_pressed.contains(PRIMARY_KEY) && key != PRIMARY_KEY) {
-                Settings.keyDown(key);
+                if (MinecraftClient.getInstance().currentScreen == null || !(MinecraftClient.getInstance().currentScreen instanceof ChatScreen))Settings.keyDown(key);
             }
         }
     }

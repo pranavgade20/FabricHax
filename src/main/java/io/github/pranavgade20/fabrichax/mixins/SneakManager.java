@@ -36,9 +36,12 @@ public class SneakManager {
         }
         if (Scaffold.enabled && flag && !Settings.player.abilities.flying) {
             try {
-                if (!Objects.equals(Settings.player.inventory.getMainHandStack().getItem().getGroup(), ItemGroup.BUILDING_BLOCKS)) {
-                    return;
-                }
+                Hand hand;
+                if (Objects.equals(Settings.player.inventory.getMainHandStack().getItem().getGroup(), ItemGroup.BUILDING_BLOCKS)) {
+                    hand = Hand.MAIN_HAND;
+                } else if (Objects.equals(Settings.player.inventory.offHand.get(0).getItem().getGroup(), ItemGroup.BUILDING_BLOCKS)) {
+                    hand = Hand.OFF_HAND;
+                } else return;
 
                 Direction direction = Direction.DOWN;
                 BlockPos blockPos = new BlockPos(Settings.player.getPos().subtract(0, 1, 0));
@@ -56,10 +59,14 @@ public class SneakManager {
                         blockPos.offset(direction, -1),
                         false
                 );
-                ActionResult res = Settings.player.inventory.getMainHandStack().useOnBlock(new ItemPlacementContext(Settings.player, Hand.MAIN_HAND, Settings.player.inventory.getMainHandStack(), hitResult));
+
+                ActionResult res;
+                if (hand == Hand.MAIN_HAND) res = Settings.player.inventory.getMainHandStack().useOnBlock(new ItemPlacementContext(Settings.player, hand, Settings.player.inventory.getMainHandStack(), hitResult));
+                else res = Settings.player.inventory.offHand.get(0).useOnBlock(new ItemPlacementContext(Settings.player, hand, Settings.player.inventory.offHand.get(0), hitResult));
+
 
                 if (res == ActionResult.SUCCESS) {
-                    ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, hitResult));
+                    ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, hitResult));
                     if (AutoSneak.enabled)
                         Settings.player.input.sneaking = false;
                 }
