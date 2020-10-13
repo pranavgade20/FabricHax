@@ -32,6 +32,7 @@ public class ChannelManager {
                                 Settings.player.getZ(),
                                 Settings.player.isOnGround()
                         ));
+                        added = true;
                     } else if (packet instanceof PlayerMoveC2SPacket.Both && Settings.player.abilities.flying) {
                         out.add(new PlayerMoveC2SPacket.Both(
                                 Settings.player.getX(),
@@ -41,8 +42,8 @@ public class ChannelManager {
                                 Settings.player.pitch,
                                 Settings.player.isOnGround()
                         ));
+                        added = true;
                     }
-                    added = true;
                 }
                 if (AntiFall.enabled) {
                     if (packet instanceof PlayerMoveC2SPacket.Both || packet instanceof PlayerMoveC2SPacket.PositionOnly) {
