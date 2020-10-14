@@ -19,10 +19,10 @@ public class AntiFluid {
 
         if (enabled) {
             enabled = false;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled Template"), Settings.player.getUuid());
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled AntiFluid"), Settings.player.getUuid());
         } else {
             enabled = true;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled Template"), Settings.player.getUuid());
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled AntiFluid"), Settings.player.getUuid());
         }
     }
 
@@ -48,12 +48,12 @@ public class AntiFluid {
             else if (direction.equals("east")) east = size;
             else if (direction.equals("west")) west = size;
             else {
-                MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help builder) for more information."), Settings.player.getUuid());
+                MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help AntiFluid) for more information."), Settings.player.getUuid());
                 return;
             }
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("~ config Builder " + params), Settings.player.getUuid());
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("~ config AntiFluid " + params), Settings.player.getUuid());
         } catch (Exception e) {
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help builder) for more information."), Settings.player.getUuid());
+            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help AntiFluid) for more information."), Settings.player.getUuid());
         }
     }
 }

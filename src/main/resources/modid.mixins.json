@@ -18,7 +18,6 @@
     "PlayerDisconnectManager",
     "BuilderManager",
     "FlyManager",
-    "EffectsManager",
     "WalkerManager",
     "AntiFluidManager"
   ],
