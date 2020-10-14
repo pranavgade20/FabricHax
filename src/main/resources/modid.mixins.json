@@ -19,7 +19,8 @@
     "BuilderManager",
     "FlyManager",
     "EffectsManager",
-    "WalkerManager"
+    "WalkerManager",
+    "AntiFluidManager"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,5 +1,6 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
+import io.github.pranavgade20.fabrichax.Fly;
 import io.github.pranavgade20.fabrichax.Jeasus;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.block.Blocks;
@@ -16,7 +17,7 @@ public class JeasusManager {
     private void tick(boolean slowDown, CallbackInfo ci) {
         if (!Jeasus.enabled) return;
 
-        int nearbyWater = 9;
+        int nearbyWater = 0;
         for (int x = -1; x <= 1; x++) {
             for (int z = -1; z <= 1; z++) {
                 if (Settings.world.getBlockState(new BlockPos(Settings.player.getPos().add(x, 0, z))).isOf(Blocks.WATER)) {
@@ -25,15 +26,10 @@ public class JeasusManager {
             }
         }
 
-        if (nearbyWater == 9 && Settings.player.isTouchingWater()) {
+        if (nearbyWater == 9) {
             Settings.player.abilities.flying = true;
-            Jeasus.toggledFly = false;
-
-            Settings.player.input.sneaking = false;
-            Settings.player.input.jumping = false;
-        } else if (!Jeasus.toggledFly) {
+        } else if (!Fly.enabled) {
             Settings.player.abilities.flying = false;
-            Jeasus.toggledFly = true;
         }
     }
 }

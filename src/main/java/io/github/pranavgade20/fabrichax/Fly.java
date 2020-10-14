@@ -27,11 +27,15 @@ public class Fly {
         } else {
             enabled = true;
             Settings.player.abilities.allowFlying = true;
+            noAfk = new Timer();
             noAfk.scheduleAtFixedRate(new TimerTask() {
                 double prevCount = 0;
                 @Override
                 public void run() {
-                    if (Settings.player == null) return;
+                    if (Settings.player == null) {
+                        this.cancel();
+                        return;
+                    }
                     if (!Settings.player.abilities.flying) return;
                     if (prevCount == Fly.count) {
                         prevCount++;

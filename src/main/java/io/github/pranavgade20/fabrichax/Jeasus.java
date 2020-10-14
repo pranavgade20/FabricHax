@@ -6,7 +6,6 @@ import net.minecraft.text.Text;
 
 public class Jeasus {
     public static boolean enabled = false;
-    public static boolean toggledFly = false;
 
     public static void toggle() {
         if (Settings.player == null) return;
