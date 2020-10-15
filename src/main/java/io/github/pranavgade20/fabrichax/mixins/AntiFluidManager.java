@@ -23,8 +23,16 @@ import java.util.Objects;
 
 @Mixin(ClientPlayerEntity.class)
 public class AntiFluidManager {
-    @Inject(at = @At("RETURN"), method = "tickMovement")
-    public void tickMovement(CallbackInfo ci) {
+    @Inject(at = @At("RETURN"), method = "tick")
+    public void tick(CallbackInfo ci) {
+        try {
+            if (!Settings.world.isChunkLoaded(new BlockPos(Settings.player.getX(), 0.0D, Settings.player.getZ()))) {
+                return;
+            }
+        } catch (Exception e) {
+            return;
+        }
+
         if (AntiFluid.enabled) {
             Hand hand;
             if (Objects.equals(Settings.player.getMainHandStack().getItem().getGroup(), ItemGroup.BUILDING_BLOCKS)) {
