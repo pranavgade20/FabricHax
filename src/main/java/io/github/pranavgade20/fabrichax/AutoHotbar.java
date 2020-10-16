@@ -26,4 +26,7 @@ public class AutoHotbar {
                 "p.s.: for this to work, the tools need to be on your hotbar.";
     }
 
+    public static String getToolTip() {
+        return "The ultimate hotbar management solution";
+    }
 }

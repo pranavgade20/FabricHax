@@ -43,6 +43,7 @@ public class Settings {
         toggles.put((int)'J', Scaffold.class);
         toggles.put((int)'W', Walker.class);
         toggles.put((int)'G', AntiFluid.class);
+        toggles.put((int)'R', GUI.class);
         toggles.put(-1, AutoHotbar.class);
         toggles.put(-2, Fastmine.class);
         toggles.put(-3, NoSprint.class);
