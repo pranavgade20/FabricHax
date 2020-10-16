@@ -2,9 +2,7 @@ package io.github.pranavgade20.fabrichax.mixins;
 
 import io.github.pranavgade20.fabrichax.Settings;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.network.MessageType;
 import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,7 +20,7 @@ public class ChatManager {
         if (text.startsWith("~")) {
             if (text.length() == 1) {
                 //print help message
-                MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of(getHelpMessage()), Settings.player.getUuid());
+                Settings.player.sendMessage(Text.of(getHelpMessage()), false);
                 ci.cancel();
                 return;
             }
@@ -32,114 +30,129 @@ public class ChatManager {
             try {
                 text = text.substring(2);
                 String command = text.split("[ :]")[0];
-                if (command.toLowerCase().equals("toggle")) {
-                    String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
-
-                    Settings.toggles.values().forEach(v -> {
-                        if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
-                            try {
-                                v.getMethod("toggle").invoke(null);
-                            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                } else if (command.toLowerCase().equals("enable")) {
-                    String parameter = text.split("[ ]")[1]; // to use inside lambda
-                    String module = parameter.toLowerCase().replace("hax", "");
-
-                    Settings.toggles.values().forEach(v -> {
-                        if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
-                            try {
-                                if (v.getDeclaredField("enabled").getBoolean(null)) {
-                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of(parameter + " is already enabled."), Settings.player.getUuid());
-                                } else {
-                                    try {
-                                        v.getMethod("toggle").invoke(null);
-                                    } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            } catch (IllegalAccessException | NoSuchFieldException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                } else if (command.toLowerCase().equals("disable")) {
-                    String parameter = text.split("[ ]")[1]; // to use inside lambda
-                    String module = parameter.toLowerCase().replace("hax", "");
-
-                    Settings.toggles.values().forEach(v -> {
-                        if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
-                            try {
-                                if (!v.getDeclaredField("enabled").getBoolean(null)) {
-                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of(parameter + " is already disabled."), Settings.player.getUuid());
-                                } else {
-                                    try {
-                                        v.getMethod("toggle").invoke(null);
-                                    } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            } catch (IllegalAccessException | NoSuchFieldException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                } else if (command.toLowerCase().equals("hotkey")) {
-                    char parameter = text.split("[ :]")[1].toUpperCase().charAt(0);
-                    if (Settings.toggles.containsKey((int)parameter)) {
-                        MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Key already in use by " + Settings.toggles.get((int)parameter).getSimpleName()), Settings.player.getUuid());
-                    } else {
+                switch (command.toLowerCase()) {
+                    case "toggle": {
                         String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
-                        for (Map.Entry<Integer, Class> k : Settings.toggles.entrySet()) {
-                            if (k.getValue().getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
-                                Settings.toggles.remove(k.getKey());
-                                Settings.toggles.put((int)parameter, k.getValue());
-                                break;
-                            }
-                        }
-                        MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Changed hotkey."), Settings.player.getUuid());
-                    }
-                } else if (command.toLowerCase().equals("list")) {
-                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Available modules are: "), Settings.player.getUuid());
-                    Settings.toggles.forEach((k, v) -> {
-                        MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of(v.getSimpleName()), Settings.player.getUuid());
-                    });
-                } else if (command.toLowerCase().equals("help")) {
-                    String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
 
-                    Settings.toggles.values().forEach(v -> {
-                        if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
-                            try {
-                                MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of((String)v.getMethod("getHelpMessage").invoke(null)), Settings.player.getUuid());
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                        Settings.toggles.values().forEach(v -> {
+                            if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
+                                try {
+                                    v.getMethod("toggle").invoke(null);
+                                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        }
-                    });
-                } else if (command.toLowerCase().equals("hotkeys")) {
-                    Settings.toggles.forEach((key, module) -> {
-                        if (key > 0) {
-                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of((char)key.intValue() + " - " + module.getSimpleName()), Settings.player.getUuid());
-                        }
-                    });
-                } else if (command.toLowerCase().equals("config")) {
-                    String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
-                    String params = text.substring(text.indexOf(" ", text.indexOf(" "))).trim();
-                    Settings.toggles.values().forEach(v -> {
-                        if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
-                            try {
-                                v.getMethod("config", " ".getClass()).invoke(null, params);
-                            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                                e.printStackTrace();
+                        });
+                        break;
+                    }
+                    case "enable": {
+                        String parameter = text.split("[ ]")[1]; // to use inside lambda
+
+                        String module = parameter.toLowerCase().replace("hax", "");
+
+                        Settings.toggles.values().forEach(v -> {
+                            if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
+                                try {
+                                    if (v.getDeclaredField("enabled").getBoolean(null)) {
+                                        Settings.player.sendMessage(Text.of(parameter + " is already enabled."), false);
+                                    } else {
+                                        try {
+                                            v.getMethod("toggle").invoke(null);
+                                        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                } catch (IllegalAccessException | NoSuchFieldException e) {
+                                    e.printStackTrace();
+                                }
                             }
+                        });
+                        break;
+                    }
+                    case "disable": {
+                        String parameter = text.split("[ ]")[1]; // to use inside lambda
+
+                        String module = parameter.toLowerCase().replace("hax", "");
+
+                        Settings.toggles.values().forEach(v -> {
+                            if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
+                                try {
+                                    if (!v.getDeclaredField("enabled").getBoolean(null)) {
+                                        Settings.player.sendMessage(Text.of(parameter + " is already disabled."), false);
+                                    } else {
+                                        try {
+                                            v.getMethod("toggle").invoke(null);
+                                        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                } catch (IllegalAccessException | NoSuchFieldException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        break;
+                    }
+                    case "hotkey": {
+                        char parameter = text.split("[ :]")[1].toUpperCase().charAt(0);
+                        if (Settings.toggles.containsKey((int) parameter)) {
+                            Settings.player.sendMessage(Text.of("Key already in use by " + Settings.toggles.get((int) parameter).getSimpleName()), false);
+                        } else {
+                            String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
+                            for (Map.Entry<Integer, Class> k : Settings.toggles.entrySet()) {
+                                if (k.getValue().getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
+                                    Settings.toggles.remove(k.getKey());
+                                    Settings.toggles.put((int) parameter, k.getValue());
+                                    break;
+                                }
+                            }
+                            Settings.player.sendMessage(Text.of("Changed hotkey."), false);
                         }
-                    });
+                        break;
+                    }
+                    case "list":
+                        Settings.player.sendMessage(Text.of("Available modules are: "), false);
+                        Settings.toggles.forEach((k, v) -> Settings.player.sendMessage(Text.of(v.getSimpleName()), false));
+                        break;
+                    case "help": {
+                        String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
+
+                        Settings.toggles.values().forEach(v -> {
+                            if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
+                                try {
+                                    Settings.player.sendMessage(Text.of((String) v.getMethod("getHelpMessage").invoke(null)), false);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        break;
+                    }
+                    case "hotkeys":
+                        Settings.toggles.forEach((key, module) -> {
+                            if (key > 0) {
+                                Settings.player.sendMessage(Text.of((char) key.intValue() + " - " + module.getSimpleName()), false);
+                            }
+                        });
+                        break;
+                    case "config": {
+                        String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
+                        String params = text.substring(text.indexOf(" ", text.indexOf(" "))).trim();
+                        Settings.toggles.values().forEach(v -> {
+                            if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
+                                try {
+                                    v.getMethod("config", " ".getClass()).invoke(null, params);
+                                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        break;
+                    }
                 }
                 ci.cancel();
             } catch (Exception e) {
-                MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help) for more information."), Settings.player.getUuid());
+                Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help) for more information."), false);
             }
         }
     }

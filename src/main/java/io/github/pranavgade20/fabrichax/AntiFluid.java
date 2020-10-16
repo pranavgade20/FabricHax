@@ -41,15 +41,28 @@ public class AntiFluid {
             String direction = params.split(" ")[1].toLowerCase();
             int size = Integer.parseInt(params.split(" ")[2]);
 
-            if (direction.equals("up")) up = size+1;
-            else if (direction.equals("down")) down = size;
-            else if (direction.equals("north")) north = size;
-            else if (direction.equals("south")) south = size;
-            else if (direction.equals("east")) east = size;
-            else if (direction.equals("west")) west = size;
-            else {
-                MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help AntiFluid) for more information."), Settings.player.getUuid());
-                return;
+            switch (direction) {
+                case "up":
+                    up = size + 1;
+                    break;
+                case "down":
+                    down = size;
+                    break;
+                case "north":
+                    north = size;
+                    break;
+                case "south":
+                    south = size;
+                    break;
+                case "east":
+                    east = size;
+                    break;
+                case "west":
+                    west = size;
+                    break;
+                default:
+                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help AntiFluid) for more information."), Settings.player.getUuid());
+                    return;
             }
             MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("~ config AntiFluid " + params), Settings.player.getUuid());
         } catch (Exception e) {
