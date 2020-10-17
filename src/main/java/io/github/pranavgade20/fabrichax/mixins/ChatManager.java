@@ -1,5 +1,6 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
+import io.github.pranavgade20.fabrichax.Hax;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -10,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 @Mixin(ClientPlayerEntity.class)
@@ -35,12 +35,8 @@ public class ChatManager {
                         String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
 
                         Settings.toggles.values().forEach(v -> {
-                            if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
-                                try {
-                                    v.getMethod("toggle").invoke(null);
-                                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                                    e.printStackTrace();
-                                }
+                            if (v.getModuleName().toLowerCase().replace("hax", "").equals(module)) {
+                                v.toggle();
                             }
                         });
                         break;
@@ -51,19 +47,11 @@ public class ChatManager {
                         String module = parameter.toLowerCase().replace("hax", "");
 
                         Settings.toggles.values().forEach(v -> {
-                            if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
-                                try {
-                                    if (v.getDeclaredField("enabled").getBoolean(null)) {
-                                        Settings.player.sendMessage(Text.of(parameter + " is already enabled."), false);
-                                    } else {
-                                        try {
-                                            v.getMethod("toggle").invoke(null);
-                                        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                } catch (IllegalAccessException | NoSuchFieldException e) {
-                                    e.printStackTrace();
+                            if (v.getModuleName().toLowerCase().replace("hax", "").equals(module)) {
+                                if (v.isEnabled()) {
+                                    Settings.player.sendMessage(Text.of(parameter + " is already enabled."), false);
+                                } else {
+                                    v.toggle();
                                 }
                             }
                         });
@@ -75,19 +63,11 @@ public class ChatManager {
                         String module = parameter.toLowerCase().replace("hax", "");
 
                         Settings.toggles.values().forEach(v -> {
-                            if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
-                                try {
-                                    if (!v.getDeclaredField("enabled").getBoolean(null)) {
-                                        Settings.player.sendMessage(Text.of(parameter + " is already disabled."), false);
-                                    } else {
-                                        try {
-                                            v.getMethod("toggle").invoke(null);
-                                        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                } catch (IllegalAccessException | NoSuchFieldException e) {
-                                    e.printStackTrace();
+                            if (v.getModuleName().toLowerCase().replace("hax", "").equals(module)) {
+                                if (!v.isEnabled()) {
+                                    Settings.player.sendMessage(Text.of(parameter + " is already disabled."), false);
+                                } else {
+                                    v.toggle();
                                 }
                             }
                         });
@@ -96,11 +76,11 @@ public class ChatManager {
                     case "hotkey": {
                         char parameter = text.split("[ :]")[1].toUpperCase().charAt(0);
                         if (Settings.toggles.containsKey((int) parameter)) {
-                            Settings.player.sendMessage(Text.of("Key already in use by " + Settings.toggles.get((int) parameter).getSimpleName()), false);
+                            Settings.player.sendMessage(Text.of("Key already in use by " + Settings.toggles.get((int) parameter).getModuleName()), false);
                         } else {
                             String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
-                            for (Map.Entry<Integer, Class> k : Settings.toggles.entrySet()) {
-                                if (k.getValue().getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
+                            for (Map.Entry<Integer, Hax<?>> k : Settings.toggles.entrySet()) {
+                                if (k.getValue().getModuleName().toLowerCase().replace("hax", "").equals(module)) {
                                     Settings.toggles.remove(k.getKey());
                                     Settings.toggles.put((int) parameter, k.getValue());
                                     break;
@@ -112,26 +92,21 @@ public class ChatManager {
                     }
                     case "list":
                         Settings.player.sendMessage(Text.of("Available modules are: "), false);
-                        Settings.toggles.forEach((k, v) -> Settings.player.sendMessage(Text.of(v.getSimpleName()), false));
+                        Settings.toggles.forEach((k, v) -> Settings.player.sendMessage(Text.of(v.getModuleName()), false));
                         break;
                     case "help": {
                         String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
 
                         Settings.toggles.values().forEach(v -> {
-                            if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
-                                try {
-                                    Settings.player.sendMessage(Text.of((String) v.getMethod("getHelpMessage").invoke(null)), false);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
+                            if (v.getModuleName().toLowerCase().replace("hax", "").equals(module))
+                                Settings.player.sendMessage(Text.of(v.getHelpMessage()), false);
                         });
                         break;
                     }
                     case "hotkeys":
                         Settings.toggles.forEach((key, module) -> {
                             if (key > 0) {
-                                Settings.player.sendMessage(Text.of((char) key.intValue() + " - " + module.getSimpleName()), false);
+                                Settings.player.sendMessage(Text.of((char) key.intValue() + " - " + module.getModuleName()), false);
                             }
                         });
                         break;
@@ -139,12 +114,8 @@ public class ChatManager {
                         String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
                         String params = text.substring(text.indexOf(" ", text.indexOf(" "))).trim();
                         Settings.toggles.values().forEach(v -> {
-                            if (v.getSimpleName().toLowerCase().replace("hax", "").equals(module)) {
-                                try {
-                                    v.getMethod("config", " ".getClass()).invoke(null, params);
-                                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                                    e.printStackTrace();
-                                }
+                            if (v.getModuleName().toLowerCase().replace("hax", "").equals(module)) {
+                                v.config(params);
                             }
                         });
                         break;

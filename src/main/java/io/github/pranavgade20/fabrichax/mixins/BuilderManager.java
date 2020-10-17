@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BuilderManager {
     @Inject(at = @At("RETURN"), method = "interactBlock")
     private ActionResult onInteractBlock(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
-        if (Builder.enabled) Builder.build(hand, hitResult);
+        if (Builder.INSTANCE.enabled) Builder.build(hand, hitResult);
         return cir.getReturnValue();
     }
 }

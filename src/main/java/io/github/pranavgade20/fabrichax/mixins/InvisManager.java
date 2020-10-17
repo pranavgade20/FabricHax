@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class InvisManager {
     @Inject(at = @At("RETURN"), method = "isInvisible()Z")
     private boolean overrideInvis(CallbackInfoReturnable<Boolean> ci) {
-        if (AntiInvisibility.enabled) return false;
+        if (AntiInvisibility.INSTANCE.enabled) return false;
         return ci.getReturnValueZ();
     }
 }

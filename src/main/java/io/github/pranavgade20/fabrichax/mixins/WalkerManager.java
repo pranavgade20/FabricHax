@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class WalkerManager {
     @Inject(at = @At("HEAD"), method = "tickMovement")
     public void tickMovement(CallbackInfo ci) {
-        if (Walker.enabled && !Settings.player.input.sneaking) {
+        if (Walker.INSTANCE.enabled && !Settings.player.input.sneaking) {
             Vec3d newpos = Settings.player.getPos().add((new Vec3d(-Math.sin(Settings.player.yaw*(Math.PI/180.0d)), 0, Math.cos(Settings.player.yaw*(Math.PI/180.0d)))).multiply(Walker.speed/20.0d));
             if (Settings.world.getBlockState(new BlockPos(newpos)).isAir()) Settings.player.updatePosition(newpos.x, newpos.y, newpos.z);
         }

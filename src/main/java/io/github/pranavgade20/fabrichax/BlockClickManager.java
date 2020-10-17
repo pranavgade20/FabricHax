@@ -50,12 +50,12 @@ public class BlockClickManager implements AttackBlockCallback {
             }
         }
 
-        if (AutoHotbar.enabled && getBlockBreakingSpeed(inventory.getMainHandStack(), block) < maxSpeed) {
+        if (AutoHotbar.INSTANCE.enabled && getBlockBreakingSpeed(inventory.getMainHandStack(), block) < maxSpeed) {
             inventory.selectedSlot = slot;
             ClientSidePacketRegistry.INSTANCE.sendToServer(new UpdateSelectedSlotC2SPacket(slot));
         }
 
-        if (Fastmine.enabled) {
+        if (Fastmine.INSTANCE.enabled) {
             ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, blockPos, direction));
             ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, blockPos, direction));
 
@@ -63,7 +63,7 @@ public class BlockClickManager implements AttackBlockCallback {
             return ActionResult.FAIL;
         }
 
-        if (Digger.enabled) {
+        if (Digger.INSTANCE.enabled) {
             if (Digger.dig(inventory.getMainHandStack(), world, blockPos, direction)) return ActionResult.FAIL;
         }
 

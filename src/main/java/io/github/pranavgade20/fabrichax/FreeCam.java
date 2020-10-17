@@ -5,7 +5,7 @@ import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 
-public class FreeCam {
+public class FreeCam { //TODO lol
     public static boolean enabled = false;
     public static PlayerMoveC2SPacket.PositionOnly fakePacket = null;
     private static Vec3d position = null;
@@ -14,7 +14,7 @@ public class FreeCam {
 
         if (enabled) {
             enabled = false;
-            MinecraftClient.getInstance().player.abilities.allowFlying = Fly.enabled;
+            MinecraftClient.getInstance().player.abilities.allowFlying = Fly.INSTANCE.enabled;
             MinecraftClient.getInstance().player.abilities.flying = false;
             MinecraftClient.getInstance().interactionManager.setGameMode(GameMode.SURVIVAL);
             fakePacket = null;

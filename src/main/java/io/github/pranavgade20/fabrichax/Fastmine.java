@@ -1,36 +1,19 @@
 package io.github.pranavgade20.fabrichax;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.MessageType;
-import net.minecraft.text.Text;
-
-public class Fastmine {
-    public static boolean enabled = false;
-
-    public static void toggle() {
-        if (Settings.player == null) return;
-
-        if (enabled) {
-            enabled = false;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled Fastmine"), Settings.player.getUuid());
-        } else {
-            enabled = true;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled Fastmine"), Settings.player.getUuid());
-        }
+public class Fastmine extends Base{
+    public static Fastmine INSTANCE;
+    public Fastmine() {
+        INSTANCE = this;
     }
 
-    public static String getHelpMessage() {
+    @Override
+    public String getHelpMessage() {
         return "Fastmine - allows you to mine blocks 30% faster.\n" +
                 "Just click on the block to mine once.";
     }
 
-    public static void config(String params) {
-        try {
-            String parameter = params.split(" ")[1].toLowerCase();
-
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("The parameter was: " + parameter), Settings.player.getUuid());
-        } catch (Exception e) {
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help template) for more information."), Settings.player.getUuid());
-        }
+    @Override
+    String getToolTip() {
+        return "Mine blocks 30% faster";
     }
 }

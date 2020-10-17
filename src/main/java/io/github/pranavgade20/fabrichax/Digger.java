@@ -2,41 +2,33 @@ package io.github.pranavgade20.fabrichax;
 
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.MessageType;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-public class Digger {
-    public static boolean enabled = false;
+public class Digger extends Base {
     public static int up = 3;
     public static int down = 1;
     public static int left = 3;
     public static int right = 3;
-    public static void toggle() {
-        if (Settings.player == null) return;
 
-        if (enabled) {
-            enabled = false;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled Digger"), Settings.player.getUuid());
-        } else {
-            enabled = true;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled Digger"), Settings.player.getUuid());
-        }
+    public static Digger INSTANCE;
+    public Digger() {
+        INSTANCE = this;
     }
+
     public static boolean dig(ItemStack itemStack, World world, BlockPos blockPos, Direction direction) {
         for (int i = -left; i <= right; i++) {
             for (int j = -down; j <= up; j++) {
                 switch (direction) {
                     case UP:
                     case DOWN:
-                        return false; //not implemented
+                        return false; //not implemented because ppl are stupid
                     case EAST:
                     case WEST:
                         BlockPos block = blockPos.add(0, j, i);
@@ -78,7 +70,8 @@ public class Digger {
         return f;
     }
 
-    public static String getHelpMessage() {
+    @Override
+    public String getHelpMessage() {
         return "Digger - mine large chunks of blocks quickly.\n" +
                 "You must be able to insta-mine the blocks for best results\n" +
                 "(for example, you need an efficiency 5 shovel to use Digger on sand)\n" +
@@ -93,7 +86,13 @@ public class Digger {
                 " note: if you are kicked, try selecting a lower number for dig size";
     }
 
-    public static void config(String params) {
+    @Override
+    String getToolTip() {
+        return "Mine large chunks of blocks at a time";
+    }
+
+    @Override
+    public void config(String params) {
         try {
             String direction = params.split(" ")[1].toLowerCase();
             int size = Integer.parseInt(params.split(" ")[2]);
@@ -103,12 +102,12 @@ public class Digger {
             else if (direction.equals("left")) left = size;
             else if (direction.equals("right")) right = size;
             else {
-                MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help digger) for more information."), Settings.player.getUuid());
+                Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help digger) for more information."), false);
                 return;
             }
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("~ config Digger " + params), Settings.player.getUuid());
+            Settings.player.sendMessage(Text.of("~ config Digger " + params), false);
         } catch (Exception e) {
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help digger) for more information."), Settings.player.getUuid());
+            Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help digger) for more information."), false);
         }
     }
 }

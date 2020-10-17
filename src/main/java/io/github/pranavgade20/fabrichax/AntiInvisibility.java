@@ -1,24 +1,18 @@
 package io.github.pranavgade20.fabrichax;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.MessageType;
-import net.minecraft.text.Text;
-
-public class AntiInvisibility {
-    public static boolean enabled = false;
-    public static void toggle() {
-        if (Settings.player == null) return;
-
-        if (enabled) {
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled AntiInvisibility"), Settings.player.getUuid());
-            enabled = false;
-        } else {
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled AntiInvisibility"), Settings.player.getUuid());
-            enabled = true;
-        }
+public class AntiInvisibility extends Base {
+    public static AntiInvisibility INSTANCE;
+    public AntiInvisibility() {
+        INSTANCE = this;
     }
 
-    public static String getHelpMessage() {
-        return "AntiInvisibility - removes invisibility effect from all entities.\n";
+    @Override
+    public String getHelpMessage() {
+        return "AntiInvisibility - Makes all invisible entities visible.\n";
+    }
+
+    @Override
+    String getToolTip() {
+        return "Make all invisible entities visible.";
     }
 }

@@ -1,9 +1,7 @@
 package io.github.pranavgade20.fabrichax;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.network.MessageType;
 import net.minecraft.text.Text;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -11,29 +9,31 @@ import net.minecraft.util.registry.RegistryKey;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Effects {
-    public static boolean enabled = true;
+public class Effects extends Base{
     public static HashMap<StatusEffect, StatusEffectInstance> cache = new HashMap<>();
 
-    public static void toggle() {
-        if (Settings.player == null) return;
+    public static Effects INSTANCE;
+    public Effects() {
+        INSTANCE = this;
+        enabled = true; // enabled by default
+    }
 
+    @Override
+    public boolean toggle() {
         if (enabled) {
-            enabled = false;
             cache.forEach(((statusEffect, statusEffectInstance) -> {
                 Settings.player.getActiveStatusEffects().remove(statusEffect);
             }));
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled Template"), Settings.player.getUuid());
         } else {
-            enabled = true;
             cache.forEach((effect, instance) -> {
                 Settings.player.getActiveStatusEffects().put(effect, instance);
             });
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled Template"), Settings.player.getUuid());
         }
+        return super.toggle();
     }
 
-    public static String getHelpMessage() {
+    @Override
+    public String getHelpMessage() {
         return "Effects - control the status effects you have.\n" +
                 "\nConfiguration information:\n" +
                 " ~ config Effects <effect_name> <amplifier>\n" +
@@ -41,7 +41,8 @@ public class Effects {
                 "Currently supported effects are-speed, slowness, jump_boost, nausea, night_vision, blindness, levitation, slow_falling, conduit_power, dolphins_grace";
     }
 
-    public static void config(String params) {
+    @Override
+    public void config(String params) {
         try {
             String name = params.split(" ")[1].toLowerCase();
             StatusEffect requested = null;
@@ -64,13 +65,13 @@ public class Effects {
             }
 
             if (requested == null) {
-                MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid effect."), Settings.player.getUuid());
+                Settings.player.sendMessage(Text.of("Invalid effect."), false);
                 return;
             }
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Gave you " + name), Settings.player.getUuid());
+            Settings.player.sendMessage(Text.of("Gave you " + name), false);
         } catch (Exception e) {
             e.printStackTrace();
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help template) for more information."), Settings.player.getUuid());
+            Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help template) for more information."), false);
         }
     }
 }

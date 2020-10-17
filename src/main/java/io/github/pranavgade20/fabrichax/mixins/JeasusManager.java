@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class JeasusManager {
     @Inject(at = @At("RETURN"), method = "tick(Z)V")
     private void tick(boolean slowDown, CallbackInfo ci) {
-        if (!Jeasus.enabled) return;
+        if (!Jeasus.INSTANCE.enabled) return;
 
         int nearbyWater = 0;
         for (int x = -1; x <= 1; x++) {
@@ -28,7 +28,7 @@ public class JeasusManager {
 
         if (nearbyWater == 9) {
             Settings.player.abilities.flying = true;
-        } else if (!Fly.enabled) {
+        } else if (!Fly.INSTANCE.enabled) {
             Settings.player.abilities.flying = false;
         }
     }

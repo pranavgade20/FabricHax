@@ -1,39 +1,28 @@
 package io.github.pranavgade20.fabrichax;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.MessageType;
-import net.minecraft.text.Text;
+public class Jeasus extends Base{
+    public static Jeasus INSTANCE;
+    public Jeasus() {
+        INSTANCE = this;
+    }
 
-public class Jeasus {
-    public static boolean enabled = false;
-
-    public static void toggle() {
-        if (Settings.player == null) return;
-
+    @Override
+    public boolean toggle() {
         if (enabled) {
             Settings.player.abilities.flying = false;
-            enabled = false;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled Jeasus"), Settings.player.getUuid());
-        } else {
-            Settings.world = MinecraftClient.getInstance().world;
-            Settings.player = MinecraftClient.getInstance().player;
-            enabled = true;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled Jeasus"), Settings.player.getUuid());
         }
+        return super.toggle();
     }
 
-    public static String getHelpMessage() {
-        return "Jeasus - walk on water.\n" +
-                "You will be able to walk on water without sinking.\n";
+    @Override
+    public String getHelpMessage() {
+        return "Jeasus - walk on/in water.\n" +
+                "Run on water without sinking.\n" +
+                "Improved movement underwater.\n";
     }
 
-    public static void config(String params) {
-        try {
-            String parameter = params.split(" ")[1].toLowerCase();
-
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("The parameter was: " + parameter), Settings.player.getUuid());
-        } catch (Exception e) {
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help template) for more information."), Settings.player.getUuid());
-        }
+    @Override
+    String getToolTip() {
+        return "Walk on/in water.";
     }
 }

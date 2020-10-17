@@ -22,8 +22,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class FlyManager {
     @Inject(at = @At("HEAD"), method = "sendAbilitiesUpdate", cancellable = true)
     private void suppressUpdatePacket(CallbackInfo ci) {
-        if (Fly.enabled) ci.cancel();
-        if (ElytraFly.enabled) {
+        if (Fly.INSTANCE.enabled) ci.cancel();
+        if (ElytraFly.INSTANCE.enabled) {
             ci.cancel();
             ItemStack itemStack = Settings.player.getEquippedStack(EquipmentSlot.CHEST);
             if (itemStack.getItem() != Items.ELYTRA || !ElytraItem.isUsable(itemStack)) {
