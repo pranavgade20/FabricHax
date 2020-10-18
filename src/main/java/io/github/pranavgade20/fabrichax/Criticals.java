@@ -13,7 +13,7 @@ public class Criticals extends Base{
     }
 
     @Override
-    String getToolTip() {
+    public String getToolTip() {
         return "All your attacks are critical hits";
     }
 }

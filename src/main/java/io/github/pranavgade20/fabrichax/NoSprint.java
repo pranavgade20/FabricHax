@@ -12,7 +12,7 @@ public class NoSprint extends Base{
     }
 
     @Override
-    String getToolTip() {
+    public String getToolTip() {
         return "Reduce hunger usage when sprinting.";
     }
 }

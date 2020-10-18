@@ -79,7 +79,7 @@ public class Builder extends Base{
     }
 
     @Override
-    String getToolTip() {
+    public String getToolTip() {
         return "Place large chunks of blocks quickly";
     }
 

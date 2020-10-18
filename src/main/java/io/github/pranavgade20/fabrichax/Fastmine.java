@@ -13,7 +13,7 @@ public class Fastmine extends Base{
     }
 
     @Override
-    String getToolTip() {
+    public String getToolTip() {
         return "Mine blocks 30% faster";
     }
 }

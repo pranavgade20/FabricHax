@@ -32,7 +32,7 @@ public class AntiFall extends Base{
     }
 
     @Override
-    String getToolTip() {
+    public String getToolTip() {
         return "Disable fall damage";
     }
 }

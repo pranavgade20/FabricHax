@@ -52,8 +52,7 @@ public class Digger extends Base {
                 }
             }
         }
-        if (getBlockBreakingSpeed(itemStack, world.getBlockState(blockPos)) >= 34f) return true;
-        else return false;
+        return getBlockBreakingSpeed(itemStack, world.getBlockState(blockPos)) >= 34f;
     }
 
     public static float getBlockBreakingSpeed(ItemStack tool, BlockState block) { // adapted from net.minecraft.entity.player.PlayerEntity.class
@@ -87,7 +86,7 @@ public class Digger extends Base {
     }
 
     @Override
-    String getToolTip() {
+    public String getToolTip() {
         return "Mine large chunks of blocks at a time";
     }
 
@@ -97,13 +96,22 @@ public class Digger extends Base {
             String direction = params.split(" ")[1].toLowerCase();
             int size = Integer.parseInt(params.split(" ")[2]);
 
-            if (direction.equals("up")) up = size;
-            else if (direction.equals("down")) down = size;
-            else if (direction.equals("left")) left = size;
-            else if (direction.equals("right")) right = size;
-            else {
-                Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help digger) for more information."), false);
-                return;
+            switch (direction) {
+                case "up":
+                    up = size;
+                    break;
+                case "down":
+                    down = size;
+                    break;
+                case "left":
+                    left = size;
+                    break;
+                case "right":
+                    right = size;
+                    break;
+                default:
+                    Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help digger) for more information."), false);
+                    return;
             }
             Settings.player.sendMessage(Text.of("~ config Digger " + params), false);
         } catch (Exception e) {

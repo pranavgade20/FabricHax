@@ -1,5 +1,7 @@
 package io.github.pranavgade20.fabrichax;
 
+import io.github.pranavgade20.fabrichax.renderhax.BetterFluids;
+import io.github.pranavgade20.fabrichax.renderhax.FullBright;
 import io.netty.channel.Channel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -43,5 +45,7 @@ public class Settings {
         toggles.put(-2, Hax.of(Fastmine.class));
         toggles.put(-3, Hax.of(NoSprint.class));
         toggles.put(-4, Hax.of(Effects.class));
+        toggles.put(-5, Hax.of(FullBright.class));
+        toggles.put(-6, Hax.of(BetterFluids.class));
     }
 }

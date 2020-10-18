@@ -12,7 +12,7 @@ public class AntiInvisibility extends Base {
     }
 
     @Override
-    String getToolTip() {
+    public String getToolTip() {
         return "Make all invisible entities visible.";
     }
 }
