@@ -42,7 +42,7 @@ public class ElytraFly extends Base{
     }
 
     @Override
-    String getToolTip() {
+    public String getToolTip() {
         return "Creative mode flight while wearing an elytra.";
     }
 }

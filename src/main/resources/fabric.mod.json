@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "FabricHax",
-  "description": "A collection of hacks/cheats that runs as a fabric mod.",
+  "description": "A collection of life hacks.",
   "authors": [
     "Pranav Gade"
   ],
@@ -23,7 +23,8 @@
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "mixins.json",
+    "mixins.render.json"
   ],
 
   "depends": {

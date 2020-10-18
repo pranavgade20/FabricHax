@@ -27,7 +27,7 @@ public class GUI extends Base{
     }
 
     @Override
-    String getToolTip() {
+    public String getToolTip() {
         return "Manage your modules";
     }
 }

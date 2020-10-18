@@ -13,7 +13,7 @@ public class AutoSneak extends Base{
     }
 
     @Override
-    String getToolTip() {
+    public String getToolTip() {
         return "Crouches the player when about to fall and take damage";
     }
 }

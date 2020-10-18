@@ -22,7 +22,7 @@ public class Jeasus extends Base{
     }
 
     @Override
-    String getToolTip() {
+    public String getToolTip() {
         return "Walk on/in water.";
     }
 }

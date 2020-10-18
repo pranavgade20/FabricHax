@@ -20,7 +20,7 @@ public class Walker extends Base{
     }
 
     @Override
-    String getToolTip() {
+    public String getToolTip() {
         return "Walk in the direction you are looking at.";
     }
 
