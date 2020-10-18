@@ -24,7 +24,7 @@ public class ChannelManager {
             @Override
             protected void encode(ChannelHandlerContext ctx, Packet<?> packet, List<Object> out) {
                 boolean added = false;
-                if (Fly.enabled || ElytraFly.enabled) {
+                if (Fly.INSTANCE.enabled || ElytraFly.INSTANCE.enabled) {
                     if (packet instanceof PlayerMoveC2SPacket.PositionOnly && Settings.player.abilities.flying) {
                         out.add(new PlayerMoveC2SPacket.PositionOnly(
                                 Settings.player.getX(),
@@ -45,7 +45,7 @@ public class ChannelManager {
                         added = true;
                     }
                 }
-                if (AntiFall.enabled) {
+                if (AntiFall.INSTANCE.enabled) {
                     if (packet instanceof PlayerMoveC2SPacket.Both || packet instanceof PlayerMoveC2SPacket.PositionOnly) {
                         if (!AntiFall.onGround && ((PlayerMoveC2SPacket) packet).isOnGround() && AntiFall.lastGround != null && Math.abs(AntiFall.lastGround.y-AntiFall.prevPos.y) > 3) {
                             out.add(new PlayerMoveC2SPacket.PositionOnly(
@@ -62,7 +62,7 @@ public class ChannelManager {
                         if (AntiFall.onGround) AntiFall.lastGround = null;
                     }
                 }
-                if (NoSprint.enabled) {
+                if (NoSprint.INSTANCE.enabled) {
                     if (packet instanceof ClientCommandC2SPacket && (((ClientCommandC2SPacket) packet).getMode() == ClientCommandC2SPacket.Mode.START_SPRINTING || ((ClientCommandC2SPacket) packet).getMode() == ClientCommandC2SPacket.Mode.STOP_SPRINTING)) {
                         out.add(new PlayerMoveC2SPacket.PositionOnly(
                                 Settings.player.getX(),

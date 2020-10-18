@@ -31,10 +31,10 @@ public class SneakManager {
             if (!Settings.world.getBlockState(new BlockPos(Settings.player.getPos().subtract(0, i, 0))).isAir()) flag = false;
 //            flag &= Settings.world.getBlockState(new BlockPos(Settings.player.getPos().subtract(0, i, 0))).isAir();
         }
-        if (AutoSneak.enabled && flag && !Settings.player.abilities.flying) {
+        if (AutoSneak.INSTANCE.enabled && flag && !Settings.player.abilities.flying) {
             MinecraftClient.getInstance().player.input.sneaking = true;
         }
-        if (Scaffold.enabled && flag && !Settings.player.abilities.flying) {
+        if (Scaffold.INSTANCE.enabled && flag && !Settings.player.abilities.flying) {
             try {
                 Hand hand;
                 if (Objects.equals(Settings.player.getMainHandStack().getItem().getGroup(), ItemGroup.BUILDING_BLOCKS)) {
@@ -67,7 +67,7 @@ public class SneakManager {
 
                 if (res == ActionResult.SUCCESS) {
                     ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, hitResult));
-                    if (AutoSneak.enabled)
+                    if (AutoSneak.INSTANCE.enabled)
                         Settings.player.input.sneaking = false;
                 }
             } catch (Exception e) {

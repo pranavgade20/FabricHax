@@ -1,13 +1,14 @@
 package io.github.pranavgade20.fabrichax.gui;
 
+import io.github.pranavgade20.fabrichax.Base;
 import io.github.pranavgade20.fabrichax.GUI;
+import io.github.pranavgade20.fabrichax.Hax;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class MainScreen extends Screen {
@@ -20,7 +21,7 @@ public class MainScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == 256 && this.shouldCloseOnEsc()) {
-            GUI.enabled = false;
+            GUI.INSTANCE.enabled = false;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
@@ -39,7 +40,7 @@ public class MainScreen extends Screen {
     protected void init() {
         int x = 10;
         int y = 30;
-        for (Map.Entry<Integer, Class> entry : Settings.toggles.entrySet()) {
+        for (Map.Entry<Integer, Hax<?>> entry : Settings.toggles.entrySet()) {
             try {
                 addButton(new ToggleButtonWidget(x, y, 100, 20, entry.getValue()));
                 y += 25;
@@ -56,32 +57,22 @@ public class MainScreen extends Screen {
 }
 
 class ToggleButtonWidget extends AbstractButtonWidget {
-    Class module;
-    public ToggleButtonWidget(int x, int y, int width, int height, Class module) throws NoSuchFieldException, IllegalAccessException {
-        super(x, y, width, height, Text.of(module.getSimpleName() + "-" + (module.getDeclaredField("enabled").getBoolean(null) ? "ON" : "OFF")));
+    Hax<? extends Base> module;
+    public ToggleButtonWidget(int x, int y, int width, int height, Hax<? extends Base> module) {
+        super(x, y, width, height, Text.of(module.getModuleName() + "-" + (module.isEnabled() ? "ON" : "OFF")));
         this.module = module;
     }
 
     @Override
     public void onRelease(double mouseX, double mouseY) {
-        String text = module.getSimpleName() + "-";
-        try {
-            module.getMethod("toggle").invoke(null);
-            text += module.getDeclaredField("enabled").getBoolean(null) ? "ON" : "OFF";
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | NoSuchFieldException e) {
-            setMessage(Text.of("Couldn't toggle"));
-        }
-        setMessage(Text.of(text));
+        module.toggle();
+        setMessage(Text.of(module.getModuleName() + "-" + (module.isEnabled() ? "ON" : "OFF")));
     }
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         super.render(matrices, mouseX, mouseY, delta);
-        try {
-            if (isHovered()) MainScreen.tooltip = Text.of((String) module.getMethod("getToolTip").invoke(null));
-            else MainScreen.tooltip = null;
-        } catch (Exception e) {
-            MainScreen.tooltip = Text.of("Something went wrong");
-        }
+        if (isHovered()) MainScreen.tooltip = Text.of(module.getToolTip());
+        else MainScreen.tooltip = null;
     }
 }

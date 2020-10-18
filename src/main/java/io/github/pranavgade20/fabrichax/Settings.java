@@ -5,11 +5,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 public class Settings {
-    public static HashMap<Integer, Class> toggles;
+    public static HashMap<Integer, Hax<?>> toggles;
     public static ClientPlayerEntity player;
     public static ClientWorld world;
     public static Channel channel;
@@ -20,33 +19,29 @@ public class Settings {
 
     public static void keyDown(int key) {
         if (toggles.containsKey(key)) {
-            try {
-                ((Class)toggles.get(key)).getMethod("toggle").invoke(null);
-            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                e.printStackTrace();
-            }
+            toggles.get(key).toggle();
         }
     }
 
     static {
         toggles = new HashMap<>();
         // TODO: read a config file to load defaults
-        toggles.put((int)'C', Criticals.class);
-        toggles.put((int)'K', Fly.class);
-        toggles.put((int)'I', Digger.class);
-        toggles.put((int)'H', ElytraFly.class);
-        toggles.put((int)'U', AntiInvisibility.class);
-        toggles.put((int)'L', AutoSneak.class);
-        toggles.put((int)'J', Jeasus.class);
-        toggles.put((int)'B', Builder.class);
-        toggles.put((int)'Y', AntiFall.class);
-        toggles.put((int)'O', Scaffold.class);
-        toggles.put((int)'W', Walker.class);
-        toggles.put((int)'G', AntiFluid.class);
-        toggles.put((int)'R', GUI.class);
-        toggles.put(-1, AutoHotbar.class);
-        toggles.put(-2, Fastmine.class);
-        toggles.put(-3, NoSprint.class);
-        toggles.put(-4, Effects.class);
+        toggles.put((int)'C', Hax.of(Criticals.class));
+        toggles.put((int)'K', Hax.of(Fly.class));
+        toggles.put((int)'I', Hax.of(Digger.class));
+        toggles.put((int)'H', Hax.of(ElytraFly.class));
+        toggles.put((int)'U', Hax.of(AntiInvisibility.class));
+        toggles.put((int)'L', Hax.of(AutoSneak.class));
+        toggles.put((int)'J', Hax.of(Jeasus.class));
+        toggles.put((int)'B', Hax.of(Builder.class));
+        toggles.put((int)'Y', Hax.of(AntiFall.class));
+        toggles.put((int)'O', Hax.of(Scaffold.class));
+        toggles.put((int)'W', Hax.of(Walker.class));
+        toggles.put((int)'G', Hax.of(AntiFluid.class));
+        toggles.put((int)'R', Hax.of(GUI.class));
+        toggles.put(-1, Hax.of(AutoHotbar.class));
+        toggles.put(-2, Hax.of(Fastmine.class));
+        toggles.put(-3, Hax.of(NoSprint.class));
+        toggles.put(-4, Hax.of(Effects.class));
     }
 }

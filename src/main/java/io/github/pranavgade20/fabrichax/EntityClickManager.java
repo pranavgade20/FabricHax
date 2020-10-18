@@ -39,7 +39,7 @@ public class EntityClickManager implements AttackEntityCallback {
             inventory.scrollInHotbar(1);
         }
 
-        if (Criticals.enabled) {
+        if (Criticals.INSTANCE.enabled) {
             ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerMoveC2SPacket.PositionOnly(playerEntity.getX(), playerEntity.getY() + 0.001, playerEntity.getZ(), false));
             ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerMoveC2SPacket.PositionOnly(playerEntity.getX(), playerEntity.getY() + 0.0001, playerEntity.getZ(), false));
         }

@@ -33,7 +33,7 @@ public class AntiFluidManager {
             return;
         }
 
-        if (AntiFluid.enabled) {
+        if (AntiFluid.INSTANCE.enabled) {
             Hand hand;
             if (Objects.equals(Settings.player.getMainHandStack().getItem().getGroup(), ItemGroup.BUILDING_BLOCKS)) {
                 hand = Hand.MAIN_HAND;

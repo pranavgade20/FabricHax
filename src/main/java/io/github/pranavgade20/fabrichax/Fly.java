@@ -1,31 +1,29 @@
 package io.github.pranavgade20.fabrichax;
 
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.MessageType;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
-import net.minecraft.text.Text;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Fly {
-    public static boolean enabled = false;
+public class Fly extends Base {
     public static double count = 0d;
     static Timer noAfk = new Timer();
-    public static void toggle() {
-        if (Settings.player == null) return;
 
+    public static Fly INSTANCE;
+    public Fly() {
+        INSTANCE = this;
+    }
+
+    @Override
+    public boolean toggle() {
         if (enabled) {
-            enabled = false;
-            Settings.player.abilities.flying = ElytraFly.enabled;
+            Settings.player.abilities.flying = ElytraFly.INSTANCE.enabled;
             Settings.player.abilities.allowFlying = false;
             noAfk.cancel();
 
             count = 0;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled Fly"), Settings.player.getUuid());
         } else {
-            enabled = true;
             Settings.player.abilities.allowFlying = true;
             noAfk = new Timer();
             noAfk.scheduleAtFixedRate(new TimerTask() {
@@ -46,11 +44,12 @@ public class Fly {
                     }
                 }
             }, 200, 200);
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled Fly"), Settings.player.getUuid());
         }
+        return super.toggle();
     }
 
-    public static String getHelpMessage() {
+    @Override
+    public String getHelpMessage() {
         return "Fly - Enables creative mode flight.\n" +
                 "You will be able to fly without elytra, just double-tap jump key.\n" +
                 "note: this isn't as stable as elytrafly, so you might be kicked depending on the server. Using elytrafly is recommended over using this.";

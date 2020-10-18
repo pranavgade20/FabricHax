@@ -1,8 +1,6 @@
 package io.github.pranavgade20.fabrichax;
 
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.MessageType;
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
@@ -10,22 +8,13 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
-public class Builder {
-    public static boolean enabled = false;
-
+public class Builder extends Base{
     public static int left = 2;
     public static int right = 2;
 
-    public static void toggle() {
-        if (Settings.player == null) return;
-
-        if (enabled) {
-            enabled = false;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Disabled Builder"), Settings.player.getUuid());
-        } else {
-            enabled = true;
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Enabled Builder"), Settings.player.getUuid());
-        }
+    public static Builder INSTANCE;
+    public Builder() {
+        INSTANCE = this;
     }
 
     public static void build(Hand hand, BlockHitResult hitResult) {
@@ -77,7 +66,8 @@ public class Builder {
         }
     }
 
-    public static String getHelpMessage() {
+    @Override
+    public String getHelpMessage() {
         return "Builder - place large chunks of blocks quickly.\n" +
                 "Do not stand where the blocks will be placed for best results\n" +
                 "\nConfiguration information:\n" +
@@ -88,7 +78,13 @@ public class Builder {
                 " to set this to place 2 blocks to the left of your placed block.";
     }
 
-    public static void config(String params) {
+    @Override
+    String getToolTip() {
+        return "Place large chunks of blocks quickly";
+    }
+
+    @Override
+    public void config(String params) {
         try {
             String direction = params.split(" ")[1].toLowerCase();
             int size = Integer.parseInt(params.split(" ")[2]);
@@ -96,12 +92,12 @@ public class Builder {
             if (direction.equals("left")) left = size;
             else if (direction.equals("right")) right = size;
             else {
-                MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help builder) for more information."), Settings.player.getUuid());
+                Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help builder) for more information."), false);
                 return;
             }
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("~ config Builder " + params), Settings.player.getUuid());
+            Settings.player.sendMessage(Text.of("~ config Builder " + params), false);
         } catch (Exception e) {
-            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Invalid use: refer to help(~ help builder) for more information."), Settings.player.getUuid());
+            Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help builder) for more information."), false);
         }
     }
 }
