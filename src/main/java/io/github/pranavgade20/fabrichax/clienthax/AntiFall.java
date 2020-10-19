@@ -1,8 +1,10 @@
-package io.github.pranavgade20.fabrichax;
+package io.github.pranavgade20.fabrichax.clienthax;
 
+import io.github.pranavgade20.fabrichax.Base;
+import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.util.math.Vec3d;
 
-public class AntiFall extends Base{
+public class AntiFall extends ClientBase {
     public static Vec3d prevPos = null;
     public static Vec3d lastGround = null;
     public static boolean onGround;

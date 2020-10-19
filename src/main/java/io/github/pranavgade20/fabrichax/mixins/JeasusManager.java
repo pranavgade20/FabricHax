@@ -1,7 +1,7 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
-import io.github.pranavgade20.fabrichax.Fly;
-import io.github.pranavgade20.fabrichax.Jeasus;
+import io.github.pranavgade20.fabrichax.clienthax.Fly;
+import io.github.pranavgade20.fabrichax.clienthax.Jeasus;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.input.KeyboardInput;

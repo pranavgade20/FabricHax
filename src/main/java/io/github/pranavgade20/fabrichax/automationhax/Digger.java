@@ -1,5 +1,7 @@
-package io.github.pranavgade20.fabrichax;
+package io.github.pranavgade20.fabrichax.automationhax;
 
+import io.github.pranavgade20.fabrichax.Base;
+import io.github.pranavgade20.fabrichax.Settings;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -11,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-public class Digger extends Base {
+public class Digger extends AutomationBase {
     public static int up = 3;
     public static int down = 1;
     public static int left = 3;

@@ -1,7 +1,7 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
 import io.github.pranavgade20.fabrichax.Settings;
-import io.github.pranavgade20.fabrichax.Walker;
+import io.github.pranavgade20.fabrichax.automationhax.Walker;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;

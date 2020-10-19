@@ -1,8 +1,10 @@
-package io.github.pranavgade20.fabrichax;
+package io.github.pranavgade20.fabrichax.automationhax;
 
+import io.github.pranavgade20.fabrichax.Base;
+import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.text.Text;
 
-public class AntiFluid extends Base {
+public class AntiFluid extends AutomationBase {
     public static int up = 3;
     public static int down = 2;
     public static int north = 2;

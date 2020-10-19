@@ -1,7 +1,7 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
-import io.github.pranavgade20.fabrichax.ElytraFly;
-import io.github.pranavgade20.fabrichax.Fly;
+import io.github.pranavgade20.fabrichax.clienthax.ElytraFly;
+import io.github.pranavgade20.fabrichax.clienthax.Fly;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;

@@ -1,6 +1,6 @@
-package io.github.pranavgade20.fabrichax;
+package io.github.pranavgade20.fabrichax.todohax;
 
-public class NoSprint extends Base{
+public class NoSprint extends TodoBase {
     public static NoSprint INSTANCE;
     public NoSprint() {
         INSTANCE = this;

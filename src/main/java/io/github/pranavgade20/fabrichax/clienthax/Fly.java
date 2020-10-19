@@ -1,12 +1,14 @@
-package io.github.pranavgade20.fabrichax;
+package io.github.pranavgade20.fabrichax.clienthax;
 
+import io.github.pranavgade20.fabrichax.Base;
+import io.github.pranavgade20.fabrichax.Settings;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Fly extends Base {
+public class Fly extends ClientBase {
     public static double count = 0d;
     static Timer noAfk = new Timer();
 

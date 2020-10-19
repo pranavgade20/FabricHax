@@ -1,5 +1,7 @@
-package io.github.pranavgade20.fabrichax;
+package io.github.pranavgade20.fabrichax.todohax;
 
+import io.github.pranavgade20.fabrichax.clienthax.Fly;
+import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.Vec3d;

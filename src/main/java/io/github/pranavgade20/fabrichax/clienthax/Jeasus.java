@@ -1,6 +1,8 @@
-package io.github.pranavgade20.fabrichax;
+package io.github.pranavgade20.fabrichax.clienthax;
 
-public class Jeasus extends Base{
+import io.github.pranavgade20.fabrichax.Settings;
+
+public class Jeasus extends ClientBase {
     public static Jeasus INSTANCE;
     public Jeasus() {
         INSTANCE = this;

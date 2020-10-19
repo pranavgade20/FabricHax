@@ -1,6 +1,8 @@
-package io.github.pranavgade20.fabrichax;
+package io.github.pranavgade20.fabrichax.automationhax;
 
-public class Fastmine extends Base{
+import io.github.pranavgade20.fabrichax.Base;
+
+public class Fastmine extends AutomationBase {
     public static Fastmine INSTANCE;
     public Fastmine() {
         INSTANCE = this;

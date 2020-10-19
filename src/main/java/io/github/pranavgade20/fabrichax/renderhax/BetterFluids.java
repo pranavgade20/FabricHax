@@ -2,7 +2,7 @@ package io.github.pranavgade20.fabrichax.renderhax;
 
 import io.github.pranavgade20.fabrichax.Base;
 
-public class BetterFluids extends Base {
+public class BetterFluids extends RenderBase {
     public static BetterFluids INSTANCE;
     public BetterFluids() {
         INSTANCE = this;

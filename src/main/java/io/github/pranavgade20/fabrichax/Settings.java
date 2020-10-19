@@ -1,16 +1,23 @@
 package io.github.pranavgade20.fabrichax;
 
-import io.github.pranavgade20.fabrichax.renderhax.BetterFluids;
-import io.github.pranavgade20.fabrichax.renderhax.FullBright;
+import io.github.pranavgade20.fabrichax.automationhax.*;
+import io.github.pranavgade20.fabrichax.clienthax.*;
+import io.github.pranavgade20.fabrichax.renderhax.*;
+import io.github.pranavgade20.fabrichax.todohax.NoSprint;
+import io.github.pranavgade20.fabrichax.todohax.TodoBase;
 import io.netty.channel.Channel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Settings {
     public static HashMap<Integer, Hax<?>> toggles;
+    public static List<Hax<?>> categories;
     public static ClientPlayerEntity player;
     public static ClientWorld world;
     public static Channel channel;
@@ -47,5 +54,12 @@ public class Settings {
         toggles.put(-4, Hax.of(Effects.class));
         toggles.put(-5, Hax.of(FullBright.class));
         toggles.put(-6, Hax.of(BetterFluids.class));
+        toggles.put(-7, Hax.of(NoFog.class));
+
+        categories = new LinkedList<>();
+        categories.add(Hax.of(AutomationBase.class));
+        categories.add(Hax.of(RenderBase.class));
+        categories.add(Hax.of(ClientBase.class));
+        categories.add(Hax.of(TodoBase.class));
     }
 }

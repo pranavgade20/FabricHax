@@ -50,4 +50,12 @@ public class Hax<T extends Base> {
     public String getModuleName() {
         return module.getClass().getSimpleName();
     }
+
+    public Class getModuleClass() {
+        return module.getClass();
+    }
+
+    public T getModule() {
+        return module;
+    }
 }

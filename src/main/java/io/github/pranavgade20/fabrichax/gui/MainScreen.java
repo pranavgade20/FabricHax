@@ -14,14 +14,18 @@ import java.util.Map;
 public class MainScreen extends Screen {
     static Text tooltip = null;
     static Text status = Text.of("FabricHax");
+
+    static MainScreen INSTANCE = null;
     public MainScreen(Text title) {
         super(title);
+        INSTANCE = this;
     }
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == 256 && this.shouldCloseOnEsc()) {
             GUI.INSTANCE.enabled = false;
+            INSTANCE = null;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
@@ -40,13 +44,26 @@ public class MainScreen extends Screen {
     protected void init() {
         int x = 10;
         int y = 30;
+        for (Hax<?> category : Settings.categories) {
+            int width = this.textRenderer.getWidth(category.getModuleName().replace("Base", "")) + 10;
+            if (x + width > this.width) {
+                x = 10;
+                y += 25;
+            }
+            addButton(new MenuButtonWidget(x, y, width, 20, category));
+            x += width + 5;
+
+        }
+        y += 35;
+        int baseY = y;
+        x = 10;
         for (Map.Entry<Integer, Hax<?>> entry : Settings.toggles.entrySet()) {
             try {
                 addButton(new ToggleButtonWidget(x, y, 100, 20, entry.getValue()));
                 y += 25;
-                if (y > this.height) {
+                if (y > this.height-20) {
                     x += 110;
-                    y = 30;
+                    y = baseY;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -56,23 +73,3 @@ public class MainScreen extends Screen {
     }
 }
 
-class ToggleButtonWidget extends AbstractButtonWidget {
-    Hax<? extends Base> module;
-    public ToggleButtonWidget(int x, int y, int width, int height, Hax<? extends Base> module) {
-        super(x, y, width, height, Text.of(module.getModuleName() + "-" + (module.isEnabled() ? "ON" : "OFF")));
-        this.module = module;
-    }
-
-    @Override
-    public void onRelease(double mouseX, double mouseY) {
-        module.toggle();
-        setMessage(Text.of(module.getModuleName() + "-" + (module.isEnabled() ? "ON" : "OFF")));
-    }
-
-    @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        super.render(matrices, mouseX, mouseY, delta);
-        if (isHovered()) MainScreen.tooltip = Text.of(module.getToolTip());
-        else MainScreen.tooltip = null;
-    }
-}
