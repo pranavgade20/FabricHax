@@ -1,8 +1,10 @@
-package io.github.pranavgade20.fabrichax;
+package io.github.pranavgade20.fabrichax.automationhax;
 
+import io.github.pranavgade20.fabrichax.Base;
+import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.text.Text;
 
-public class Walker extends Base{
+public class Walker extends AutomationBase {
     public static double speed = 5;
 
     public static Walker INSTANCE;

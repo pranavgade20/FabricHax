@@ -1,6 +1,6 @@
-package io.github.pranavgade20.fabrichax;
+package io.github.pranavgade20.fabrichax.renderhax;
 
-public class AntiInvisibility extends Base {
+public class AntiInvisibility extends RenderBase {
     public static AntiInvisibility INSTANCE;
     public AntiInvisibility() {
         INSTANCE = this;

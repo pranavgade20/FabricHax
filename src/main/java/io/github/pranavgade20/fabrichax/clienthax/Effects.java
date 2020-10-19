@@ -1,5 +1,7 @@
-package io.github.pranavgade20.fabrichax;
+package io.github.pranavgade20.fabrichax.clienthax;
 
+import io.github.pranavgade20.fabrichax.Base;
+import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.text.Text;
@@ -9,7 +11,7 @@ import net.minecraft.util.registry.RegistryKey;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Effects extends Base{
+public class Effects extends ClientBase {
     public static HashMap<StatusEffect, StatusEffectInstance> cache = new HashMap<>();
 
     public static Effects INSTANCE;

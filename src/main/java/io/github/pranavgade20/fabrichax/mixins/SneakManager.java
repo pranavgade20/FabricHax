@@ -1,7 +1,7 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
-import io.github.pranavgade20.fabrichax.AutoSneak;
-import io.github.pranavgade20.fabrichax.Scaffold;
+import io.github.pranavgade20.fabrichax.automationhax.AutoSneak;
+import io.github.pranavgade20.fabrichax.automationhax.Scaffold;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;

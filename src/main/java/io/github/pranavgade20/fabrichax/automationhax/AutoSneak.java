@@ -1,6 +1,8 @@
-package io.github.pranavgade20.fabrichax;
+package io.github.pranavgade20.fabrichax.automationhax;
 
-public class AutoSneak extends Base{
+import io.github.pranavgade20.fabrichax.Base;
+
+public class AutoSneak extends AutomationBase {
     public static AutoSneak INSTANCE;
     public AutoSneak() {
         INSTANCE = this;

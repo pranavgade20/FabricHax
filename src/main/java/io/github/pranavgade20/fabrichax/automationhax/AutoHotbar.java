@@ -1,6 +1,8 @@
-package io.github.pranavgade20.fabrichax;
+package io.github.pranavgade20.fabrichax.automationhax;
 
-public class AutoHotbar extends Base{
+import io.github.pranavgade20.fabrichax.Base;
+
+public class AutoHotbar extends AutomationBase {
     public static AutoHotbar INSTANCE;
     public AutoHotbar() {
         INSTANCE = this;

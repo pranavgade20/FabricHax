@@ -1,6 +1,6 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
-import io.github.pranavgade20.fabrichax.AntiInvisibility;
+import io.github.pranavgade20.fabrichax.renderhax.AntiInvisibility;
 import net.minecraft.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

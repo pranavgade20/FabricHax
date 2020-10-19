@@ -1,6 +1,10 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
 import io.github.pranavgade20.fabrichax.*;
+import io.github.pranavgade20.fabrichax.clienthax.AntiFall;
+import io.github.pranavgade20.fabrichax.clienthax.ElytraFly;
+import io.github.pranavgade20.fabrichax.clienthax.Fly;
+import io.github.pranavgade20.fabrichax.todohax.NoSprint;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import net.minecraft.network.ClientConnection;
