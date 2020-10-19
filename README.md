@@ -1,6 +1,7 @@
 
 # FabricHax
-A collection of hacks to automate repetitive tasks and make your life easier.
+A collection of MineCraft hacks to automate repetitive tasks and make your life easier.
+
 # Setup
 To build the project jars, run gradlew build
 For detailed IDE-specific instructions please see  [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) .
@@ -46,3 +47,24 @@ For viewing the help panel for the commands in Minecraft do `~`
 
 # TODO
 This project is actively under development, we appreciate every bit of help :)
+
+* Testers 
+	* Don't know how to code? We still need testers! All you need to do to get started is clone this repository, run `gradle build` in the repository folder, and run the jar (requires java to be installed). If you find bugs, please create an incident, and include ALL of the following:
+		* Your computer's Operating System, and version
+		* Java version (open a terminal and type `java -v`)
+		* What version of MineCraft you are running
+		* What you tried that caused an error
+		* Any other info that can up pinpoint the error
+
+* Coders
+	* Good with Java?
+		* Minecraft mods are all the rage, help us by making new, clever mods!
+		* Help format, document, comment, and reorganize code.
+		* Try testing this project with different JDK's, it will help pinpoint requirements needed for this project. 
+	* Groovy programmer?
+		* There are more gradle commands we could implement, try adding new gradle commands, comment on current ones, and help new users get up to speed faster!
+	* GitHub Actions?
+		* If you know how to build GitHub Actions pipelines, we could use some help building a pipeline that tests this code! In a `.yaml` file, configure a builder that tries to run the code. If the code runs without errors, then we know the latest commits to this project are working correctly.
+
+	* Others
+		* We are constantly looking for new ideas to add to this repository. If you think of a mod that could be useful, **document it**. Thoroughly describe what the mod should do, and why it could be helpful. 
