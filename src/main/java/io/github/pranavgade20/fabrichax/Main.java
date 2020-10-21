@@ -11,6 +11,7 @@ public class Main implements ModInitializer {
 		AttackEntityCallback.EVENT.register(new EntityClickManager());
 
 		new Settings(); // instantiating Settings so that static variables are initialized.
+		Settings.loadToggles();
 
 		System.out.println("Loaded AutoHotbar!");
 	}

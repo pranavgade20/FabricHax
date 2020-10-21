@@ -16,29 +16,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class PlayerManager {
     @Inject(at = @At("RETURN"), method = "onGameJoin")
     public void setPlayer(GameJoinS2CPacket p, CallbackInfo ci) {
-        System.out.println("Joined a new world.");
         Settings.player = MinecraftClient.getInstance().player;
         Settings.world = MinecraftClient.getInstance().world;
+        Settings.loadToggles();
     }
 
     @Inject(at = @At("RETURN"), method = "onDisconnect")
     public void setPlayer(DisconnectS2CPacket p, CallbackInfo ci) {
-        System.out.println("Joined a new world.");
         Settings.player = null;
         Settings.world = null;
+        Settings.saveToggles();
     }
 
     @Inject(at = @At("RETURN"), method = "onDisconnected")
     public void setPlayer(Text reason, CallbackInfo ci) {
-        System.out.println("Joined a new world.");
         Settings.player = null;
         Settings.world = null;
+        Settings.saveToggles();
     }
 
     @Inject(at = @At("RETURN"), method = "onPlayerRespawn")
     public void setPlayer(PlayerRespawnS2CPacket p, CallbackInfo ci) {
-        System.out.println("Joined a new world.");
         Settings.player = MinecraftClient.getInstance().player;
         Settings.world = MinecraftClient.getInstance().world;
+        Settings.loadToggles();
     }
 }

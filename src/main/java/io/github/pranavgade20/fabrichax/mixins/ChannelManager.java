@@ -25,7 +25,6 @@ public class ChannelManager {
     public void setChannel(ChannelHandlerContext channelHandlerContext, CallbackInfo info) {
         if (channelHandlerContext.channel() instanceof LocalChannel) return;
         Settings.channel = channelHandlerContext.channel();
-        System.out.println(channelHandlerContext.channel().getClass() + "<<<<<<<<<<<<<<<");
 
         Settings.channel.pipeline().addAfter("encoder", "injected-out", new MessageToMessageEncoder<Packet<?>>() {
             @Override

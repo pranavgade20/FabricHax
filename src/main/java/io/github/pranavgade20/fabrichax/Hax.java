@@ -19,10 +19,10 @@ public class Hax<T extends Base> {
     }
 
     public void toggle() {
-        if (Settings.player == null) return;
-
         Settings.world = MinecraftClient.getInstance().world;
         Settings.player = MinecraftClient.getInstance().player;
+
+        if (Settings.player == null) return;
 
         if (module.toggle()) {
             Settings.player.sendMessage(Text.of(((module.enabled ? "En" : "Dis") + "abled " + module.getClass().getSimpleName())), false);
