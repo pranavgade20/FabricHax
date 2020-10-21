@@ -1,10 +1,9 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
+import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.automationhax.AutoSneak;
 import io.github.pranavgade20.fabrichax.automationhax.Scaffold;
-import io.github.pranavgade20.fabrichax.Settings;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.input.KeyboardInput;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemPlacementContext;
@@ -25,6 +24,8 @@ import java.util.Objects;
 public class SneakManager {
     @Inject(at = @At("RETURN"), method = "tick(Z)V")
     private void tick(boolean slowDown, CallbackInfo ci) {
+        if (Settings.player == null || Settings.world == null) return;
+
         boolean flag = true;
         for (int i = 1; i < 5; i++) { //TODO account jump boost into calculations
             //TODO detect lava, magma, and other blocks that cause damage. also account for non air blocks without collision boxes like snow, string, grass, etc
@@ -32,7 +33,7 @@ public class SneakManager {
 //            flag &= Settings.world.getBlockState(new BlockPos(Settings.player.getPos().subtract(0, i, 0))).isAir();
         }
         if (AutoSneak.INSTANCE.enabled && flag && !Settings.player.abilities.flying) {
-            MinecraftClient.getInstance().player.input.sneaking = true;
+            Settings.player.input.sneaking = true;
         }
         if (Scaffold.INSTANCE.enabled && flag && !Settings.player.abilities.flying) {
             try {

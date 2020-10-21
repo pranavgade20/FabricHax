@@ -1,11 +1,12 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
-import io.github.pranavgade20.fabrichax.*;
+import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.clienthax.AntiFall;
 import io.github.pranavgade20.fabrichax.clienthax.ElytraFly;
 import io.github.pranavgade20.fabrichax.clienthax.Fly;
 import io.github.pranavgade20.fabrichax.todohax.NoSprint;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.local.LocalChannel;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.Packet;
@@ -22,7 +23,9 @@ import java.util.List;
 public class ChannelManager {
     @Inject(at = @At("RETURN"), method = "channelActive(Lio/netty/channel/ChannelHandlerContext;)V")
     public void setChannel(ChannelHandlerContext channelHandlerContext, CallbackInfo info) {
+        if (channelHandlerContext.channel() instanceof LocalChannel) return;
         Settings.channel = channelHandlerContext.channel();
+        System.out.println(channelHandlerContext.channel().getClass() + "<<<<<<<<<<<<<<<");
 
         Settings.channel.pipeline().addAfter("encoder", "injected-out", new MessageToMessageEncoder<Packet<?>>() {
             @Override
@@ -109,11 +112,13 @@ public class ChannelManager {
 //                if (packet instanceof UnloadChunkS2CPacket) return;
 //                if (packet instanceof EntitySetHeadYawS2CPacket) return;
 //                if (packet instanceof EntityS2CPacket) return; //sus
+//                if (packet instanceof EntityVelocityUpdateS2CPacket) return;
+//                if (packet instanceof EntityPositionS2CPacket) return;
+//                if (packet instanceof BlockUpdateS2CPacket) return;
+//                if (packet instanceof ChunkDeltaUpdateS2CPacket) return;
 //
-//                if (packet instanceof EntityVelocityUpdateS2CPacket) System.out.println(((EntityVelocityUpdateS2CPacket)packet).getId());
 //                System.out.println(packet.getClass().getName());
 //            }
 //        });
-
     }
 }

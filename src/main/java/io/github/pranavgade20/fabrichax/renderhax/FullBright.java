@@ -1,7 +1,5 @@
 package io.github.pranavgade20.fabrichax.renderhax;
 
-import io.github.pranavgade20.fabrichax.Base;
-
 public class FullBright extends RenderBase {
     public static FullBright INSTANCE;
     public FullBright() {
