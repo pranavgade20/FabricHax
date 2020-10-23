@@ -21,13 +21,16 @@ public class PlayerManager {
     public void setPlayer(GameJoinS2CPacket p, CallbackInfo ci) {
         Settings.player = MinecraftClient.getInstance().player;
         Settings.world = MinecraftClient.getInstance().world;
-        Settings.loadToggles();
 
         if (Effects.INSTANCE.enabled)
             Effects.cache.forEach((effect, instance) -> Settings.player.getActiveStatusEffects().put(effect, instance));
 
         if (Fly.INSTANCE.enabled || ElytraFly.INSTANCE.enabled)
-            Settings.player.abilities.allowFlying = true;
+            try {
+                Settings.player.abilities.allowFlying = true;
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
     }
 
     @Inject(at = @At("RETURN"), method = "onDisconnect")
@@ -48,12 +51,15 @@ public class PlayerManager {
     public void setPlayer(PlayerRespawnS2CPacket p, CallbackInfo ci) {
         Settings.player = MinecraftClient.getInstance().player;
         Settings.world = MinecraftClient.getInstance().world;
-        Settings.loadToggles();
 
         if (Effects.INSTANCE.enabled)
             Effects.cache.forEach((effect, instance) -> Settings.player.getActiveStatusEffects().put(effect, instance));
 
         if (Fly.INSTANCE.enabled || ElytraFly.INSTANCE.enabled)
-            Settings.player.abilities.allowFlying = true;
+            try {
+                Settings.player.abilities.allowFlying = true;
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
     }
 }
