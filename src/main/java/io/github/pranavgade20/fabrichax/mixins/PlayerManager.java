@@ -1,6 +1,9 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
 import io.github.pranavgade20.fabrichax.Settings;
+import io.github.pranavgade20.fabrichax.clienthax.Effects;
+import io.github.pranavgade20.fabrichax.clienthax.ElytraFly;
+import io.github.pranavgade20.fabrichax.clienthax.Fly;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
@@ -19,6 +22,12 @@ public class PlayerManager {
         Settings.player = MinecraftClient.getInstance().player;
         Settings.world = MinecraftClient.getInstance().world;
         Settings.loadToggles();
+
+        if (Effects.INSTANCE.enabled)
+            Effects.cache.forEach((effect, instance) -> Settings.player.getActiveStatusEffects().put(effect, instance));
+
+        if (Fly.INSTANCE.enabled || ElytraFly.INSTANCE.enabled)
+            Settings.player.abilities.allowFlying = true;
     }
 
     @Inject(at = @At("RETURN"), method = "onDisconnect")
@@ -40,5 +49,11 @@ public class PlayerManager {
         Settings.player = MinecraftClient.getInstance().player;
         Settings.world = MinecraftClient.getInstance().world;
         Settings.loadToggles();
+
+        if (Effects.INSTANCE.enabled)
+            Effects.cache.forEach((effect, instance) -> Settings.player.getActiveStatusEffects().put(effect, instance));
+
+        if (Fly.INSTANCE.enabled || ElytraFly.INSTANCE.enabled)
+            Settings.player.abilities.allowFlying = true;
     }
 }
