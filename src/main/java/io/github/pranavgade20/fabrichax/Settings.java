@@ -106,6 +106,7 @@ public class Settings {
         toggles.put(-5, Hax.of(FullBright.class));
         toggles.put(-6, Hax.of(BetterFluids.class));
         toggles.put(-7, Hax.of(NoFog.class));
+        toggles.put(-8, Hax.of(SpawnProofer.class));
 
         categories = new LinkedList<>();
         categories.add(Hax.of(AutomationBase.class));

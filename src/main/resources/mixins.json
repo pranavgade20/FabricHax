@@ -17,7 +17,8 @@
     "BuilderManager",
     "FlyManager",
     "WalkerManager",
-    "AntiFluidManager"
+    "AntiFluidManager",
+    "SpawnProoferManager"
   ],
   "injectors": {
     "defaultRequire": 1

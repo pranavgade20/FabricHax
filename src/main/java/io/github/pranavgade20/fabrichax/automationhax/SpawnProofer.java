@@ -3,7 +3,7 @@ package io.github.pranavgade20.fabrichax.automationhax;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.text.Text;
 
-public class AntiFluid extends AutomationBase {
+public class SpawnProofer extends AutomationBase{
     public static int up = 3;
     public static int down = 2;
     public static int north = 2;
@@ -11,20 +11,22 @@ public class AntiFluid extends AutomationBase {
     public static int east = 2;
     public static int west = 2;
 
-    public static AntiFluid INSTANCE;
-    public AntiFluid() {
+    public static int count = 0;
+
+    public static SpawnProofer INSTANCE;
+    public SpawnProofer() {
         INSTANCE = this;
     }
-    public String getHelpMessage() {
-        return "AntiFluid - replace fluids around you with blocks\n" +
-                "\nConfiguration information:\n" +
-                " ~ config AntiFluid <direction> <size>\n" +
-                " (to configure shape to be filled)\n" +
-                " where directions include 'up, down, north, south, east, west'\n" +
-                " for example, use `~ config AntiFluid up 2`\n" +
-                " to set this to fill 2 blocks above you.";
-    }
 
+    public String getHelpMessage() {
+        return "SpawnProofer - spawnproof your surroundings with redstone components\n" +
+                "\nConfiguration information:\n" +
+                " ~ config SpawnProofer <direction> <size>\n" +
+                " (to configure shape to be built)\n" +
+                " where directions include 'up, down, north, south, east, west'\n" +
+                " for example, use `~ config SpawnProofer left 2`\n" +
+                " to set this to spawnproof 2 blocks to your left.";
+    }
     @Override
     public void config(String params) {
         try {

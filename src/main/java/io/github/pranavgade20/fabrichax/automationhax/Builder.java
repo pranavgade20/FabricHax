@@ -1,6 +1,5 @@
 package io.github.pranavgade20.fabrichax.automationhax;
 
-import io.github.pranavgade20.fabrichax.Base;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
@@ -76,7 +75,7 @@ public class Builder extends AutomationBase {
                 " ~ config Builder <direction> <size>\n" +
                 " (to configure shape to be built)\n" +
                 " where directions include 'left, right'\n" +
-                " for example, use `config Builder left 2`\n" +
+                " for example, use `~ config Builder left 2`\n" +
                 " to set this to place 2 blocks to the left of your placed block.";
     }
 
