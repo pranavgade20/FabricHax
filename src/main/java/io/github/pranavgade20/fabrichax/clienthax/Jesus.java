@@ -2,9 +2,10 @@ package io.github.pranavgade20.fabrichax.clienthax;
 
 import io.github.pranavgade20.fabrichax.Settings;
 
-public class Jeasus extends ClientBase {
-    public static Jeasus INSTANCE;
-    public Jeasus() {
+public class Jesus extends ClientBase {
+    public static Jesus INSTANCE;
+    public static boolean flyLock = false;
+    public Jesus() {
         INSTANCE = this;
     }
 
@@ -18,7 +19,7 @@ public class Jeasus extends ClientBase {
 
     @Override
     public String getHelpMessage() {
-        return "Jeasus - walk on/in water.\n" +
+        return "Jesus - walk on/in water.\n" +
                 "Run on water without sinking.\n" +
                 "Improved movement underwater.\n";
     }

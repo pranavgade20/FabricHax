@@ -92,7 +92,7 @@ public class Settings {
         toggles.put((int)'H', Hax.of(ElytraFly.class));
         toggles.put((int)'U', Hax.of(AntiInvisibility.class));
         toggles.put((int)'L', Hax.of(AutoSneak.class));
-        toggles.put((int)'J', Hax.of(Jeasus.class));
+        toggles.put((int)'J', Hax.of(Jesus.class));
         toggles.put((int)'B', Hax.of(Builder.class));
         toggles.put((int)'Y', Hax.of(AntiFall.class));
         toggles.put((int)'O', Hax.of(Scaffold.class));
