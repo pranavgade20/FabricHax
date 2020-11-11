@@ -13,6 +13,6 @@ public class Main implements ModInitializer {
 		new Settings(); // instantiating Settings so that static variables are initialized.
 		Settings.loadToggles();
 
-		System.out.println("Loaded AutoHotbar!");
+		System.out.println("Loaded FabricHax!");
 	}
 }

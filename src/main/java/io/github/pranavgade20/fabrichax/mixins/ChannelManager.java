@@ -4,13 +4,11 @@ import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.clienthax.AntiFall;
 import io.github.pranavgade20.fabrichax.clienthax.ElytraFly;
 import io.github.pranavgade20.fabrichax.clienthax.Fly;
-import io.github.pranavgade20.fabrichax.todohax.NoSprint;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.local.LocalChannel;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.Packet;
-import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -68,24 +66,9 @@ public class ChannelManager {
                         if (AntiFall.onGround) AntiFall.lastGround = null;
                     }
                 }
-                if (NoSprint.INSTANCE.enabled) {
-                    if (packet instanceof ClientCommandC2SPacket && (((ClientCommandC2SPacket) packet).getMode() == ClientCommandC2SPacket.Mode.START_SPRINTING || ((ClientCommandC2SPacket) packet).getMode() == ClientCommandC2SPacket.Mode.STOP_SPRINTING)) {
-                        out.add(new PlayerMoveC2SPacket.PositionOnly(
-                                Settings.player.getX(),
-                                Settings.player.getY(),
-                                Settings.player.getZ(),
-                                Settings.player.isOnGround()
-                        ));
-                        added = true;
-                        System.out.println("Suppresed");
-                    }
-                }
                 if (!added) {
                     out.add(packet);
                 }
-//                if (packet instanceof PlayerMoveC2SPacket && FreeCam.enabled) {
-//                    out.add(FreeCam.fakePacket);
-//                }
 //                if (packet instanceof PlayerMoveC2SPacket) return;
 //                if (packet instanceof HandSwingC2SPacket) return;
 //                if (packet instanceof KeepAliveC2SPacket) return;
@@ -110,11 +93,19 @@ public class ChannelManager {
 //                if (packet instanceof ScreenHandlerSlotUpdateS2CPacket) return;
 //                if (packet instanceof UnloadChunkS2CPacket) return;
 //                if (packet instanceof EntitySetHeadYawS2CPacket) return;
-//                if (packet instanceof EntityS2CPacket) return; //sus
 //                if (packet instanceof EntityVelocityUpdateS2CPacket) return;
 //                if (packet instanceof EntityPositionS2CPacket) return;
 //                if (packet instanceof BlockUpdateS2CPacket) return;
 //                if (packet instanceof ChunkDeltaUpdateS2CPacket) return;
+//
+//                if (packet instanceof EntityTrackerUpdateS2CPacket) {
+//                    List<DataTracker.Entry<?>> l = ((EntityTrackerUpdateS2CPacket) packet).getTrackedValues();
+//                    Settings.debugHelper(l.get(0).getData());
+//                }
+//
+//                if (packet instanceof PlayerAbilitiesS2CPacket) {
+//                    System.out.println(((PlayerAbilitiesS2CPacket) packet).isInvulnerable() + ":");
+//                }
 //
 //                System.out.println(packet.getClass().getName());
 //            }

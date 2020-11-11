@@ -102,6 +102,7 @@ public class Settings {
         toggles.put(-1, Hax.of(AutoHotbar.class));
         toggles.put(-2, Hax.of(Fastmine.class));
         toggles.put(-3, Hax.of(NoSprint.class));
+        toggles.put((int)'Z', Hax.of(FreeCam.class));
         toggles.put(-4, Hax.of(Effects.class));
         toggles.put(-5, Hax.of(FullBright.class));
         toggles.put(-6, Hax.of(BetterFluids.class));
@@ -113,5 +114,9 @@ public class Settings {
         categories.add(Hax.of(RenderBase.class));
         categories.add(Hax.of(ClientBase.class));
         categories.add(Hax.of(TodoBase.class));
+    }
+
+    public static void debugHelper(Object o) {
+        System.out.println(o);
     }
 }

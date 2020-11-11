@@ -23,6 +23,9 @@ public class JesusManager {
                 if (Settings.world.getBlockState(new BlockPos(Settings.player.getPos().add(x, 0, z))).isOf(Blocks.WATER)) {
                     nearbyWater++;
                 }
+                if (Settings.world.getBlockState(new BlockPos(Settings.player.getPos().add(x, 0, z))).isOf(Blocks.LAVA)) {
+                    nearbyWater++;
+                }
             }
         }
 

@@ -4,9 +4,9 @@ import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.automationhax.SpawnProofer;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
 import net.minecraft.util.ActionResult;
@@ -14,12 +14,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.SpawnHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Objects;
 
 @Mixin(ClientPlayerEntity.class)
 public class SpawnProoferManager {
@@ -40,16 +39,14 @@ public class SpawnProoferManager {
 
         if (SpawnProofer.INSTANCE.enabled) {
             Hand hand;
-            if (Objects.equals(Settings.player.getMainHandStack().getItem().getGroup(), ItemGroup.REDSTONE)) {
-                hand = Hand.MAIN_HAND;
-            } else if (Objects.equals(Settings.player.getOffHandStack().getItem().getGroup(), ItemGroup.REDSTONE)) {
-                hand = Hand.OFF_HAND;
-            } else return;
 
+//            for (int y = 10; y <= 10; y++) {
+//                for (int x = 0; x <= 0; x++) {
+//                    for (int z = 0; z <= 0; z++) {
             for (int y = -SpawnProofer.down; y <= SpawnProofer.up; y++) {
                 for (int x = -SpawnProofer.west; x <= SpawnProofer.east; x++) {
                     for (int z = -SpawnProofer.north; z <= SpawnProofer.south; z++) {
-                        BlockPos blockPos = new BlockPos(Settings.player.getPos().add(x, y, z));
+                        BlockPos blockPos = new BlockPos(Settings.player.getPos().add(x, y, z)); // gonna place on this
 
                         BlockHitResult hitResult = new BlockHitResult(
                                 Settings.player.getPos(),
@@ -58,9 +55,17 @@ public class SpawnProoferManager {
                                 false
                         );
 
-                        Block target = Settings.player.clientWorld.getBlockState(blockPos).getBlock();
-                        Block base = Settings.player.clientWorld.getBlockState(blockPos.down()).getBlock();
-                        if (target.is(Blocks.AIR) && Objects.equals(base.asItem().getGroup(), ItemGroup.BUILDING_BLOCKS)) { //TODO somehow check if the block has a solid surface
+                        if (SpawnHelper.canSpawn(SpawnRestriction.Location.ON_GROUND, Settings.world, blockPos.up(), EntityType.ZOMBIE)
+                        && Settings.world.isSpaceEmpty(EntityType.ZOMBIE.createSimpleBoundingBox((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 1, (double)blockPos.getZ() + 0.5D))) {
+                            Settings.world.getBlockState(blockPos.up()).isSideSolidFullSquare(Settings.world, blockPos.up(), Direction.UP);
+                            if (!Block.getBlockFromItem(Settings.player.getMainHandStack().getItem()).getDefaultState()
+                                    .allowsSpawning(Settings.world, blockPos.up(), EntityType.ZOMBIE)) {
+                                hand = Hand.MAIN_HAND;
+                            } else if (!Block.getBlockFromItem(Settings.player.getOffHandStack().getItem()).getDefaultState()
+                                    .allowsSpawning(Settings.world, blockPos.up(), EntityType.ZOMBIE)) {
+                                hand = Hand.OFF_HAND;
+                            } else continue;
+
                             ActionResult res;
                             if (hand == Hand.MAIN_HAND) res = Settings.player.getMainHandStack().useOnBlock(new ItemPlacementContext(Settings.player, hand, Settings.player.getMainHandStack(), hitResult));
                             else res = Settings.player.getOffHandStack().useOnBlock(new ItemPlacementContext(Settings.player, hand, Settings.player.getOffHandStack(), hitResult));

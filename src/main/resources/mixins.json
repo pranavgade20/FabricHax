@@ -18,7 +18,9 @@
     "FlyManager",
     "WalkerManager",
     "AntiFluidManager",
-    "SpawnProoferManager"
+    "SpawnProoferManager",
+    "NoSprintManager",
+    "FreecamManager"
   ],
   "injectors": {
     "defaultRequire": 1
