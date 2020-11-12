@@ -69,12 +69,12 @@ public class ChannelManager {
                 if (!added) {
                     out.add(packet);
                 }
+
 //                if (packet instanceof PlayerMoveC2SPacket) return;
 //                if (packet instanceof HandSwingC2SPacket) return;
 //                if (packet instanceof KeepAliveC2SPacket) return;
-//
-//                if (packet instanceof ClientCommandC2SPacket){
-//                    System.out.println(((ClientCommandC2SPacket) packet).getMode() + " " + ((ClientCommandC2SPacket) packet).getMountJumpHeight());
+//                if (packet instanceof PlayerActionC2SPacket) {
+//                    System.out.println(((PlayerActionC2SPacket) packet).getAction());
 //                    return;
 //                }
 //

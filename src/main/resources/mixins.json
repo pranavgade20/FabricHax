@@ -20,7 +20,8 @@
     "AntiFluidManager",
     "SpawnProoferManager",
     "NoSprintManager",
-    "FreecamManager"
+    "FreecamManager",
+    "FastmineManager"
   ],
   "injectors": {
     "defaultRequire": 1
