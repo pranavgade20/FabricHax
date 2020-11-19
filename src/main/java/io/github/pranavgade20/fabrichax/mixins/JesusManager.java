@@ -1,7 +1,6 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
 import io.github.pranavgade20.fabrichax.Settings;
-import io.github.pranavgade20.fabrichax.clienthax.Fly;
 import io.github.pranavgade20.fabrichax.clienthax.Jesus;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.input.KeyboardInput;
@@ -32,7 +31,7 @@ public class JesusManager {
         if (nearbyWater == 9) {
             Settings.player.abilities.flying = true;
             Jesus.flyLock = true;
-        } else if (!Fly.INSTANCE.enabled) {
+        } else if (Jesus.flyLock) {
             Settings.player.abilities.flying = false;
             Jesus.flyLock = false;
         }

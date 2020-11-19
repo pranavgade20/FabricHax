@@ -11,6 +11,7 @@ public class Jesus extends ClientBase {
 
     @Override
     public boolean toggle() {
+        flyLock = false;
         if (enabled) {
             Settings.player.abilities.flying = false;
         }

@@ -1,7 +1,5 @@
 package io.github.pranavgade20.fabrichax.automationhax;
 
-import io.github.pranavgade20.fabrichax.Base;
-
 public class Scaffold extends AutomationBase {
     public static Scaffold INSTANCE;
     public Scaffold() {
