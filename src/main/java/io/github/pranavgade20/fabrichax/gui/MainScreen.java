@@ -5,11 +5,11 @@ import io.github.pranavgade20.fabrichax.GUI;
 import io.github.pranavgade20.fabrichax.Hax;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
-import java.util.Map;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class MainScreen extends Screen {
     static Text tooltip = null;
@@ -57,9 +57,11 @@ public class MainScreen extends Screen {
         y += 35;
         int baseY = y;
         x = 10;
-        for (Map.Entry<Integer, Hax<?>> entry : Settings.toggles.entrySet()) {
+        Hax<? extends Base>[] sortedEntries = Settings.toggles.values().toArray(new Hax<?>[0]);
+        Arrays.sort(sortedEntries, Comparator.comparing(Hax::getModuleName));
+        for (Hax<? extends Base> entry : sortedEntries) {
             try {
-                addButton(new ToggleButtonWidget(x, y, 100, 20, entry.getValue()));
+                addButton(new ToggleButtonWidget(x, y, 100, 20, entry));
                 y += 25;
                 if (y > this.height-20) {
                     x += 110;
