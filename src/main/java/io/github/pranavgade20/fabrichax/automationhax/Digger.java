@@ -3,6 +3,8 @@ package io.github.pranavgade20.fabrichax.automationhax;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
@@ -125,39 +127,159 @@ public class Digger extends AutomationBase {
     }
 
     @Override
-    public Screen getConfigScreen(net.minecraft.client.gui.screen.Screen parent, String name) {
-        Screen screen = super.getConfigScreen(parent, name);
-        screen.addButton(new TextFieldWidget(screen.textRenderer, screen.x, screen.y, 100, 20, Text.of("Up")) {
+    public Screen getConfigScreen(Screen parent, String name) {
+        return new Screen(Text.of(name)) {
             @Override
             public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-                int j = this.active ? 16777215 : 10526880;
-                drawCenteredText(matrices, screen.textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                this.renderBackground(matrices);
+                drawCenteredText(matrices, this.textRenderer, getTitle(), this.width / 2, 10, 16777215);
+                super.render(matrices, mouseX, mouseY, delta);
             }
-        });
-        final TextFieldWidget up = screen.addButton(new TextFieldWidget(screen.textRenderer, screen.x+110+25, screen.y, 50, 20, Text.of(String.valueOf(Digger.up))) {
-            @Override
-            public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-                int j = this.active ? 16777215 : 10526880;
-                drawCenteredText(matrices, screen.textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
-            }
-        });
 
-        screen.addButton(new AbstractButtonWidget(screen.x+110, screen.y, 20, 20, Text.of("-")) {
             @Override
-            public void onClick(double mouseX, double mouseY) {
-                Digger.up = Digger.up == 0 ? 0 : Digger.up-1;
-                up.setMessage(Text.of(String.valueOf(Digger.up)));
+            public void onClose() {
+                MinecraftClient.getInstance().openScreen(parent);
             }
-        });
-        screen.addButton(new AbstractButtonWidget(screen.x+110+25+55, screen.y, 20, 20, Text.of("+")) {
-            @Override
-            public void onClick(double mouseX, double mouseY) {
-                Digger.up = Digger.up == 8 ? 8 : Digger.up+1;
-                up.setMessage(Text.of(String.valueOf(Digger.up)));
-            }
-        });
 
-        screen.y+=25;
-        return screen;
+            @Override
+            protected void init() {
+                int x = 10;
+                int y = 30;
+                addButton(new TextFieldWidget(this.textRenderer, x, y, 100, 20, Text.of("Enabled")) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        enabled = !enabled;
+                        setMessage(Text.of(String.valueOf(enabled)));
+                    }
+                });
+                y+=25;
+
+                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Up")) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                final TextFieldWidget up = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Digger.up))) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        Digger.up = Digger.up == 0 ? 0 : Digger.up-1;
+                        up.setMessage(Text.of(String.valueOf(Digger.up)));
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        Digger.up = Digger.up == 8 ? 8 : Digger.up+1;
+                        up.setMessage(Text.of(String.valueOf(Digger.up)));
+                    }
+                });
+                y+=25;
+
+                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Down")) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                final TextFieldWidget down = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Digger.down))) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        Digger.down = Digger.down == 0 ? 0 : Digger.down-1;
+                        down.setMessage(Text.of(String.valueOf(Digger.down)));
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        Digger.down = Digger.down == 8 ? 8 : Digger.down+1;
+                        down.setMessage(Text.of(String.valueOf(Digger.down)));
+                    }
+                });
+                y+=25;
+
+                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Left")) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                final TextFieldWidget left = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Digger.left))) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        Digger.left = Digger.left == 0 ? 0 : Digger.left-1;
+                        left.setMessage(Text.of(String.valueOf(Digger.left)));
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        Digger.left = Digger.left == 8 ? 8 : Digger.left+1;
+                        left.setMessage(Text.of(String.valueOf(Digger.left)));
+                    }
+                });
+                y+=25;
+
+                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Right")) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                final TextFieldWidget right = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Digger.right))) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        Digger.right = Digger.right == 0 ? 0 : Digger.right-1;
+                        right.setMessage(Text.of(String.valueOf(Digger.right)));
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        Digger.right = Digger.right == 8 ? 8 : Digger.right+1;
+                        right.setMessage(Text.of(String.valueOf(Digger.right)));
+                    }
+                });
+            }
+        };
     }
 }
