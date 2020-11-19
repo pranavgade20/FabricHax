@@ -1,7 +1,7 @@
 package io.github.pranavgade20.fabrichax;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
@@ -30,7 +30,7 @@ public class Base {
         Settings.player.sendMessage(Text.of("You cannot configure this module."),false);
     }
 
-    public Screen getConfigScreen(Screen parent, String name) {
+    public Screen getConfigScreen(net.minecraft.client.gui.screen.Screen parent, String name) {
         return new Screen(Text.of(name)) {
             @Override
             public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
@@ -46,8 +46,6 @@ public class Base {
 
             @Override
             protected void init() {
-                int x = 10;
-                int y = 30;
                 addButton(new TextFieldWidget(this.textRenderer, x, y, 100, 20, Text.of("Enabled")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
@@ -55,16 +53,35 @@ public class Base {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                x+=110;
-                addButton(new AbstractButtonWidget(x, y, 100, 20, Text.of(String.valueOf(enabled))) {
+                addButton(new AbstractButtonWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         enabled = !enabled;
                         setMessage(Text.of(String.valueOf(enabled)));
                     }
                 });
-                x-=110;
+                y+=25;
             }
         };
+    }
+
+    public class Screen extends net.minecraft.client.gui.screen.Screen {
+        public int x,y;
+        public TextRenderer textRenderer;
+        protected Screen(Text title) {
+            super(title);
+            x = 10;
+            y = 30;
+        }
+
+        public <T extends AbstractButtonWidget> T addButton(T button) {
+            return super.addButton(button);
+        }
+
+        @Override
+        public void init(MinecraftClient client, int width, int height) {
+            super.init(client, width, height);
+            textRenderer = super.textRenderer;
+        }
     }
 }
