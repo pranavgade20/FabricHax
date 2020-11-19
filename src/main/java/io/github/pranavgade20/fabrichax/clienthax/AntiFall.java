@@ -1,6 +1,5 @@
 package io.github.pranavgade20.fabrichax.clienthax;
 
-import io.github.pranavgade20.fabrichax.Base;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.util.math.Vec3d;
 

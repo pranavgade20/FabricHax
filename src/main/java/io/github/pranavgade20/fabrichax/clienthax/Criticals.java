@@ -1,7 +1,5 @@
 package io.github.pranavgade20.fabrichax.clienthax;
 
-import io.github.pranavgade20.fabrichax.Base;
-
 public class Criticals extends ClientBase {
     public static Criticals INSTANCE;
     public Criticals() {

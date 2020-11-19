@@ -1,7 +1,5 @@
 package io.github.pranavgade20.fabrichax.renderhax;
 
-import io.github.pranavgade20.fabrichax.Base;
-
 public class NoFog extends RenderBase {
     public static NoFog INSTANCE;
     public NoFog() {

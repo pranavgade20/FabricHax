@@ -115,8 +115,4 @@ public class Settings {
         categories.add(Hax.of(ClientBase.class));
         categories.add(Hax.of(TodoBase.class));
     }
-
-    public static void debugHelper(Object o) {
-        System.out.println(o);
-    }
 }

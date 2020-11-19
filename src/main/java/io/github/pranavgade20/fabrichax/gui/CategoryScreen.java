@@ -14,7 +14,7 @@ import java.util.Comparator;
 
 public class CategoryScreen extends Screen {
     static Text status = Text.of("FabricHax");
-    private Hax<? extends Base> module;
+    private final Hax<? extends Base> module;
 
     public CategoryScreen(Hax<? extends Base> module) {
         super(Text.of(module.getModuleName()));

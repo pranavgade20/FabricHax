@@ -1,6 +1,5 @@
 package io.github.pranavgade20.fabrichax.clienthax;
 
-import io.github.pranavgade20.fabrichax.Base;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;

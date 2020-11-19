@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
 
@@ -17,9 +16,7 @@ import java.util.HashSet;
 public class KeyboardManager {
     private final int PRIMARY_KEY = 80;
 
-    private static HashMap<String, Integer> toggles = new HashMap<>();
-
-    private static HashSet<Integer> keys_pressed = new HashSet<>();
+    private static final HashSet<Integer> keys_pressed = new HashSet<>();
 
     @Inject(at = @At("HEAD"), method = "onKey(JIIII)V")
     private void handleKeyPress(long window, int key, int scancode, int i, int j, CallbackInfo info) {
