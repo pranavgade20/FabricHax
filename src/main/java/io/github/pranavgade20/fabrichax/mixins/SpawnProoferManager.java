@@ -55,14 +55,13 @@ public class SpawnProoferManager {
                                 false
                         );
 
-                        if (SpawnHelper.canSpawn(SpawnRestriction.Location.ON_GROUND, Settings.world, blockPos.up(), EntityType.ZOMBIE)
-                        && Settings.world.isSpaceEmpty(EntityType.ZOMBIE.createSimpleBoundingBox((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 1, (double)blockPos.getZ() + 0.5D))) {
-                            Settings.world.getBlockState(blockPos.up()).isSideSolidFullSquare(Settings.world, blockPos.up(), Direction.UP);
+                        if (SpawnHelper.canSpawn(SpawnRestriction.Location.ON_GROUND, Settings.world, blockPos.up(), EntityType.ZOMBIFIED_PIGLIN)
+                        && Settings.world.isSpaceEmpty(EntityType.ZOMBIFIED_PIGLIN.createSimpleBoundingBox((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 1, (double)blockPos.getZ() + 0.5D))) {
                             if (!Block.getBlockFromItem(Settings.player.getMainHandStack().getItem()).getDefaultState()
-                                    .allowsSpawning(Settings.world, blockPos.up(), EntityType.ZOMBIE)) {
+                                    .allowsSpawning(Settings.world, blockPos.up(), EntityType.ZOMBIFIED_PIGLIN)) {
                                 hand = Hand.MAIN_HAND;
                             } else if (!Block.getBlockFromItem(Settings.player.getOffHandStack().getItem()).getDefaultState()
-                                    .allowsSpawning(Settings.world, blockPos.up(), EntityType.ZOMBIE)) {
+                                    .allowsSpawning(Settings.world, blockPos.up(), EntityType.ZOMBIFIED_PIGLIN)) {
                                 hand = Hand.OFF_HAND;
                             } else continue;
 

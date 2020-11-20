@@ -105,7 +105,7 @@ public class Walker extends AutomationBase {
                 addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
-                        Walker.speed = Walker.speed == 8 ? 8 : Walker.speed+1;
+                        Walker.speed = Walker.speed+1;
                         speed.setMessage(Text.of(String.valueOf(Walker.speed)));
                     }
                 });

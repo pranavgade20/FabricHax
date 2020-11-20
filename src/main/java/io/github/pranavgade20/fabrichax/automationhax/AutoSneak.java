@@ -1,6 +1,11 @@
 package io.github.pranavgade20.fabrichax.automationhax;
 
+import net.minecraft.util.math.Vec3d;
+
 public class AutoSneak extends AutomationBase {
+    public static Vec3d prevPos = null;
+    public static boolean prefSafe = false;
+
     public static AutoSneak INSTANCE;
     public AutoSneak() {
         INSTANCE = this;

@@ -12,7 +12,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,12 +28,14 @@ public class SneakManager {
     private void tick(boolean slowDown, CallbackInfo ci) {
         if (Settings.player == null || Settings.world == null) return;
 
-        boolean flag = true;
-        for (int i = 1; i < 5; i++) { //TODO account jump boost into calculations
-            //TODO detect lava, magma, and other blocks that cause damage. also account for non air blocks without collision boxes like snow, string, grass, etc
-            if (!Settings.world.getBlockState(new BlockPos(Settings.player.getPos().subtract(0, i, 0))).isAir()) flag = false;
-//            flag &= Settings.world.getBlockState(new BlockPos(Settings.player.getPos().subtract(0, i, 0))).isAir();
-        }
+        float f = 0.1f; // 0.2f / 2.0f (0.2f is less than 0.6f, the actual size of player)
+        float height = 1.8f;
+//        float jump_boost = Settings.player.getActiveStatusEffects().get(StatusEffects.JUMP_BOOST) == null ? 0 : Settings.player.getActiveStatusEffects().get(StatusEffects.JUMP_BOOST).getAmplifier()+1;
+        float max_fall = 3.3f; //TODO account jump boost into calculations
+
+        //TODO detect lava, magma, and other blocks that cause damage. also account for non air blocks without collision boxes like snow, string, grass, etc
+        Vec3d pos = Settings.player.getPos();
+        boolean flag = Settings.world.isSpaceEmpty(new Box(pos.getX() - (double)f, pos.getY()- max_fall, pos.getZ() - (double)f, pos.getX() + (double)f, pos.getY() + height, pos.getZ() + (double)f));
         if (AutoSneak.INSTANCE.enabled && flag && !Settings.player.abilities.flying) {
             Settings.player.input.sneaking = true;
         }
