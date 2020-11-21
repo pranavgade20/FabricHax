@@ -22,6 +22,8 @@ public class PlayerManager {
         Settings.player = MinecraftClient.getInstance().player;
         Settings.world = MinecraftClient.getInstance().world;
 
+        Settings.loadToggles();
+
         if (Effects.INSTANCE.enabled)
             Effects.cache.forEach((effect, instance) -> Settings.player.getActiveStatusEffects().put(effect, instance));
 
@@ -51,6 +53,8 @@ public class PlayerManager {
     public void setPlayer(PlayerRespawnS2CPacket p, CallbackInfo ci) {
         Settings.player = MinecraftClient.getInstance().player;
         Settings.world = MinecraftClient.getInstance().world;
+
+        Settings.loadToggles();
 
         if (Effects.INSTANCE.enabled)
             Effects.cache.forEach((effect, instance) -> Settings.player.getActiveStatusEffects().put(effect, instance));

@@ -60,6 +60,7 @@ public class Settings {
     }
 
     public static void loadToggles() {
+        System.out.println("------------------------Loading");
         if (!config.exists()) saveToggles();
 
         try {
@@ -85,7 +86,6 @@ public class Settings {
 
     static {
         toggles = new HashMap<>();
-        // TODO: read a config file to load defaults
         toggles.put((int)'C', Hax.of(Criticals.class));
         toggles.put((int)'K', Hax.of(Fly.class));
         toggles.put((int)'I', Hax.of(Digger.class));
