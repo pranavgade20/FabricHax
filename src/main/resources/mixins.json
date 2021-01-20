@@ -21,7 +21,8 @@
     "SpawnProoferManager",
     "NoSprintManager",
     "FreecamManager",
-    "FastmineManager"
+    "FastmineManager",
+    "FarmPlanterManager"
   ],
   "injectors": {
     "defaultRequire": 1

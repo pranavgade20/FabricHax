@@ -28,7 +28,7 @@ public class SpawnProoferManager {
             SpawnProofer.count--;
             return;
         }
-        SpawnProofer.count = 20;
+        SpawnProofer.count = 1; // once every 2 ticks
         try {
             if (!Settings.world.isChunkLoaded(new BlockPos(Settings.player.getX(), 0.0D, Settings.player.getZ()))) {
                 return;
@@ -71,6 +71,7 @@ public class SpawnProoferManager {
 
                             if (res == ActionResult.SUCCESS) {
                                 ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, hitResult));
+                                return;
                             }
                         }
                     }

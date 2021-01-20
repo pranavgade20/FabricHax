@@ -108,11 +108,16 @@ public class Settings {
         toggles.put(-6, Hax.of(BetterFluids.class));
         toggles.put(-7, Hax.of(NoFog.class));
         toggles.put(-8, Hax.of(SpawnProofer.class));
+        toggles.put(-9, Hax.of(FarmPlanter.class));
 
         categories = new LinkedList<>();
         categories.add(Hax.of(AutomationBase.class));
         categories.add(Hax.of(RenderBase.class));
         categories.add(Hax.of(ClientBase.class));
         categories.add(Hax.of(TodoBase.class));
+    }
+
+    public static void  dbg(Object o) {
+        System.out.println(o);
     }
 }

@@ -1,15 +1,19 @@
 package io.github.pranavgade20.fabrichax.automationhax;
 
 import io.github.pranavgade20.fabrichax.Settings;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
-public class SpawnProofer extends AutomationBase {
+public class FarmPlanter extends AutomationBase {
     public static int up = 3;
     public static int down = 2;
     public static int north = 2;
@@ -19,19 +23,35 @@ public class SpawnProofer extends AutomationBase {
 
     public static int count = 0;
 
-    public static SpawnProofer INSTANCE;
-    public SpawnProofer() {
+    public static FarmPlanter INSTANCE;
+    public FarmPlanter() {
         INSTANCE = this;
     }
 
+    public static boolean isPlacable(Block block, Item item) {
+        if (block.equals(Blocks.FARMLAND)) {
+            return item.equals(Items.WHEAT_SEEDS) ||
+                    item.equals(Items.MELON_SEEDS) ||
+                    item.equals(Items.PUMPKIN_SEEDS) ||
+                    item.equals(Items.BEETROOT_SEEDS) ||
+                    item.equals(Items.POTATO) ||
+                    item.equals(Items.CARROT);
+        } else if (block.equals(Blocks.END_STONE)) {
+            return item.equals(Items.CHORUS_FLOWER);
+        } else if (block.equals(Blocks.SOUL_SAND)) {
+            return item.equals(Items.NETHER_WART);
+        }
+        return false;
+    }
+
     public String getHelpMessage() {
-        return "SpawnProofer - spawnproof your surroundings with non full blocks or redstone components\n" +
+        return "FarmPlanter - plant seeds in farmland around you.\n" +
                 "\nConfiguration information:\n" +
-                " ~ config SpawnProofer <direction> <size>\n" +
+                " ~ config FarmPlanter <direction> <size>\n" +
                 " (to configure shape to be built)\n" +
                 " where directions include 'up, down, north, south, east, west'\n" +
-                " for example, use `~ config SpawnProofer left 2`\n" +
-                " to set this to spawnproof 2 blocks to your left.";
+                " for example, use `~ config FarmPlanter left 2`\n" +
+                " to set this to plant 2 blocks to your left.";
     }
     @Override
     public void config(String params) {
@@ -59,16 +79,15 @@ public class SpawnProofer extends AutomationBase {
                     west = size;
                     break;
                 default:
-                    Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help SpawnProofer) for more information."), false);
+                    Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help FarmPlanter) for more information."), false);
                     return;
             }
-            Settings.player.sendMessage(Text.of("~ config SpawnProofer " + params), false);
+            Settings.player.sendMessage(Text.of("~ config FarmPlanter " + params), false);
         } catch (Exception e) {
-            Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help SpawnProofer) for more information."), false);
+            Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help FarmPlanter) for more information."), false);
         }
     }
 
-    @Override
     public Screen getConfigScreen(Screen parent, String name) {
         return new Screen(Text.of(name)) {
             @Override
