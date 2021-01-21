@@ -1,19 +1,18 @@
 package io.github.pranavgade20.fabrichax.automationhax;
 
 import io.github.pranavgade20.fabrichax.Settings;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CropBlock;
+import net.minecraft.block.NetherWartBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
-public class FarmPlanter extends AutomationBase {
+public class Harvester extends AutomationBase {
     public static int up = 3;
     public static int down = 2;
     public static int north = 2;
@@ -23,24 +22,16 @@ public class FarmPlanter extends AutomationBase {
 
     public static int count = 0;
 
-    public static FarmPlanter INSTANCE;
-    public FarmPlanter() {
+    public static Harvester INSTANCE;
+    public Harvester() {
         INSTANCE = this;
     }
 
-    public static boolean isPlacable(Block block, Item item) {
-
-        if (block.equals(Blocks.FARMLAND)) {
-            return item.equals(Items.WHEAT_SEEDS) ||
-                    item.equals(Items.MELON_SEEDS) ||
-                    item.equals(Items.PUMPKIN_SEEDS) ||
-                    item.equals(Items.BEETROOT_SEEDS) ||
-                    item.equals(Items.POTATO) ||
-                    item.equals(Items.CARROT);
-        } else if (block.equals(Blocks.END_STONE)) {
-            return item.equals(Items.CHORUS_FLOWER);
-        } else if (block.equals(Blocks.SOUL_SAND)) {
-            return item.equals(Items.NETHER_WART);
+    public static boolean isHarvestable(BlockState block) {
+        if (block.getBlock() instanceof CropBlock) {
+            return ((CropBlock) block.getBlock()).isMature(block);
+        } else if (block.getBlock() instanceof NetherWartBlock) {
+            return block.get(NetherWartBlock.AGE) == 3;
         }
         return false;
     }

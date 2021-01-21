@@ -7,6 +7,7 @@ import io.github.pranavgade20.fabrichax.clienthax.Fly;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.local.LocalChannel;
 import io.netty.handler.codec.MessageToMessageEncoder;
+import net.minecraft.entity.EntityType;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
@@ -30,15 +31,24 @@ public class ChannelManager {
                 boolean added = false;
                 if (Fly.INSTANCE.enabled || ElytraFly.INSTANCE.enabled) {
                     if (packet instanceof PlayerMoveC2SPacket.PositionOnly && Settings.player.abilities.flying) {
-                        out.add(new PlayerMoveC2SPacket.PositionOnly(
+                        if (Settings.world.isSpaceEmpty(EntityType.PLAYER.createSimpleBoundingBox(Settings.player.getX(), Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)), Settings.player.getZ())))
+                            out.add(new PlayerMoveC2SPacket.PositionOnly(
                                 Settings.player.getX(),
                                 Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)),
                                 Settings.player.getZ(),
                                 Settings.player.isOnGround()
+                            ));
+                        else out.add(new PlayerMoveC2SPacket.PositionOnly(
+                                Settings.player.getX(),
+                                Settings.player.getY(),
+                                Settings.player.getZ(),
+                                Settings.player.isOnGround()
                         ));
+
                         added = true;
                     } else if (packet instanceof PlayerMoveC2SPacket.Both && Settings.player.abilities.flying) {
-                        out.add(new PlayerMoveC2SPacket.Both(
+                        if (Settings.world.isSpaceEmpty(EntityType.PLAYER.createSimpleBoundingBox(Settings.player.getX(), Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)), Settings.player.getZ())))
+                            out.add(new PlayerMoveC2SPacket.Both(
                                 Settings.player.getX(),
                                 Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)),
                                 Settings.player.getZ(),
@@ -46,6 +56,15 @@ public class ChannelManager {
                                 Settings.player.pitch,
                                 Settings.player.isOnGround()
                         ));
+                        else out.add(new PlayerMoveC2SPacket.Both(
+                                Settings.player.getX(),
+                                Settings.player.getY(),
+                                Settings.player.getZ(),
+                                Settings.player.yaw,
+                                Settings.player.pitch,
+                                Settings.player.isOnGround()
+                        ));
+
                         added = true;
                     }
                 }

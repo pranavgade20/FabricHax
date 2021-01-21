@@ -109,6 +109,7 @@ public class Settings {
         toggles.put(-7, Hax.of(NoFog.class));
         toggles.put(-8, Hax.of(SpawnProofer.class));
         toggles.put(-9, Hax.of(FarmPlanter.class));
+        toggles.put(-10, Hax.of(Harvester.class));
 
         categories = new LinkedList<>();
         categories.add(Hax.of(AutomationBase.class));
