@@ -15,6 +15,8 @@ The GUI also has tabs for configuring the modules.
 * **Auto Sneak**: Stops you from falling over the edge. Especially useful while bridging(Shortcut `p+l`)
 * **Scaffold**: Automatically places blocks you are holding below you wherever you walk.(Shortcut `p+o`)
 * **Spawn Proofer**: Places blocks(like slabs or buttons) to prevent monster spawning. Just hold the blocks in your hand and move to where you want to place them(Shortcut `p+r`)
+* **Farm Planter**: Places seeds on farmland. Just hold the seeds in your hand and go near farmland
+* **Harvester**: Harvests mature crops near you. Just go near a mature crop to use
 * **Digger**: Dig lots of blocks fast! (You can dig upto 50 blocks with one click) You just need a tool that can insta-mine the block(Shortcut `p+i`)
 * **Fast Miner**: Mine blocks 30% faster! This allows you to insta-mine stone without haste effect.
 * **AntiInvisibility**: Reveals entities/players having invisibility effect(Shortcut `p+u`)
