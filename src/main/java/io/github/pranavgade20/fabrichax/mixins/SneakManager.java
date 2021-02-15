@@ -28,14 +28,16 @@ public class SneakManager {
     private void tick(boolean slowDown, CallbackInfo ci) {
         if (Settings.player == null || Settings.world == null) return;
 
-        float f = 0.1f; // 0.2f / 2.0f (0.2f is less than 0.6f, the actual size of player)
+        float testWidth = 0.1f; // 0.2f / 2.0f (0.2f is less than 0.6f, the actual size of player)
+        float playerWidth = 0.3f;
         float height = 1.8f;
 //        float jump_boost = Settings.player.getActiveStatusEffects().get(StatusEffects.JUMP_BOOST) == null ? 0 : Settings.player.getActiveStatusEffects().get(StatusEffects.JUMP_BOOST).getAmplifier()+1;
         float max_fall = 3.3f; //TODO account jump boost into calculations
 
         //TODO detect lava, magma, and other blocks that cause damage. also account for non air blocks without collision boxes like snow, string, grass, etc
         Vec3d pos = Settings.player.getPos();
-        boolean flag = Settings.world.isSpaceEmpty(new Box(pos.getX() - (double)f, pos.getY()- max_fall, pos.getZ() - (double)f, pos.getX() + (double)f, pos.getY() + height, pos.getZ() + (double)f));
+        boolean flag = Settings.world.isSpaceEmpty(new Box(pos.getX() - (double)testWidth, pos.getY()- max_fall, pos.getZ() - (double)testWidth, pos.getX() + (double)testWidth, pos.getY() + height, pos.getZ() + (double)testWidth));
+        flag &= !Settings.world.isSpaceEmpty(new Box(pos.getX() - (double)playerWidth, pos.getY()- max_fall, pos.getZ() - (double)playerWidth, pos.getX() + (double)playerWidth, pos.getY() + height, pos.getZ() + (double)playerWidth));
         if (AutoSneak.INSTANCE.enabled && flag && !Settings.player.abilities.flying) {
             Settings.player.input.sneaking = true;
         }
