@@ -1,0 +1,289 @@
+package io.github.pranavgade20.fabrichax.automationhax;
+
+import io.github.pranavgade20.fabrichax.Settings;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CropBlock;
+import net.minecraft.block.NetherWartBlock;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
+import net.minecraft.util.math.MathHelper;
+
+public class AutoMiner extends AutomationBase {
+    public static int up = 3;
+    public static int down = 0;
+    public static int north = 2;
+    public static int south = 2;
+    public static int east = 2;
+    public static int west = 2;
+
+    public static int count = 0;
+
+    public static AutoMiner INSTANCE;
+    public AutoMiner() {
+        INSTANCE = this;
+    }
+
+    public String getHelpMessage() {
+        return "AutoMiner - automatically mine blocks around you\n" +
+                "\nConfiguration information:\n" +
+                " ~ config AutoMiner <direction> <size>\n" +
+                " (to configure shape to be built)\n" +
+                " where directions include 'up, down, north, south, east, west'\n" +
+                " for example, use `~ config AutoMiner left 2`\n" +
+                " to set this to plant 2 blocks to your left.";
+    }
+    @Override
+    public void config(String params) {
+        try {
+            String direction = params.split(" ")[1].toLowerCase();
+            int size = Integer.parseInt(params.split(" ")[2]);
+
+            switch (direction) {
+                case "up":
+                    up = size + 1;
+                    break;
+                case "down":
+                    down = size;
+                    break;
+                case "north":
+                    north = size;
+                    break;
+                case "south":
+                    south = size;
+                    break;
+                case "east":
+                    east = size;
+                    break;
+                case "west":
+                    west = size;
+                    break;
+                default:
+                    Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help AutoMiner) for more information."), false);
+                    return;
+            }
+            Settings.player.sendMessage(Text.of("~ config AutoMiner " + params), false);
+        } catch (Exception e) {
+            Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help AutoMiner) for more information."), false);
+        }
+    }
+
+    public Screen getConfigScreen(Screen parent, String name) {
+        return new Screen(Text.of(name)) {
+            @Override
+            public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                this.renderBackground(matrices);
+                drawCenteredText(matrices, this.textRenderer, getTitle(), this.width / 2, 10, 16777215);
+                super.render(matrices, mouseX, mouseY, delta);
+            }
+
+            @Override
+            public void onClose() {
+                MinecraftClient.getInstance().openScreen(parent);
+            }
+
+            @Override
+            protected void init() {
+                int x = 10;
+                int y = 30;
+                addButton(new TextFieldWidget(this.textRenderer, x, y, 100, 20, Text.of("Enabled")) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        enabled = !enabled;
+                        setMessage(Text.of(String.valueOf(enabled)));
+                    }
+                });
+                y+=25;
+
+                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Up")) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                final TextFieldWidget up = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AutoMiner.up))) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        AutoMiner.up = AutoMiner.up == 0 ? 0 : AutoMiner.up-1;
+                        up.setMessage(Text.of(String.valueOf(AutoMiner.up)));
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        AutoMiner.up = AutoMiner.up == 8 ? 8 : AutoMiner.up+1;
+                        up.setMessage(Text.of(String.valueOf(AutoMiner.up)));
+                    }
+                });
+                y+=25;
+
+                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Down")) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                final TextFieldWidget down = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AutoMiner.down))) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        AutoMiner.down = AutoMiner.down == 0 ? 0 : AutoMiner.down-1;
+                        down.setMessage(Text.of(String.valueOf(AutoMiner.down)));
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        AutoMiner.down = AutoMiner.down == 8 ? 8 : AutoMiner.down+1;
+                        down.setMessage(Text.of(String.valueOf(AutoMiner.down)));
+                    }
+                });
+                y+=25;
+
+                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("West")) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                final TextFieldWidget west = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AutoMiner.west))) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        AutoMiner.west = AutoMiner.west == 0 ? 0 : AutoMiner.west-1;
+                        west.setMessage(Text.of(String.valueOf(AutoMiner.west)));
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        AutoMiner.west = AutoMiner.west == 8 ? 8 : AutoMiner.west+1;
+                        west.setMessage(Text.of(String.valueOf(AutoMiner.west)));
+                    }
+                });
+                y+=25;
+
+                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("East")) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                final TextFieldWidget east = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AutoMiner.east))) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        AutoMiner.east = AutoMiner.east == 0 ? 0 : AutoMiner.east-1;
+                        east.setMessage(Text.of(String.valueOf(AutoMiner.east)));
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        AutoMiner.east = AutoMiner.east == 8 ? 8 : AutoMiner.east+1;
+                        east.setMessage(Text.of(String.valueOf(AutoMiner.east)));
+                    }
+                });
+                y+=25;
+
+                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("North")) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                final TextFieldWidget north = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AutoMiner.north))) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        AutoMiner.north = AutoMiner.north == 0 ? 0 : AutoMiner.north-1;
+                        north.setMessage(Text.of(String.valueOf(AutoMiner.north)));
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        AutoMiner.north = AutoMiner.north == 8 ? 8 : AutoMiner.north+1;
+                        north.setMessage(Text.of(String.valueOf(AutoMiner.north)));
+                    }
+                });
+                y+=25;
+
+                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("South")) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                final TextFieldWidget south = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AutoMiner.south))) {
+                    @Override
+                    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+                        int j = this.active ? 16777215 : 10526880;
+                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        AutoMiner.south = AutoMiner.south == 0 ? 0 : AutoMiner.south-1;
+                        south.setMessage(Text.of(String.valueOf(AutoMiner.south)));
+                    }
+                });
+                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        AutoMiner.south = AutoMiner.south == 8 ? 8 : AutoMiner.south+1;
+                        south.setMessage(Text.of(String.valueOf(AutoMiner.south)));
+                    }
+                });
+            }
+        };
+    }
+}
