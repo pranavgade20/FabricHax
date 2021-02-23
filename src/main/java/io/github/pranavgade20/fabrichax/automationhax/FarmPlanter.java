@@ -130,7 +130,7 @@ public class FarmPlanter extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget up = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(SpawnProofer.up))) {
+                final TextFieldWidget up = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(FarmPlanter.up))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
@@ -140,15 +140,15 @@ public class FarmPlanter extends AutomationBase {
                 addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.up = SpawnProofer.up == 0 ? 0 : SpawnProofer.up-1;
-                        up.setMessage(Text.of(String.valueOf(SpawnProofer.up)));
+                        FarmPlanter.up = FarmPlanter.up == 0 ? 0 : FarmPlanter.up-1;
+                        up.setMessage(Text.of(String.valueOf(FarmPlanter.up)));
                     }
                 });
                 addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.up = SpawnProofer.up == 8 ? 8 : SpawnProofer.up+1;
-                        up.setMessage(Text.of(String.valueOf(SpawnProofer.up)));
+                        FarmPlanter.up = FarmPlanter.up == 8 ? 8 : FarmPlanter.up+1;
+                        up.setMessage(Text.of(String.valueOf(FarmPlanter.up)));
                     }
                 });
                 y+=25;
@@ -160,7 +160,7 @@ public class FarmPlanter extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget down = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(SpawnProofer.down))) {
+                final TextFieldWidget down = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(FarmPlanter.down))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
@@ -170,15 +170,15 @@ public class FarmPlanter extends AutomationBase {
                 addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.down = SpawnProofer.down == 0 ? 0 : SpawnProofer.down-1;
-                        down.setMessage(Text.of(String.valueOf(SpawnProofer.down)));
+                        FarmPlanter.down = FarmPlanter.down == 0 ? 0 : FarmPlanter.down-1;
+                        down.setMessage(Text.of(String.valueOf(FarmPlanter.down)));
                     }
                 });
                 addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.down = SpawnProofer.down == 8 ? 8 : SpawnProofer.down+1;
-                        down.setMessage(Text.of(String.valueOf(SpawnProofer.down)));
+                        FarmPlanter.down = FarmPlanter.down == 8 ? 8 : FarmPlanter.down+1;
+                        down.setMessage(Text.of(String.valueOf(FarmPlanter.down)));
                     }
                 });
                 y+=25;
@@ -190,7 +190,7 @@ public class FarmPlanter extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget west = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(SpawnProofer.west))) {
+                final TextFieldWidget west = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(FarmPlanter.west))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
@@ -200,15 +200,15 @@ public class FarmPlanter extends AutomationBase {
                 addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.west = SpawnProofer.west == 0 ? 0 : SpawnProofer.west-1;
-                        west.setMessage(Text.of(String.valueOf(SpawnProofer.west)));
+                        FarmPlanter.west = FarmPlanter.west == 0 ? 0 : FarmPlanter.west-1;
+                        west.setMessage(Text.of(String.valueOf(FarmPlanter.west)));
                     }
                 });
                 addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.west = SpawnProofer.west == 8 ? 8 : SpawnProofer.west+1;
-                        west.setMessage(Text.of(String.valueOf(SpawnProofer.west)));
+                        FarmPlanter.west = FarmPlanter.west == 8 ? 8 : FarmPlanter.west+1;
+                        west.setMessage(Text.of(String.valueOf(FarmPlanter.west)));
                     }
                 });
                 y+=25;
@@ -220,7 +220,7 @@ public class FarmPlanter extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget east = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(SpawnProofer.east))) {
+                final TextFieldWidget east = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(FarmPlanter.east))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
@@ -230,15 +230,15 @@ public class FarmPlanter extends AutomationBase {
                 addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.east = SpawnProofer.east == 0 ? 0 : SpawnProofer.east-1;
-                        east.setMessage(Text.of(String.valueOf(SpawnProofer.east)));
+                        FarmPlanter.east = FarmPlanter.east == 0 ? 0 : FarmPlanter.east-1;
+                        east.setMessage(Text.of(String.valueOf(FarmPlanter.east)));
                     }
                 });
                 addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.east = SpawnProofer.east == 8 ? 8 : SpawnProofer.east+1;
-                        east.setMessage(Text.of(String.valueOf(SpawnProofer.east)));
+                        FarmPlanter.east = FarmPlanter.east == 8 ? 8 : FarmPlanter.east+1;
+                        east.setMessage(Text.of(String.valueOf(FarmPlanter.east)));
                     }
                 });
                 y+=25;
@@ -250,7 +250,7 @@ public class FarmPlanter extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget north = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(SpawnProofer.north))) {
+                final TextFieldWidget north = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(FarmPlanter.north))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
@@ -260,15 +260,15 @@ public class FarmPlanter extends AutomationBase {
                 addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.north = SpawnProofer.north == 0 ? 0 : SpawnProofer.north-1;
-                        north.setMessage(Text.of(String.valueOf(SpawnProofer.north)));
+                        FarmPlanter.north = FarmPlanter.north == 0 ? 0 : FarmPlanter.north-1;
+                        north.setMessage(Text.of(String.valueOf(FarmPlanter.north)));
                     }
                 });
                 addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.north = SpawnProofer.north == 8 ? 8 : SpawnProofer.north+1;
-                        north.setMessage(Text.of(String.valueOf(SpawnProofer.north)));
+                        FarmPlanter.north = FarmPlanter.north == 8 ? 8 : FarmPlanter.north+1;
+                        north.setMessage(Text.of(String.valueOf(FarmPlanter.north)));
                     }
                 });
                 y+=25;
@@ -280,7 +280,7 @@ public class FarmPlanter extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget south = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(SpawnProofer.south))) {
+                final TextFieldWidget south = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(FarmPlanter.south))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
@@ -290,15 +290,15 @@ public class FarmPlanter extends AutomationBase {
                 addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.south = SpawnProofer.south == 0 ? 0 : SpawnProofer.south-1;
-                        south.setMessage(Text.of(String.valueOf(SpawnProofer.south)));
+                        FarmPlanter.south = FarmPlanter.south == 0 ? 0 : FarmPlanter.south-1;
+                        south.setMessage(Text.of(String.valueOf(FarmPlanter.south)));
                     }
                 });
                 addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.south = SpawnProofer.south == 8 ? 8 : SpawnProofer.south+1;
-                        south.setMessage(Text.of(String.valueOf(SpawnProofer.south)));
+                        FarmPlanter.south = FarmPlanter.south == 8 ? 8 : FarmPlanter.south+1;
+                        south.setMessage(Text.of(String.valueOf(FarmPlanter.south)));
                     }
                 });
             }
