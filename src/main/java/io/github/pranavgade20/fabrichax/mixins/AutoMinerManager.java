@@ -19,11 +19,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class AutoMinerManager {
     @Inject(at = @At("RETURN"), method = "tick")
     public void tick(CallbackInfo ci) {
-        if (AutoMiner.count > 0) {
+        if (AutoMiner.count > 1) {
             AutoMiner.count--;
             return;
         }
-        AutoMiner.count = 1; // once every two ticks
+        AutoMiner.count = 2; // once every two ticks
         try {
             if (!Settings.world.isChunkLoaded(new BlockPos(Settings.player.getX(), 0.0D, Settings.player.getZ()))) {
                 return;
@@ -39,15 +39,10 @@ public class AutoMinerManager {
                         BlockPos blockPos = new BlockPos(Settings.player.getPos().add(x, y, z)); // gonna place on this
 
                         BlockState state = Settings.world.getBlockState(blockPos);
-                        if (!state.getBlock().is(Blocks.AIR) && !state.isToolRequired() || Settings.player.getMainHandStack().isEffectiveOn(state)) {
-                            BlockHitResult hitResult = new BlockHitResult(
-                                    Settings.player.getPos(),
-                                    Direction.UP,
-                                    blockPos,
-                                    false
-                            );
+                        if (Settings.player.getMainHandStack().getMiningSpeedMultiplier(state) != 1.0F) {
                             ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, blockPos, Direction.UP));
                             ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, blockPos, Direction.UP));
+                            Settings.world.setBlockBreakingInfo(Settings.player.getEntityId(), blockPos, 9);
                             AutoMiner.count = (int) Math.ceil(1/state.calcBlockBreakingDelta(Settings.player, Settings.world, blockPos));
                             return;
                         }
