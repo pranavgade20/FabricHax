@@ -1,6 +1,7 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
 import io.github.pranavgade20.fabrichax.Settings;
+import io.github.pranavgade20.fabrichax.Utils;
 import io.github.pranavgade20.fabrichax.automationhax.AutoMiner;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.block.BlockState;
@@ -10,6 +11,7 @@ import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -33,20 +35,16 @@ public class AutoMinerManager {
         }
 
         if (AutoMiner.INSTANCE.enabled) {
-            for (int y = -AutoMiner.down; y <= AutoMiner.up; y++) {
-                for (int x = -AutoMiner.west; x <= AutoMiner.east; x++) {
-                    for (int z = -AutoMiner.north; z <= AutoMiner.south; z++) {
-                        BlockPos blockPos = new BlockPos(Settings.player.getPos().add(x, y, z)); // gonna place on this
+            for (Vec3d delta : Utils.getPositions(AutoMiner.up, AutoMiner.down, AutoMiner.east, AutoMiner.west, AutoMiner.north, AutoMiner.south)) {
+                BlockPos blockPos = new BlockPos(Settings.player.getPos().add(delta)); // gonna place on this
 
-                        BlockState state = Settings.world.getBlockState(blockPos);
-                        if (Settings.player.getMainHandStack().getMiningSpeedMultiplier(state) != 1.0F) {
-                            ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, blockPos, Direction.UP));
-                            ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, blockPos, Direction.UP));
-                            Settings.world.setBlockBreakingInfo(Settings.player.getEntityId(), blockPos, 9);
-                            AutoMiner.count = (int) Math.ceil(1/state.calcBlockBreakingDelta(Settings.player, Settings.world, blockPos));
-                            return;
-                        }
-                    }
+                BlockState state = Settings.world.getBlockState(blockPos);
+                if (Settings.player.getMainHandStack().getMiningSpeedMultiplier(state) != 1.0F) {
+                    ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, blockPos, Direction.UP));
+                    ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, blockPos, Direction.UP));
+                    Settings.world.setBlockBreakingInfo(Settings.player.getEntityId(), blockPos, 9);
+                    AutoMiner.count = (int) Math.ceil(1/state.calcBlockBreakingDelta(Settings.player, Settings.world, blockPos));
+                    return;
                 }
             }
         }
