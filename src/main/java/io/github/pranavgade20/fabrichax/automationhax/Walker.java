@@ -9,6 +9,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.HashMap;
+
 public class Walker extends AutomationBase {
     public static double speed = 5;
 
@@ -32,18 +34,17 @@ public class Walker extends AutomationBase {
     }
 
     @Override
-    public String getArgs() {
-        return String.valueOf(speed);
+    public HashMap<String, String> getArgs() {
+        HashMap<String, String> ret = super.getArgs();
+        ret.put("speed", String.valueOf(speed));
+        return ret;
     }
 
     @Override
-    public void setArgs(String[] args) {
-        if (args.length < 1) return;
+    public void setArgs(HashMap<String, String> args) {
+        super.setArgs(args);
 
-        try {
-            speed = Integer.parseInt(args[0]);
-        } catch (Exception ignored) {
-        }
+        speed = Double.parseDouble(args.get("speed"));
     }
 
     @Override

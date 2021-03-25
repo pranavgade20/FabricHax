@@ -11,13 +11,10 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.text.Text;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Settings {
     public static HashMap<Integer, Hax<?>> toggles;
@@ -28,7 +25,7 @@ public class Settings {
     public static MinecraftClient client;
 
     static File file = new File(MinecraftClient.getInstance().runDirectory, "mods");
-    static File config = new File(file, "fabrichax.config");
+    static File config = new File(file, "fabrichax.cfg");
 
     public Settings() {
     }
@@ -41,13 +38,27 @@ public class Settings {
 
     public static void saveToggles() {
         try {
-            FileWriter writer = new FileWriter(config, false);
-            toggles.values().forEach((module) -> {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(config, false));
+            writer.write(toggles.size() + "\n");
+
+            toggles.values().forEach(module -> {
                 try {
-                    // config format is classname - t/f - newline
-                    writer.write(module.getModuleName() + " " + (module.isEnabled() ? "t" : "f") + "\n");
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    HashMap<String, String> args = module.getArgs();
+                    writer.write(module.getModuleName() + " " + args.size() + "\n");
+                    args.forEach((k, v) -> {
+                        char[] key = k.toCharArray();
+                        char[] val = v.toCharArray();
+                        try {
+                            writer.write(key.length); // this isn't in plaintext
+                            writer.write(key);
+                            writer.write(val.length);
+                            writer.write(val);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    writer.write("\n");
+                } catch (IOException ignored) {
                 }
             });
             writer.flush();
@@ -63,17 +74,36 @@ public class Settings {
         if (!config.exists()) saveToggles();
 
         try {
-            FileReader reader = new FileReader(config);
-            Scanner scanner = new Scanner(reader);
-            while (scanner.hasNext()) {
-                String[] data = scanner.nextLine().split(" ");
-                if (data.length < 2) continue;
-                toggles.values().forEach(module -> {
-                    if (data[0].equalsIgnoreCase(module.getModuleName())) {
-                        boolean enabled = data[1].charAt(0) == 't';
-                        if (enabled ^ module.isEnabled()) module.toggle();
-                    }
-                });
+            BufferedReader reader = new BufferedReader(new FileReader(config));
+
+            int s = Integer.parseInt(reader.readLine());
+            for (int i = 0; i < s; i++) {
+                String module;
+                int size;
+                HashMap<String, String> args = new HashMap<>();
+
+                String[] line = reader.readLine().split(" ");
+                module = line[0];
+                size = Integer.parseInt(line[1]);
+
+                for (int j = 0; j < size; j++) {
+                    int a = reader.read();
+                    char[] key = new char[a];
+                    reader.read(key);
+                    int b = reader.read();
+                    char[] val = new char[b];
+                    reader.read(val);
+
+                    args.put(String.copyValueOf(key), String.copyValueOf(val));
+                }
+
+                toggles.values().stream()
+                        .filter(m -> m.getModuleName().equals(module))
+                        .findAny()
+                        .orElse(null)
+                        .setArgs(args);
+
+                reader.read();
             }
 
             reader.close();
@@ -116,9 +146,5 @@ public class Settings {
         categories.add(Hax.of(RenderBase.class));
         categories.add(Hax.of(ClientBase.class));
         categories.add(Hax.of(TodoBase.class));
-    }
-
-    public static void  dbg(Object o) {
-        System.out.println(o);
     }
 }

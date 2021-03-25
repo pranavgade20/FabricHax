@@ -8,6 +8,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.HashMap;
+
 public class Base {
     public boolean enabled = false;
 
@@ -26,11 +28,13 @@ public class Base {
         return "Uh oh - this should not be happening. Please send me a bug report if you can :)";
     }
 
-    public String getArgs() {
-        return null;
+    public HashMap<String, String> getArgs() {
+        HashMap<String, String> ret = new HashMap<>();
+        ret.put("enabled", String.valueOf(enabled));
+        return ret;
     }
 
-    public void setArgs(String[] args) {}
+    public void setArgs(HashMap<String, String> args) { }
 
     public void config(String params) {
         Settings.player.sendMessage(Text.of("You cannot configure this module."),false);

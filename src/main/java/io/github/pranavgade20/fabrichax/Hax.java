@@ -3,6 +3,8 @@ package io.github.pranavgade20.fabrichax;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
+import java.util.HashMap;
+
 public class Hax<T extends Base> {
     private final T module;
 
@@ -57,5 +59,14 @@ public class Hax<T extends Base> {
 
     public T getModule() {
         return module;
+    }
+
+    public HashMap<String, String> getArgs() {
+        return module.getArgs();
+    }
+
+    public void setArgs(HashMap<String, String> args) {
+        if (Boolean.parseBoolean(args.get("enabled")) ^ isEnabled()) toggle();
+        module.setArgs(args);
     }
 }
