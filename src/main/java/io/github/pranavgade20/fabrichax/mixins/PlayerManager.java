@@ -19,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class PlayerManager {
     @Inject(at = @At("RETURN"), method = "onGameJoin")
     public void setPlayer(GameJoinS2CPacket p, CallbackInfo ci) {
+        if (Settings.player != null) Settings.saveToggles();
         Settings.player = MinecraftClient.getInstance().player;
         Settings.world = MinecraftClient.getInstance().world;
 
@@ -51,6 +52,7 @@ public class PlayerManager {
 
     @Inject(at = @At("RETURN"), method = "onPlayerRespawn")
     public void setPlayer(PlayerRespawnS2CPacket p, CallbackInfo ci) {
+        if (Settings.player != null) Settings.saveToggles();
         Settings.player = MinecraftClient.getInstance().player;
         Settings.world = MinecraftClient.getInstance().world;
 

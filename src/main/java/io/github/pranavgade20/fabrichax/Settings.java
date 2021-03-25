@@ -60,7 +60,6 @@ public class Settings {
     }
 
     public static void loadToggles() {
-        System.out.println("------------------------Loading");
         if (!config.exists()) saveToggles();
 
         try {

@@ -1,6 +1,5 @@
 package io.github.pranavgade20.fabrichax;
 
-import io.github.pranavgade20.fabrichax.automationhax.AutoMiner;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.Comparator;
@@ -32,7 +31,7 @@ public class Utils {
                 }
             }
         }
-        Vec3d origin = new Vec3d(0, 0, 0);
+        Vec3d origin = new Vec3d(0, 1, 0);
         ret.sort(Comparator.comparingDouble(a -> a.distanceTo(origin)));
         positionsCache.put(hash, ret);
         return positionsCache.get(hash);

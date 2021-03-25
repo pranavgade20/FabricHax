@@ -32,6 +32,21 @@ public class Walker extends AutomationBase {
     }
 
     @Override
+    public String getArgs() {
+        return String.valueOf(speed);
+    }
+
+    @Override
+    public void setArgs(String[] args) {
+        if (args.length < 1) return;
+
+        try {
+            speed = Integer.parseInt(args[0]);
+        } catch (Exception ignored) {
+        }
+    }
+
+    @Override
     public void config(String params) {
         try {
             String parameter = params.split(" ")[1].toLowerCase();

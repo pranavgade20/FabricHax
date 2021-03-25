@@ -26,6 +26,12 @@ public class Base {
         return "Uh oh - this should not be happening. Please send me a bug report if you can :)";
     }
 
+    public String getArgs() {
+        return null;
+    }
+
+    public void setArgs(String[] args) {}
+
     public void config(String params) {
         Settings.player.sendMessage(Text.of("You cannot configure this module."),false);
     }
