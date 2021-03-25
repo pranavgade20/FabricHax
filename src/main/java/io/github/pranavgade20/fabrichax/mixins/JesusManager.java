@@ -2,7 +2,6 @@ package io.github.pranavgade20.fabrichax.mixins;
 
 import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.clienthax.Jesus;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.input.KeyboardInput;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,14 +18,12 @@ public class JesusManager {
         int nearbyWater = 0;
         for (int x = -1; x <= 1; x++) {
             for (int z = -1; z <= 1; z++) {
-                if (Settings.world.getBlockState(new BlockPos(Settings.player.getPos().add(x, 0, z))).isOf(Blocks.WATER)) {
-                    nearbyWater++;
-                }
-                if (Settings.world.getBlockState(new BlockPos(Settings.player.getPos().add(x, 0, z))).isOf(Blocks.LAVA)) {
+                if (!Settings.world.getBlockState(new BlockPos(Settings.player.getPos())).getFluidState().isEmpty()) {
                     nearbyWater++;
                 }
             }
         }
+        System.out.println();
 
         if (nearbyWater == 9) {
             Settings.player.abilities.flying = true;

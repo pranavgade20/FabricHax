@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Utils {
-    
     public static HashMap<Integer, List<Vec3d>> positionsCache = new HashMap<>();
+
     public static List<Vec3d> getPositions(int up, int down, int east, int west, int north, int south) {
         Integer hash = up;
         hash *= 40;
