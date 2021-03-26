@@ -15,17 +15,9 @@ public class JesusManager {
     private void tick(boolean slowDown, CallbackInfo ci) {
         if (!Jesus.INSTANCE.enabled) return;
 
-        int nearbyWater = 0;
-        for (int x = -1; x <= 1; x++) {
-            for (int z = -1; z <= 1; z++) {
-                if (!Settings.world.getBlockState(new BlockPos(Settings.player.getPos())).getFluidState().isEmpty()) {
-                    nearbyWater++;
-                }
-            }
-        }
-        System.out.println();
-
-        if (nearbyWater == 9) {
+        //TODO get player bounding box and check all corners
+        if (!Settings.world.getBlockState(new BlockPos(Settings.player.getPos())).getFluidState().isEmpty() ||
+                !Settings.world.getBlockState(new BlockPos(Settings.player.getPos().add(0, 1, 0))).getFluidState().isEmpty()) {
             Settings.player.abilities.flying = true;
             Jesus.flyLock = true;
         } else if (Jesus.flyLock) {
