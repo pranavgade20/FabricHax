@@ -15,6 +15,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.HashMap;
+
 public class Builder extends AutomationBase {
     public static int left = 2;
     public static int right = 2;
@@ -83,6 +85,22 @@ public class Builder extends AutomationBase {
                 " where directions include 'left, right'\n" +
                 " for example, use `~ config Builder left 2`\n" +
                 " to set this to place 2 blocks to the left of your placed block.";
+    }
+
+    @Override
+    public HashMap<String, String> getArgs() {
+        HashMap<String, String> ret = super.getArgs();
+        ret.put("left", String.valueOf(left));
+        ret.put("right", String.valueOf(right));
+        return ret;
+    }
+
+    @Override
+    public void setArgs(HashMap<String, String> args) {
+        super.setArgs(args);
+
+        left = Integer.parseInt(args.get("left"));
+        right = Integer.parseInt(args.get("right"));
     }
 
     @Override

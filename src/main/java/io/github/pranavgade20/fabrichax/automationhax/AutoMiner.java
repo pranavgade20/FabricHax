@@ -1,9 +1,6 @@
 package io.github.pranavgade20.fabrichax.automationhax;
 
 import io.github.pranavgade20.fabrichax.Settings;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CropBlock;
-import net.minecraft.block.NetherWartBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
@@ -11,6 +8,8 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
+
+import java.util.HashMap;
 
 public class AutoMiner extends AutomationBase {
     public static int up = 3;
@@ -36,6 +35,31 @@ public class AutoMiner extends AutomationBase {
                 " for example, use `~ config AutoMiner left 2`\n" +
                 " to set this to plant 2 blocks to your left.";
     }
+
+    @Override
+    public HashMap<String, String> getArgs() {
+        HashMap<String, String> ret = super.getArgs();
+        ret.put("up", String.valueOf(up));
+        ret.put("down", String.valueOf(down));
+        ret.put("north", String.valueOf(north));
+        ret.put("south", String.valueOf(south));
+        ret.put("east", String.valueOf(east));
+        ret.put("west", String.valueOf(west));
+        return ret;
+    }
+
+    @Override
+    public void setArgs(HashMap<String, String> args) {
+        super.setArgs(args);
+
+        up = Integer.parseInt(args.get("up"));
+        down = Integer.parseInt(args.get("down"));
+        north = Integer.parseInt(args.get("north"));
+        south = Integer.parseInt(args.get("south"));
+        east = Integer.parseInt(args.get("east"));
+        west = Integer.parseInt(args.get("west"));
+    }
+
     @Override
     public void config(String params) {
         try {

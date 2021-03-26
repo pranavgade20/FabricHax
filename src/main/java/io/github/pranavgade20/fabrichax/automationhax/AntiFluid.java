@@ -9,6 +9,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.HashMap;
+
 public class AntiFluid extends AutomationBase {
     public static int up = 3;
     public static int down = 2;
@@ -29,6 +31,30 @@ public class AntiFluid extends AutomationBase {
                 " where directions include 'up, down, north, south, east, west'\n" +
                 " for example, use `~ config AntiFluid up 2`\n" +
                 " to set this to fill 2 blocks above you.";
+    }
+
+    @Override
+    public HashMap<String, String> getArgs() {
+        HashMap<String, String> ret = super.getArgs();
+        ret.put("up", String.valueOf(up));
+        ret.put("down", String.valueOf(down));
+        ret.put("north", String.valueOf(north));
+        ret.put("south", String.valueOf(south));
+        ret.put("east", String.valueOf(east));
+        ret.put("west", String.valueOf(west));
+        return ret;
+    }
+
+    @Override
+    public void setArgs(HashMap<String, String> args) {
+        super.setArgs(args);
+
+        up = Integer.parseInt(args.get("up"));
+        down = Integer.parseInt(args.get("down"));
+        north = Integer.parseInt(args.get("north"));
+        south = Integer.parseInt(args.get("south"));
+        east = Integer.parseInt(args.get("east"));
+        west = Integer.parseInt(args.get("west"));
     }
 
     @Override

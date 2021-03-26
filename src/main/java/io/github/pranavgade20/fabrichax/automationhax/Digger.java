@@ -18,6 +18,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+import java.util.HashMap;
+
 public class Digger extends AutomationBase {
     public static int up = 3;
     public static int down = 1;
@@ -90,6 +92,26 @@ public class Digger extends AutomationBase {
                 " to set this to mine 2 blocks to the left of your selected block.\n" +
                 " \n" +
                 " note: if you are kicked, try selecting a lower number for dig size";
+    }
+
+    @Override
+    public HashMap<String, String> getArgs() {
+        HashMap<String, String> ret = super.getArgs();
+        ret.put("up", String.valueOf(up));
+        ret.put("down", String.valueOf(down));
+        ret.put("left", String.valueOf(left));
+        ret.put("right", String.valueOf(right));
+        return ret;
+    }
+
+    @Override
+    public void setArgs(HashMap<String, String> args) {
+        super.setArgs(args);
+
+        up = Integer.parseInt(args.get("up"));
+        down = Integer.parseInt(args.get("down"));
+        left = Integer.parseInt(args.get("left"));
+        right = Integer.parseInt(args.get("right"));
     }
 
     @Override
