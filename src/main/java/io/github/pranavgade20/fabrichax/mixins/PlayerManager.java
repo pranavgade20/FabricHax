@@ -4,6 +4,7 @@ import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.clienthax.Effects;
 import io.github.pranavgade20.fabrichax.clienthax.ElytraFly;
 import io.github.pranavgade20.fabrichax.clienthax.Fly;
+import io.github.pranavgade20.fabrichax.renderhax.FreeCam;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
@@ -34,6 +35,10 @@ public class PlayerManager {
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
+
+        if (FreeCam.INSTANCE.enabled) {
+            FreeCam.INSTANCE.enabled = false;
+        }
     }
 
     @Inject(at = @At("RETURN"), method = "onDisconnect")
@@ -67,5 +72,9 @@ public class PlayerManager {
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
+
+        if (FreeCam.INSTANCE.enabled) {
+            FreeCam.INSTANCE.enabled = false;
+        }
     }
 }

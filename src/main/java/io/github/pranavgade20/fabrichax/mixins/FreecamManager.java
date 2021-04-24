@@ -18,15 +18,14 @@ public class FreecamManager {
 
     @Inject(at = @At("HEAD"), method = "sendMovementPackets", cancellable = true)
     void sendMovementPackets(CallbackInfo ci) {
-        if (FreeCam.INSTANCE.enabled) {
-            Settings.player.setBoundingBox(new Box(Settings.player.getPos(), Settings.player.getPos()));
-            ci.cancel();
-        }
+        if (FreeCam.INSTANCE.enabled) ci.cancel();
     }
 
     @Inject(at = @At("HEAD"), method = "tick")
     void tick(CallbackInfo ci) {
-        if (FreeCam.INSTANCE.enabled)
+        if (FreeCam.INSTANCE.enabled) {
             Settings.player.setBoundingBox(new Box(Settings.player.getPos(), Settings.player.getPos()));
+            Settings.player.abilities.flying = true;
+        }
     }
 }
