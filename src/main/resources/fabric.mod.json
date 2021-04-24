@@ -24,7 +24,8 @@
   },
   "mixins": [
     "mixins.json",
-    "mixins.render.json"
+    "mixins.render.json",
+    "mixins.scripting.json"
   ],
 
   "depends": {

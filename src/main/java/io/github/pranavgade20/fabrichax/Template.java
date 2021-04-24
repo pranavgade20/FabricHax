@@ -6,6 +6,6 @@ public class Template extends Base{
         INSTANCE = this;
         enabled = true; // enabled by default
     }
-// Override getHelpMessage() and getToolTip()
+    // Override getHelpMessage() and getToolTip()
     // Override config() and toggle() if you wanna
 }
