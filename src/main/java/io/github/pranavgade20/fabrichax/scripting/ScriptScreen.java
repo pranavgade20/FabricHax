@@ -35,9 +35,9 @@ public class ScriptScreen extends Screen {
 
         if (tickCounter / 6 % 2 == 0) {
             int cursor_x = this.textRenderer.getWidth(scriptBase.getScript().get(cursor.getRight()).substring(0, cursor.getLeft())) + SCRIPT_X_OFFSET;
-            int cursor_y = cursor.getRight() * LINE_HEIGHT + SCRIPT_Y_OFFSET + LINE_HEIGHT;
+            int cursor_y = cursor.getRight() * LINE_HEIGHT + SCRIPT_Y_OFFSET;
 
-            DrawableHelper.fill(matrices, cursor_x, cursor_y, cursor_x + 1, cursor_y - 9, 0xFFEEEEEE);
+            DrawableHelper.fill(matrices, cursor_x, cursor_y, cursor_x + 1, cursor_y + 9, 0xFFEEEEEE);
         }
         super.render(matrices, mouseX, mouseY, delta);
     }
