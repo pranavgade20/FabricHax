@@ -14,7 +14,7 @@ public class PlayerTick {
     @Inject(at = @At("HEAD"), method = "tick")
     void tick(CallbackInfo ci) {
         try {
-            TestScript.tick();
+            TestScript.INSTANCE.tick();
         } catch (ScriptException e) {
             e.printStackTrace();
         }

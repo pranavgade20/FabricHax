@@ -45,7 +45,7 @@ public class MainScreen extends Screen {
         int x = 10;
         int y = 30;
         for (Hax<?> category : Settings.categories) {
-            int width = this.textRenderer.getWidth(category.getModuleName().replace("ScriptBase", "")) + 10;
+            int width = this.textRenderer.getWidth(category.getModuleName().replace("Base", "")) + 10;
             if (x + width > this.width) {
                 x = 10;
                 y += 25;

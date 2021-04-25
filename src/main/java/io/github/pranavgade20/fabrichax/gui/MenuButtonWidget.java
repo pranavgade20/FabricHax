@@ -11,7 +11,7 @@ public class MenuButtonWidget extends AbstractButtonWidget {
     Hax<? extends Base> module;
 
     public MenuButtonWidget(int x, int y, int width, int height, Hax<? extends Base> module) {
-        super(x, y, width, height, Text.of(module.getModuleName().replace("ScriptBase", "")));
+        super(x, y, width, height, Text.of(module.getModuleName().replace("Base", "")));
         this.module = module;
     }
 
