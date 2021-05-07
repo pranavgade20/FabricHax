@@ -71,4 +71,4 @@ This project is actively under development, we appreciate every bit of help :)
 		* We are constantly looking for new ideas to add to this repository. If you think of a module that could be useful, [create an issue](https://github.com/pranavgade20/FabricHax/issues/new). Thoroughly describe what the module should do, and why it could be helpful.
 
 #### P.S.
-This will not give you a "hacked" client. This project simply for automation and making repetitive tasks easier. This project does not, and never will, include any traditional hacks that, for example, make you better at pvp etc.
+This will not give you a "hacked" client. This project simply for automation and making repetitive tasks easier. This project does not, and never will, include any traditional 'hacks' that, for example, make you better at pvp etc. And it goes without saying that, make sure you have permissions before you use this.
