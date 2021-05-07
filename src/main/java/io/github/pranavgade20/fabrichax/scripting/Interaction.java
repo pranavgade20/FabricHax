@@ -14,6 +14,7 @@ public class Interaction {
     }
 
     static void addChat(Object o) {
+        if (Settings.player == null) return;
         Settings.player.sendMessage(Text.of(String.valueOf(o)), false);
     }
 }

@@ -19,11 +19,11 @@ public class TestScript extends ScriptBase {
     }
 
     LinkedList<String> script = Arrays.stream(("function setup(player, world, interaction) {\n" +
-            "player, world, interaction\n" +
+            "\n" +
             "}\n" +
             "\n" +
             "function tick(player, world, interaction) {\n" +
-            "print(player.getPos().x);\n" +
+            "    print(player.getPos().x);\n" +
             "}\n").split("\n")).collect(Collectors.toCollection(LinkedList::new));
     ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
 
@@ -32,7 +32,7 @@ public class TestScript extends ScriptBase {
         if (!enabled) {
             try {
                 engine.eval(script.stream().reduce((a, b) -> a+b).get());
-                ((Invocable)(engine)).invokeFunction("setup", Settings.player, Settings.world);
+                ((Invocable)(engine)).invokeFunction("setup", Settings.player, Settings.world, Interaction.INSTANCE);
             } catch (ScriptException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
@@ -44,7 +44,7 @@ public class TestScript extends ScriptBase {
     public void tick() throws ScriptException {
         if (!INSTANCE.enabled) return;
         try {
-            ((Invocable)(engine)).invokeFunction("tick", Settings.player, Settings.world);
+            ((Invocable)(engine)).invokeFunction("tick", Settings.player, Settings.world, Interaction.INSTANCE);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
