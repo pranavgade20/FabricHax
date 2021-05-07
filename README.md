@@ -1,6 +1,6 @@
 
 # FabricHax
-A collection of Minecraft hacks to automate repetitive stuff and make your life easier.
+A collection of Minecraft life hacks to automate repetitive stuff and make your life easier.
 
 ## Installation
 Go to https://github.com/pranavgade20/FabricHax/releases and grab the latest jar asset. Drop it into a folder named mods in your default minecraft directory. You need to install https://fabricmc.net/ before this.  
@@ -68,4 +68,7 @@ This project is actively under development, we appreciate every bit of help :)
 		* If you know how to build GitHub Actions pipelines, we could use some help building a pipeline that creates a new release every time the file gradle.properties is changed(if it is even possible)
 
 	* Others
-		* We are constantly looking for new ideas to add to this repository. If you think of a module that could be useful, [create an issue](https://github.com/pranavgade20/FabricHax/issues/new). Thoroughly describe what the module should do, and why it could be helpful. 
+		* We are constantly looking for new ideas to add to this repository. If you think of a module that could be useful, [create an issue](https://github.com/pranavgade20/FabricHax/issues/new). Thoroughly describe what the module should do, and why it could be helpful.
+
+#### P.S.
+This will not give you a "hacked" client. These are simply for automation and making repetitive tasks easier. This project does not, and never will, include any traditional hacks that, for example, make you better at pvp etc.
