@@ -17,11 +17,11 @@ public class ScriptScreen extends Screen {
     ScriptBase scriptBase;
 
     class Pair<A, B> {
-        public A left;
-        public B right;
-        public Pair(A left, B right) {
-            this.left = left;
-            this.right = right;
+        public A x;
+        public B y;
+        public Pair(A x, B y) {
+            this.x = x;
+            this.y = y;
         }
     }
     Pair<Integer, Integer> cursor = new Pair<>(0, 0);
@@ -43,8 +43,8 @@ public class ScriptScreen extends Screen {
         }
 
         if (tickCounter / 6 % 2 == 0) {
-            int cursor_x = this.textRenderer.getWidth(scriptBase.getScript().get(cursor.right).substring(0, cursor.left)) + SCRIPT_X_OFFSET;
-            int cursor_y = cursor.right * LINE_HEIGHT + SCRIPT_Y_OFFSET;
+            int cursor_x = this.textRenderer.getWidth(scriptBase.getScript().get(cursor.y).substring(0, cursor.x)) + SCRIPT_X_OFFSET;
+            int cursor_y = cursor.y * LINE_HEIGHT + SCRIPT_Y_OFFSET;
 
             DrawableHelper.fill(matrices, cursor_x, cursor_y, cursor_x + 1, cursor_y + 9, 0xFFEEEEEE);
         }
@@ -70,39 +70,38 @@ public class ScriptScreen extends Screen {
 
     void backspace() {
         LinkedList<String> script = scriptBase.getScript();
-        String t = script.remove(cursor.left.intValue());
+        String t = script.remove(cursor.x.intValue());
 
-        script.add(cursor.left, t.substring(0, cursor.right-1) + t.substring(cursor.right));
-        cursor.right--;
+        script.add(cursor.x, t.substring(0, cursor.y -1) + t.substring(cursor.y));
+        cursor.y--;
     }
     void delete() {
         LinkedList<String> script = scriptBase.getScript();
-        String t = script.remove(cursor.left.intValue());
+        String t = script.remove(cursor.x.intValue());
 
-        script.add(cursor.left, t.substring(0, cursor.right) + t.substring(cursor.right+1));
+        script.add(cursor.x, t.substring(0, cursor.y) + t.substring(cursor.y +1));
     }
     void insertChar(char ch) {
         LinkedList<String> script = scriptBase.getScript();
-        String t = script.remove(cursor.left.intValue());
+        String t = script.remove(cursor.x.intValue());
         if (ch == '\n') {
-            script.add(cursor.left, t.substring(0, cursor.right) + "\n");
-            cursor.left++;
-            script.add(cursor.left, t.substring(cursor.right));
-            cursor.right = 0;
+            script.add(cursor.x, t.substring(0, cursor.y) + "\n");
+            cursor.x++;
+            script.add(cursor.x, t.substring(cursor.y));
+            cursor.y = 0;
         } else {
-            script.add(cursor.left, t.substring(0, cursor.right) + ch + t.substring(cursor.right));
-            cursor.right++;
+            script.add(cursor.x, t.substring(0, cursor.y) + ch + t.substring(cursor.y));
+            cursor.y++;
         }
     }
-    void moveCursorVertically(int d, boolean isShiftDown) {
-        cursor.left += d;
-        cursor.left = Math.min(cursor.left, scriptBase.script.size());
-        cursor.left = Math.max(cursor.left, 0);
+    void moveCursorHorizontally(int d) {
+        cursor.x = Math.max(0, cursor.x+d);
+        cursor.x = Math.min(cursor.x, scriptBase.getScript().get(cursor.y).length());
     }
-    void moveCursorHorizontally(int d, boolean isShiftDown) {
-        cursor.right += d;
-        cursor.right = Math.min(cursor.right, scriptBase.script.get(cursor.right.intValue()).length());
-        cursor.right = Math.max(cursor.right, 0);
+    void moveCursorVertically(int d) {
+        cursor.y = Math.max(cursor.y+d, 0);
+        cursor.y = Math.min(cursor.y, scriptBase.getScript().size());
+        cursor.x = Math.min(cursor.x, scriptBase.getScript().get(cursor.y).length());
     }
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
@@ -119,17 +118,17 @@ public class ScriptScreen extends Screen {
             case 261:
                 this.delete();
                 return true;
-            case 262:
-                this.moveCursorHorizontally(1, Screen.hasShiftDown());
-                return true;
-            case 263:
-                this.moveCursorHorizontally(-1, Screen.hasShiftDown());
+            case 265:
+                this.moveCursorVertically(-1);
                 return true;
             case 264:
-                this.moveCursorVertically(-1, Screen.hasShiftDown());
+                this.moveCursorVertically(1);
                 return true;
-            case 265:
-                this.moveCursorVertically(1, Screen.hasShiftDown());
+            case 263:
+                this.moveCursorHorizontally(-1);
+                return true;
+            case 262:
+                this.moveCursorHorizontally(1);
                 return true;
 //            case 266:
 //                this.previousPageButton.onPress();
