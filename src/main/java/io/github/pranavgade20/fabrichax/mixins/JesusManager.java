@@ -18,10 +18,10 @@ public class JesusManager {
         //TODO get player bounding box and check all corners
         if (!Settings.world.getBlockState(new BlockPos(Settings.player.getPos())).getFluidState().isEmpty() ||
                 !Settings.world.getBlockState(new BlockPos(Settings.player.getPos().add(0, 1, 0))).getFluidState().isEmpty()) {
-            Settings.player.abilities.flying = true;
+            Settings.player.getAbilities().flying = true;
             Jesus.flyLock = true;
         } else if (Jesus.flyLock) {
-            Settings.player.abilities.flying = false;
+            Settings.player.getAbilities().flying = false;
             Jesus.flyLock = false;
         }
     }

@@ -30,7 +30,7 @@ public class FlyManager {
             ItemStack itemStack = Settings.player.getEquippedStack(EquipmentSlot.CHEST);
             if (itemStack.getItem() != Items.ELYTRA || !ElytraItem.isUsable(itemStack)) {
                 MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Could not start ElytraHax. Check your elytra."), Settings.player.getUuid());
-                Settings.player.abilities.flying = false;
+                Settings.player.getAbilities().flying = false;
                 return;
             }
             ClientSidePacketRegistry.INSTANCE.sendToServer(new ClientCommandC2SPacket(Settings.player, ClientCommandC2SPacket.Mode.START_FALL_FLYING));

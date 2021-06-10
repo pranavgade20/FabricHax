@@ -25,7 +25,7 @@ public class FreecamManager {
     void tick(CallbackInfo ci) {
         if (FreeCam.INSTANCE.enabled) {
             Settings.player.setBoundingBox(new Box(Settings.player.getPos(), Settings.player.getPos()));
-            Settings.player.abilities.flying = true;
+            Settings.player.getAbilities().flying = true;
         }
     }
 }

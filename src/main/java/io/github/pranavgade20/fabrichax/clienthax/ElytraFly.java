@@ -24,13 +24,13 @@ public class ElytraFly extends ClientBase {
         }
 
         if (enabled) {
-            Settings.player.abilities.flying = false;
-            Settings.player.abilities.allowFlying = Fly.INSTANCE.enabled;
+            Settings.player.getAbilities().flying = false;
+            Settings.player.getAbilities().allowFlying = Fly.INSTANCE.enabled;
         } else {
             ClientSidePacketRegistry.INSTANCE.sendToServer(new ClientCommandC2SPacket(Settings.player, ClientCommandC2SPacket.Mode.START_FALL_FLYING));
 
-            Settings.player.abilities.flying = true;
-            Settings.player.abilities.allowFlying = true;
+            Settings.player.getAbilities().flying = true;
+            Settings.player.getAbilities().allowFlying = true;
         }
         return super.toggle();
     }

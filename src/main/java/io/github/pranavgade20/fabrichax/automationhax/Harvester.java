@@ -6,6 +6,7 @@ import net.minecraft.block.CropBlock;
 import net.minecraft.block.NetherWartBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
@@ -124,14 +125,15 @@ public class Harvester extends AutomationBase {
             protected void init() {
                 int x = 10;
                 int y = 30;
-                addButton(new TextFieldWidget(this.textRenderer, x, y, 100, 20, Text.of("Enabled")) {
+                addDrawableChild(new TextFieldWidget(this.textRenderer, x, y, 100, 20, Text.of("Enabled")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
+                addDrawableChild(new ClickableWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         enabled = !enabled;
@@ -140,28 +142,30 @@ public class Harvester extends AutomationBase {
                 });
                 y+=25;
 
-                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Up")) {
+                addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Up")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget up = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Harvester.up))) {
+                final TextFieldWidget up = addDrawableChild(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Harvester.up))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                addDrawableChild(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.up = Harvester.up == 0 ? 0 : Harvester.up-1;
                         up.setMessage(Text.of(String.valueOf(Harvester.up)));
                     }
                 });
-                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addDrawableChild(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.up = Harvester.up == 8 ? 8 : Harvester.up+1;
@@ -170,28 +174,32 @@ public class Harvester extends AutomationBase {
                 });
                 y+=25;
 
-                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Down")) {
+                addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Down")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget down = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Harvester.down))) {
+                final TextFieldWidget down = addDrawableChild(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Harvester.down))) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                addDrawableChild(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.down = Harvester.down == 0 ? 0 : Harvester.down-1;
                         down.setMessage(Text.of(String.valueOf(Harvester.down)));
                     }
                 });
-                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addDrawableChild(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.down = Harvester.down == 8 ? 8 : Harvester.down+1;
@@ -200,28 +208,30 @@ public class Harvester extends AutomationBase {
                 });
                 y+=25;
 
-                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("West")) {
+                addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("West")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget west = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Harvester.west))) {
+                final TextFieldWidget west = addDrawableChild(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Harvester.west))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                addDrawableChild(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.west = Harvester.west == 0 ? 0 : Harvester.west-1;
                         west.setMessage(Text.of(String.valueOf(Harvester.west)));
                     }
                 });
-                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addDrawableChild(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.west = Harvester.west == 8 ? 8 : Harvester.west+1;
@@ -230,28 +240,30 @@ public class Harvester extends AutomationBase {
                 });
                 y+=25;
 
-                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("East")) {
+                addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("East")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget east = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Harvester.east))) {
+                final TextFieldWidget east = addDrawableChild(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Harvester.east))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                addDrawableChild(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.east = Harvester.east == 0 ? 0 : Harvester.east-1;
                         east.setMessage(Text.of(String.valueOf(Harvester.east)));
                     }
                 });
-                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addDrawableChild(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.east = Harvester.east == 8 ? 8 : Harvester.east+1;
@@ -260,28 +272,32 @@ public class Harvester extends AutomationBase {
                 });
                 y+=25;
 
-                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("North")) {
+                addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("North")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget north = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Harvester.north))) {
+                final TextFieldWidget north = addDrawableChild(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Harvester.north))) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                addDrawableChild(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.north = Harvester.north == 0 ? 0 : Harvester.north-1;
                         north.setMessage(Text.of(String.valueOf(Harvester.north)));
                     }
                 });
-                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addDrawableChild(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.north = Harvester.north == 8 ? 8 : Harvester.north+1;
@@ -290,28 +306,30 @@ public class Harvester extends AutomationBase {
                 });
                 y+=25;
 
-                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("South")) {
+                addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("South")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget south = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Harvester.south))) {
+                final TextFieldWidget south = addDrawableChild(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(Harvester.south))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                addDrawableChild(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.south = Harvester.south == 0 ? 0 : Harvester.south-1;
                         south.setMessage(Text.of(String.valueOf(Harvester.south)));
                     }
                 });
-                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addDrawableChild(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.south = Harvester.south == 8 ? 8 : Harvester.south+1;

@@ -2,6 +2,7 @@ package io.github.pranavgade20.fabrichax;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
@@ -58,20 +59,17 @@ public class Base {
             protected void init() {
                 int x = 10;
                 int y = 30;
-                addButton(new TextFieldWidget(this.textRenderer, x, y, 100, 20, Text.of("Enabled")) {
+                addDrawableChild(new TextFieldWidget(this.textRenderer, x, y, 100, 20, Text.of("Enabled")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        enabled = !enabled;
-                        setMessage(Text.of(String.valueOf(enabled)));
-                    }
-                });
+                addDrawableChild(new ButtonWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled)), (button) -> {
+                    enabled = !enabled;
+                    button.setMessage(Text.of(String.valueOf(enabled)));
+                }));
             }
         };
     }

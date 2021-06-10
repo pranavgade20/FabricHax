@@ -31,7 +31,7 @@ public class PlayerManager {
 
         if (Fly.INSTANCE.enabled || ElytraFly.INSTANCE.enabled)
             try {
-                Settings.player.abilities.allowFlying = true;
+                Settings.player.getAbilities().allowFlying = true;
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
@@ -68,7 +68,7 @@ public class PlayerManager {
 
         if (Fly.INSTANCE.enabled || ElytraFly.INSTANCE.enabled)
             try {
-                Settings.player.abilities.allowFlying = true;
+                Settings.player.getAbilities().allowFlying = true;
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }

@@ -2,6 +2,7 @@ package io.github.pranavgade20.fabrichax.gui;
 
 import io.github.pranavgade20.fabrichax.Base;
 import io.github.pranavgade20.fabrichax.Hax;
+import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -25,5 +26,10 @@ public class ToggleButtonWidget extends ClickableWidget {
         super.render(matrices, mouseX, mouseY, delta);
         if (isHovered()) MainScreen.tooltip = Text.of(module.getToolTip());
         else MainScreen.tooltip = null;
+    }
+
+    @Override
+    public void appendNarrations(NarrationMessageBuilder builder) {
+
     }
 }

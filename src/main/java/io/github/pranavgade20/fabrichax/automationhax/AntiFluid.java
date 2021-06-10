@@ -3,6 +3,7 @@ package io.github.pranavgade20.fabrichax.automationhax;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
@@ -111,14 +112,15 @@ public class AntiFluid extends AutomationBase {
             protected void init() {
                 int x = 10;
                 int y = 30;
-                addButton(new TextFieldWidget(this.textRenderer, x, y, 100, 20, Text.of("Enabled")) {
+                addDrawableChild(new TextFieldWidget(this.textRenderer, x, y, 100, 20, Text.of("Enabled")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
+                addDrawableChild(new ClickableWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         enabled = !enabled;
@@ -127,28 +129,30 @@ public class AntiFluid extends AutomationBase {
                 });
                 y+=25;
 
-                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Up")) {
+                addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Up")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget up = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AntiFluid.up))) {
+                final TextFieldWidget up = addDrawableChild(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AntiFluid.up))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                addDrawableChild(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.up = AntiFluid.up == 0 ? 0 : AntiFluid.up-1;
                         up.setMessage(Text.of(String.valueOf(AntiFluid.up)));
                     }
                 });
-                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addDrawableChild(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.up = AntiFluid.up == 8 ? 8 : AntiFluid.up+1;
@@ -157,28 +161,30 @@ public class AntiFluid extends AutomationBase {
                 });
                 y+=25;
 
-                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Down")) {
+                addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Down")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget down = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AntiFluid.down))) {
+                final TextFieldWidget down = addDrawableChild(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AntiFluid.down))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                addDrawableChild(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.down = AntiFluid.down == 0 ? 0 : AntiFluid.down-1;
                         down.setMessage(Text.of(String.valueOf(AntiFluid.down)));
                     }
                 });
-                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addDrawableChild(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.down = AntiFluid.down == 8 ? 8 : AntiFluid.down+1;
@@ -187,28 +193,31 @@ public class AntiFluid extends AutomationBase {
                 });
                 y+=25;
 
-                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("West")) {
+                addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("West")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget west = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AntiFluid.west))) {
+                final TextFieldWidget west = addDrawableChild(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AntiFluid.west))) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                addDrawableChild(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.west = AntiFluid.west == 0 ? 0 : AntiFluid.west-1;
                         west.setMessage(Text.of(String.valueOf(AntiFluid.west)));
                     }
                 });
-                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addDrawableChild(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.west = AntiFluid.west == 8 ? 8 : AntiFluid.west+1;
@@ -217,28 +226,30 @@ public class AntiFluid extends AutomationBase {
                 });
                 y+=25;
 
-                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("East")) {
+                addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("East")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget east = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AntiFluid.east))) {
+                final TextFieldWidget east = addDrawableChild(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AntiFluid.east))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                addDrawableChild(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.east = AntiFluid.east == 0 ? 0 : AntiFluid.east-1;
                         east.setMessage(Text.of(String.valueOf(AntiFluid.east)));
                     }
                 });
-                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addDrawableChild(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.east = AntiFluid.east == 8 ? 8 : AntiFluid.east+1;
@@ -247,28 +258,30 @@ public class AntiFluid extends AutomationBase {
                 });
                 y+=25;
 
-                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("North")) {
+                addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("North")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget north = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AntiFluid.north))) {
+                final TextFieldWidget north = addDrawableChild(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AntiFluid.north))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                addDrawableChild(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.north = AntiFluid.north == 0 ? 0 : AntiFluid.north-1;
                         north.setMessage(Text.of(String.valueOf(AntiFluid.north)));
                     }
                 });
-                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addDrawableChild(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.north = AntiFluid.north == 8 ? 8 : AntiFluid.north+1;
@@ -277,28 +290,31 @@ public class AntiFluid extends AutomationBase {
                 });
                 y+=25;
 
-                addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("South")) {
+                addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("South")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget south = addButton(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AntiFluid.south))) {
+                final TextFieldWidget south = addDrawableChild(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AntiFluid.south))) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                addDrawableChild(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.south = AntiFluid.south == 0 ? 0 : AntiFluid.south-1;
                         south.setMessage(Text.of(String.valueOf(AntiFluid.south)));
                     }
                 });
-                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addDrawableChild(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                    public void appendNarrations(NarrationMessageBuilder builder) { }
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.south = AntiFluid.south == 8 ? 8 : AntiFluid.south+1;

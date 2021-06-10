@@ -16,7 +16,7 @@ public class WalkerManager {
     public void tickMovement(CallbackInfo ci) {
         if (Walker.INSTANCE.enabled && !Settings.player.input.sneaking) {
             Vec3d newpos = Settings.player.getPos()
-                    .add((new Vec3d(-Math.sin(Settings.player.yaw*(Math.PI/180.0d)), 0, Math.cos(Settings.player.yaw*(Math.PI/180.0d)))).multiply(Walker.speed/20.0d));
+                    .add((new Vec3d(-Math.sin(Settings.player.getYaw()*(Math.PI/180.0d)), 0, Math.cos(Settings.player.getYaw()*(Math.PI/180.0d)))).multiply(Walker.speed/20.0d));
             if (Settings.world.isSpaceEmpty(PlayerEntity.STANDING_DIMENSIONS.getBoxAt(newpos)) &&
                     !Settings.world.isSpaceEmpty(PlayerEntity.STANDING_DIMENSIONS.getBoxAt(newpos.subtract(0, 0.5, 0)))) // don't walk into holes
                 Settings.player.setPosition(newpos.x, newpos.y, newpos.z);

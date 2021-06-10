@@ -3,6 +3,7 @@ package io.github.pranavgade20.fabrichax.clienthax;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
@@ -104,103 +105,97 @@ public class Effects extends ClientBase {
             protected void init() {
                 int x = 10;
                 int y = 30;
-                addButton(new TextFieldWidget(this.textRenderer, x, y, 100, 20, Text.of("Enabled")) {
+                addDrawableChild(new TextFieldWidget(this.textRenderer, x, y, 100, 20, Text.of("Enabled")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new ClickableWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        enabled = !enabled;
-                        setMessage(Text.of(String.valueOf(enabled)));
-                    }
-                });
+                addDrawableChild(new ButtonWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled)), (button) -> {
+                    enabled = !enabled;
+                    button.setMessage(Text.of(String.valueOf(enabled)));
+                }));
                 y+=25;
 
                 for (Map.Entry<String, Integer> entry : effects.entrySet()) {
                     String effect = entry.getKey();
                     Integer strength = entry.getValue();
-                    addButton(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of(effect)) { //TODO capitalise first char
+                    addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of(effect)) { //TODO capitalise first char
                         @Override
                         public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                             int j = this.active ? 16777215 : 10526880;
                             drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                         }
                     });
-                    final TextFieldWidget stren = addButton(new TextFieldWidget(textRenderer, x + 110 + 25, y, 50, 20, Text.of(String.valueOf(strength+1))) {
+                    final TextFieldWidget stren = addDrawableChild(new TextFieldWidget(textRenderer, x + 110 + 25, y, 50, 20, Text.of(String.valueOf(strength+1))) {
                         @Override
                         public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                             int j = this.active ? 16777215 : 10526880;
                             drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                         }
                     });
-                    addButton(new ClickableWidget(x + 110, y, 20, 20, Text.of("-")) {
-                        @Override
-                        public void onClick(double mouseX, double mouseY) {
-                            StatusEffect requested = null;
 
-                            for (Map.Entry<RegistryKey<StatusEffect>, StatusEffect> e : Registry.STATUS_EFFECT.getEntries()) {
-                                if (e.getValue().getName().toString().toLowerCase().contains(effect)) {
-                                    requested = e.getValue();
-                                    break;
-                                }
+                    addDrawableChild(new ButtonWidget(x+110, y, 20, 20, Text.of("-"), (button) -> {
+                        StatusEffect requested = null;
+
+                        for (Map.Entry<RegistryKey<StatusEffect>, StatusEffect> e : Registry.STATUS_EFFECT.getEntries()) {
+                            if (e.getValue().getName().toString().toLowerCase().contains(effect)) {
+                                requested = e.getValue();
+                                break;
                             }
-                            if (requested == null) {
-                                Settings.player.sendMessage(Text.of("Invalid effect."), false);
-                                return;
-                            }
-
-                            int amplifier = effects.get(effect) == -1 ? -1 : effects.get(effect)-1;
-
-                            StatusEffectInstance effectInstance = new StatusEffectInstance(requested, Integer.MAX_VALUE, amplifier);
-                            if (amplifier == -1) {
-                                Settings.player.getActiveStatusEffects().remove(requested);
-                                cache.remove(requested);
-                            } else {
-                                Settings.player.getActiveStatusEffects().put(requested, effectInstance);
-                                cache.put(requested, effectInstance);
-                            }
-
-                            effects.put(effect, amplifier);
-
-                            stren.setMessage(Text.of(String.valueOf(amplifier+1)));
                         }
-                    });
-                    addButton(new ClickableWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+")) {
-                        @Override
-                        public void onClick(double mouseX, double mouseY) {
-                            StatusEffect requested = null;
-
-                            for (Map.Entry<RegistryKey<StatusEffect>, StatusEffect> e : Registry.STATUS_EFFECT.getEntries()) {
-                                if (e.getValue().getName().toString().toLowerCase().contains(effect)) {
-                                    requested = e.getValue();
-                                    break;
-                                }
-                            }
-                            if (requested == null) {
-                                Settings.player.sendMessage(Text.of("Invalid effect."), false);
-                                return;
-                            }
-
-                            int amplifier = effects.get(effect) == 255 ? 255 : effects.get(effect)+1;
-
-                            StatusEffectInstance effectInstance = new StatusEffectInstance(requested, Integer.MAX_VALUE, amplifier);
-                            if (amplifier == -1) {
-                                Settings.player.getActiveStatusEffects().remove(requested);
-                                cache.remove(requested);
-                            } else {
-                                Settings.player.getActiveStatusEffects().put(requested, effectInstance);
-                                cache.put(requested, effectInstance);
-                            }
-
-                            effects.put(effect, amplifier);
-
-                            stren.setMessage(Text.of(String.valueOf(amplifier+1)));
+                        if (requested == null) {
+                            Settings.player.sendMessage(Text.of("Invalid effect."), false);
+                            return;
                         }
-                    });
+
+                        int amplifier = effects.get(effect) == -1 ? -1 : effects.get(effect)-1;
+
+                        StatusEffectInstance effectInstance = new StatusEffectInstance(requested, Integer.MAX_VALUE, amplifier);
+                        if (amplifier == -1) {
+                            Settings.player.getActiveStatusEffects().remove(requested);
+                            cache.remove(requested);
+                        } else {
+                            Settings.player.getActiveStatusEffects().put(requested, effectInstance);
+                            cache.put(requested, effectInstance);
+                        }
+
+                        effects.put(effect, amplifier);
+
+                        stren.setMessage(Text.of(String.valueOf(amplifier+1)));
+                    }));
+
+                    addDrawableChild(new ButtonWidget(x+110 + 25 + 55, y, 20, 20, Text.of("+"), (button) -> {
+                        StatusEffect requested = null;
+
+                        for (Map.Entry<RegistryKey<StatusEffect>, StatusEffect> e : Registry.STATUS_EFFECT.getEntries()) {
+                            if (e.getValue().getName().toString().toLowerCase().contains(effect)) {
+                                requested = e.getValue();
+                                break;
+                            }
+                        }
+                        if (requested == null) {
+                            Settings.player.sendMessage(Text.of("Invalid effect."), false);
+                            return;
+                        }
+
+                        int amplifier = effects.get(effect) == 255 ? 255 : effects.get(effect)+1;
+
+                        StatusEffectInstance effectInstance = new StatusEffectInstance(requested, Integer.MAX_VALUE, amplifier);
+                        if (amplifier == -1) {
+                            Settings.player.getActiveStatusEffects().remove(requested);
+                            cache.remove(requested);
+                        } else {
+                            Settings.player.getActiveStatusEffects().put(requested, effectInstance);
+                            cache.put(requested, effectInstance);
+                        }
+
+                        effects.put(effect, amplifier);
+
+                        stren.setMessage(Text.of(String.valueOf(amplifier+1)));
+                    }));
+
                     y += 25;
                 }
             }

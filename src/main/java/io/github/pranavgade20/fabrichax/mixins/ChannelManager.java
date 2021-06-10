@@ -30,7 +30,7 @@ public class ChannelManager {
             protected void encode(ChannelHandlerContext ctx, Packet<?> packet, List<Object> out) {
                 boolean added = false;
                 if (Fly.INSTANCE.enabled || ElytraFly.INSTANCE.enabled) {
-                    if (packet instanceof PlayerMoveC2SPacket.PositionAndOnGround && Settings.player.abilities.flying) {
+                    if (packet instanceof PlayerMoveC2SPacket.PositionAndOnGround && Settings.player.getAbilities().flying) {
                         if (Settings.world.isSpaceEmpty(EntityType.PLAYER.createSimpleBoundingBox(Settings.player.getX(), Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)), Settings.player.getZ())))
                             out.add(new PlayerMoveC2SPacket.PositionAndOnGround(
                                 Settings.player.getX(),
@@ -46,22 +46,22 @@ public class ChannelManager {
                         ));
 
                         added = true;
-                    } else if (packet instanceof PlayerMoveC2SPacket.Full && Settings.player.abilities.flying) {
+                    } else if (packet instanceof PlayerMoveC2SPacket.Full && Settings.player.getAbilities().flying) {
                         if (Settings.world.isSpaceEmpty(EntityType.PLAYER.createSimpleBoundingBox(Settings.player.getX(), Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)), Settings.player.getZ())))
                             out.add(new PlayerMoveC2SPacket.Full(
                                 Settings.player.getX(),
                                 Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)),
                                 Settings.player.getZ(),
-                                Settings.player.yaw,
-                                Settings.player.pitch,
+                                Settings.player.getYaw(),
+                                Settings.player.getPitch(),
                                 Settings.player.isOnGround()
                         ));
                         else out.add(new PlayerMoveC2SPacket.Full(
                                 Settings.player.getX(),
                                 Settings.player.getY(),
                                 Settings.player.getZ(),
-                                Settings.player.yaw,
-                                Settings.player.pitch,
+                                Settings.player.getYaw(),
+                                Settings.player.getPitch(),
                                 Settings.player.isOnGround()
                         ));
 

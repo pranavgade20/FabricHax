@@ -38,10 +38,10 @@ public class SneakManager {
         Vec3d pos = Settings.player.getPos();
         boolean flag = Settings.world.isSpaceEmpty(new Box(pos.getX() - (double)testWidth, pos.getY()- max_fall, pos.getZ() - (double)testWidth, pos.getX() + (double)testWidth, pos.getY() + height, pos.getZ() + (double)testWidth));
         flag &= !Settings.world.isSpaceEmpty(new Box(pos.getX() - (double)playerWidth, pos.getY()- max_fall, pos.getZ() - (double)playerWidth, pos.getX() + (double)playerWidth, pos.getY() + height, pos.getZ() + (double)playerWidth));
-        if (AutoSneak.INSTANCE.enabled && flag && !Settings.player.abilities.flying) {
+        if (AutoSneak.INSTANCE.enabled && flag && !Settings.player.getAbilities().flying) {
             Settings.player.input.sneaking = true;
         }
-        if (Scaffold.INSTANCE.enabled && flag && !Settings.player.abilities.flying) {
+        if (Scaffold.INSTANCE.enabled && flag && !Settings.player.getAbilities().flying) {
             try {
                 Hand hand;
                 if (Objects.equals(Settings.player.getMainHandStack().getItem().getGroup(), ItemGroup.BUILDING_BLOCKS)) {

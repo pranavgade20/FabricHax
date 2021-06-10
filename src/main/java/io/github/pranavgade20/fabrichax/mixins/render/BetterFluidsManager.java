@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FluidRenderer.class)
 public class BetterFluidsManager {
-    @Inject(at = @At("RETURN"), method = "method_29710")
+    @Inject(at = @At("RETURN"), method = "isSideCovered")
     private static boolean overrideIsSideCovered(BlockView blockView, Direction direction, float f, BlockPos blockPos, BlockState blockState, CallbackInfoReturnable<Boolean> cir) {
         if (BetterFluids.INSTANCE.enabled) return false;
         return cir.getReturnValueZ();

@@ -54,7 +54,7 @@ public class AntiFluidManager {
                         );
 
                         Block target = Settings.player.clientWorld.getBlockState(blockPos).getBlock();
-                        if (target.is(Blocks.WATER) || target.is(Blocks.LAVA)) {
+                        if (target.equals(Blocks.WATER) || target.equals(Blocks.LAVA)) {
                             ActionResult res;
                             if (hand == Hand.MAIN_HAND) res = Settings.player.getMainHandStack().useOnBlock(new ItemPlacementContext(Settings.player, hand, Settings.player.getMainHandStack(), hitResult));
                             else res = Settings.player.getOffHandStack().useOnBlock(new ItemPlacementContext(Settings.player, hand, Settings.player.getOffHandStack(), hitResult));

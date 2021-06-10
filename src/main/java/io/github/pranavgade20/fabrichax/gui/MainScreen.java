@@ -50,7 +50,7 @@ public class MainScreen extends Screen {
                 x = 10;
                 y += 25;
             }
-            addButton(new MenuButtonWidget(x, y, width, 20, category));
+            addDrawableChild(new MenuButtonWidget(x, y, width, 20, category));
             x += width + 5;
 
         }
@@ -61,7 +61,7 @@ public class MainScreen extends Screen {
         Arrays.sort(sortedEntries, Comparator.comparing(Hax::getModuleName));
         for (Hax<? extends Base> entry : sortedEntries) {
             try {
-                addButton(new ToggleButtonWidget(x, y, 100, 20, entry));
+                addDrawableChild(new ToggleButtonWidget(x, y, 100, 20, entry));
                 y += 25;
                 if (y > this.height-20) {
                     x += 110;

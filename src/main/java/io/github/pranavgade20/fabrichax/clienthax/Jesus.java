@@ -13,7 +13,7 @@ public class Jesus extends ClientBase {
     public boolean toggle() {
         flyLock = false;
         if (enabled) {
-            Settings.player.abilities.flying = false;
+            Settings.player.getAbilities().flying = false;
         }
         return super.toggle();
     }

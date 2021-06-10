@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 public class BlockClickManager implements AttackBlockCallback {
     @Override
     public ActionResult interact(PlayerEntity playerEntity, World world, Hand hand, BlockPos blockPos, Direction direction) {
-        PlayerInventory inventory = playerEntity.inventory;
+        PlayerInventory inventory = playerEntity.getInventory();
         BlockState block = world.getBlockState(blockPos);
         int slot = -1;
         float maxSpeed = Float.MIN_VALUE;

@@ -19,13 +19,13 @@ public class Fly extends ClientBase {
     @Override
     public boolean toggle() {
         if (enabled) {
-            Settings.player.abilities.flying = ElytraFly.INSTANCE.enabled;
-            Settings.player.abilities.allowFlying = false;
+            Settings.player.getAbilities().flying = ElytraFly.INSTANCE.enabled;
+            Settings.player.getAbilities().allowFlying = false;
             noAfk.cancel();
 
             count = 0;
         } else {
-            Settings.player.abilities.allowFlying = true;
+            Settings.player.getAbilities().allowFlying = true;
             noAfk = new Timer();
             noAfk.scheduleAtFixedRate(new TimerTask() {
                 double prevCount = 0;
@@ -35,7 +35,7 @@ public class Fly extends ClientBase {
                         this.cancel();
                         return;
                     }
-                    if (!Settings.player.abilities.flying) return;
+                    if (!Settings.player.getAbilities().flying) return;
                     if (prevCount == Fly.count) {
                         prevCount++;
                         //sending a packet so we arent just hanging there

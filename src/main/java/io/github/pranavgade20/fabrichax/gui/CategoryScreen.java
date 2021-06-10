@@ -5,6 +5,7 @@ import io.github.pranavgade20.fabrichax.Hax;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -40,7 +41,13 @@ public class CategoryScreen extends Screen {
         for (Hax<?> entry : sortedEntries) {
             try {
                 if (module.getModuleClass().isInstance(entry.getModule())){
-                    addButton(new ClickableWidget(x, y, 100, 20, Text.of(entry.getModuleName())) {
+
+                    addDrawableChild(new ClickableWidget(x, y, 100, 20, Text.of(entry.getModuleName())) {
+                        @Override
+                        public void appendNarrations(NarrationMessageBuilder builder) {
+
+                        }
+
                         @Override
                         public void onRelease(double mouseX, double mouseY) {
                             MinecraftClient.getInstance().openScreen(entry.getModule().getConfigScreen(CategoryScreen.this, entry.getModuleName()));

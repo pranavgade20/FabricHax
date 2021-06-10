@@ -24,7 +24,7 @@ public class EntityClickManager implements AttackEntityCallback {
     public ActionResult interact(PlayerEntity playerEntity, World world, Hand hand, Entity entity, EntityHitResult entityHitResult) {
         try {
 
-        PlayerInventory inventory = playerEntity.inventory;
+        PlayerInventory inventory = playerEntity.getInventory();
         int slot = inventory.selectedSlot;
         float maxDamage = getDamage(playerEntity, inventory.getMainHandStack(), entity);
         for (int i = 0; i < 9; i++) {
