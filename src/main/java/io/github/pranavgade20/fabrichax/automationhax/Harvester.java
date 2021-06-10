@@ -6,7 +6,7 @@ import net.minecraft.block.CropBlock;
 import net.minecraft.block.NetherWartBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -131,7 +131,7 @@ public class Harvester extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
+                addButton(new ClickableWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         enabled = !enabled;
@@ -154,14 +154,14 @@ public class Harvester extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.up = Harvester.up == 0 ? 0 : Harvester.up-1;
                         up.setMessage(Text.of(String.valueOf(Harvester.up)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.up = Harvester.up == 8 ? 8 : Harvester.up+1;
@@ -184,14 +184,14 @@ public class Harvester extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.down = Harvester.down == 0 ? 0 : Harvester.down-1;
                         down.setMessage(Text.of(String.valueOf(Harvester.down)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.down = Harvester.down == 8 ? 8 : Harvester.down+1;
@@ -214,14 +214,14 @@ public class Harvester extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.west = Harvester.west == 0 ? 0 : Harvester.west-1;
                         west.setMessage(Text.of(String.valueOf(Harvester.west)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.west = Harvester.west == 8 ? 8 : Harvester.west+1;
@@ -244,14 +244,14 @@ public class Harvester extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.east = Harvester.east == 0 ? 0 : Harvester.east-1;
                         east.setMessage(Text.of(String.valueOf(Harvester.east)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.east = Harvester.east == 8 ? 8 : Harvester.east+1;
@@ -274,14 +274,14 @@ public class Harvester extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.north = Harvester.north == 0 ? 0 : Harvester.north-1;
                         north.setMessage(Text.of(String.valueOf(Harvester.north)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.north = Harvester.north == 8 ? 8 : Harvester.north+1;
@@ -304,14 +304,14 @@ public class Harvester extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.south = Harvester.south == 0 ? 0 : Harvester.south-1;
                         south.setMessage(Text.of(String.valueOf(Harvester.south)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Harvester.south = Harvester.south == 8 ? 8 : Harvester.south+1;

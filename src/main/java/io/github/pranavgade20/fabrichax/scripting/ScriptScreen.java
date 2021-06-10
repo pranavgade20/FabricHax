@@ -5,7 +5,7 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
-
+import io.github.pranavgade20.fabrichax.scripting.ScriptScreen.Pair;
 import java.util.LinkedList;
 
 public class ScriptScreen extends Screen {

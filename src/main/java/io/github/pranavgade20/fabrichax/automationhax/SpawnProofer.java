@@ -3,7 +3,7 @@ package io.github.pranavgade20.fabrichax.automationhax;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -120,7 +120,7 @@ public class SpawnProofer extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
+                addButton(new ClickableWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         enabled = !enabled;
@@ -143,14 +143,14 @@ public class SpawnProofer extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         SpawnProofer.up = SpawnProofer.up == 0 ? 0 : SpawnProofer.up-1;
                         up.setMessage(Text.of(String.valueOf(SpawnProofer.up)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         SpawnProofer.up = SpawnProofer.up == 8 ? 8 : SpawnProofer.up+1;
@@ -173,14 +173,14 @@ public class SpawnProofer extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         SpawnProofer.down = SpawnProofer.down == 0 ? 0 : SpawnProofer.down-1;
                         down.setMessage(Text.of(String.valueOf(SpawnProofer.down)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         SpawnProofer.down = SpawnProofer.down == 8 ? 8 : SpawnProofer.down+1;
@@ -203,14 +203,14 @@ public class SpawnProofer extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         SpawnProofer.west = SpawnProofer.west == 0 ? 0 : SpawnProofer.west-1;
                         west.setMessage(Text.of(String.valueOf(SpawnProofer.west)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         SpawnProofer.west = SpawnProofer.west == 8 ? 8 : SpawnProofer.west+1;
@@ -233,14 +233,14 @@ public class SpawnProofer extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         SpawnProofer.east = SpawnProofer.east == 0 ? 0 : SpawnProofer.east-1;
                         east.setMessage(Text.of(String.valueOf(SpawnProofer.east)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         SpawnProofer.east = SpawnProofer.east == 8 ? 8 : SpawnProofer.east+1;
@@ -263,14 +263,14 @@ public class SpawnProofer extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         SpawnProofer.north = SpawnProofer.north == 0 ? 0 : SpawnProofer.north-1;
                         north.setMessage(Text.of(String.valueOf(SpawnProofer.north)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         SpawnProofer.north = SpawnProofer.north == 8 ? 8 : SpawnProofer.north+1;
@@ -293,14 +293,14 @@ public class SpawnProofer extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         SpawnProofer.south = SpawnProofer.south == 0 ? 0 : SpawnProofer.south-1;
                         south.setMessage(Text.of(String.valueOf(SpawnProofer.south)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         SpawnProofer.south = SpawnProofer.south == 8 ? 8 : SpawnProofer.south+1;

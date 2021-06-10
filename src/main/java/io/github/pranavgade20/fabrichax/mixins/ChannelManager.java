@@ -30,15 +30,15 @@ public class ChannelManager {
             protected void encode(ChannelHandlerContext ctx, Packet<?> packet, List<Object> out) {
                 boolean added = false;
                 if (Fly.INSTANCE.enabled || ElytraFly.INSTANCE.enabled) {
-                    if (packet instanceof PlayerMoveC2SPacket.PositionOnly && Settings.player.abilities.flying) {
+                    if (packet instanceof PlayerMoveC2SPacket.PositionAndOnGround && Settings.player.abilities.flying) {
                         if (Settings.world.isSpaceEmpty(EntityType.PLAYER.createSimpleBoundingBox(Settings.player.getX(), Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)), Settings.player.getZ())))
-                            out.add(new PlayerMoveC2SPacket.PositionOnly(
+                            out.add(new PlayerMoveC2SPacket.PositionAndOnGround(
                                 Settings.player.getX(),
                                 Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)),
                                 Settings.player.getZ(),
                                 Settings.player.isOnGround()
                             ));
-                        else out.add(new PlayerMoveC2SPacket.PositionOnly(
+                        else out.add(new PlayerMoveC2SPacket.PositionAndOnGround(
                                 Settings.player.getX(),
                                 Settings.player.getY(),
                                 Settings.player.getZ(),
@@ -46,9 +46,9 @@ public class ChannelManager {
                         ));
 
                         added = true;
-                    } else if (packet instanceof PlayerMoveC2SPacket.Both && Settings.player.abilities.flying) {
+                    } else if (packet instanceof PlayerMoveC2SPacket.Full && Settings.player.abilities.flying) {
                         if (Settings.world.isSpaceEmpty(EntityType.PLAYER.createSimpleBoundingBox(Settings.player.getX(), Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)), Settings.player.getZ())))
-                            out.add(new PlayerMoveC2SPacket.Both(
+                            out.add(new PlayerMoveC2SPacket.Full(
                                 Settings.player.getX(),
                                 Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)),
                                 Settings.player.getZ(),
@@ -56,7 +56,7 @@ public class ChannelManager {
                                 Settings.player.pitch,
                                 Settings.player.isOnGround()
                         ));
-                        else out.add(new PlayerMoveC2SPacket.Both(
+                        else out.add(new PlayerMoveC2SPacket.Full(
                                 Settings.player.getX(),
                                 Settings.player.getY(),
                                 Settings.player.getZ(),
@@ -69,9 +69,9 @@ public class ChannelManager {
                     }
                 }
                 if (AntiFall.INSTANCE.enabled) {
-                    if (packet instanceof PlayerMoveC2SPacket.Both || packet instanceof PlayerMoveC2SPacket.PositionOnly) {
+                    if (packet instanceof PlayerMoveC2SPacket.Full || packet instanceof PlayerMoveC2SPacket.PositionAndOnGround) {
                         if (!AntiFall.onGround && ((PlayerMoveC2SPacket) packet).isOnGround() && AntiFall.lastGround != null && Math.abs(AntiFall.lastGround.y-AntiFall.prevPos.y) > 3) {
-                            out.add(new PlayerMoveC2SPacket.PositionOnly(
+                            out.add(new PlayerMoveC2SPacket.PositionAndOnGround(
                                     AntiFall.prevPos.x,
                                     AntiFall.prevPos.y + (0.01),
                                     AntiFall.prevPos.z,

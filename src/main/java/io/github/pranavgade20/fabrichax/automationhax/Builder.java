@@ -4,7 +4,7 @@ import io.github.pranavgade20.fabrichax.Settings;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
@@ -152,7 +152,7 @@ public class Builder extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
+                addButton(new ClickableWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         enabled = !enabled;
@@ -175,14 +175,14 @@ public class Builder extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Builder.left = Builder.left == 0 ? 0 : Builder.left-1;
                         left.setMessage(Text.of(String.valueOf(Builder.left)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Builder.left = Builder.left == 8 ? 8 : Builder.left+1;
@@ -205,14 +205,14 @@ public class Builder extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Builder.right = Builder.right == 0 ? 0 : Builder.right-1;
                         right.setMessage(Text.of(String.valueOf(Builder.right)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         Builder.right = Builder.right == 8 ? 8 : Builder.right+1;

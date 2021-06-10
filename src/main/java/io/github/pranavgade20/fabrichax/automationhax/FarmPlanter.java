@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
@@ -140,7 +140,7 @@ public class FarmPlanter extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
+                addButton(new ClickableWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         enabled = !enabled;
@@ -163,14 +163,14 @@ public class FarmPlanter extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         FarmPlanter.up = FarmPlanter.up == 0 ? 0 : FarmPlanter.up-1;
                         up.setMessage(Text.of(String.valueOf(FarmPlanter.up)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         FarmPlanter.up = FarmPlanter.up == 8 ? 8 : FarmPlanter.up+1;
@@ -193,14 +193,14 @@ public class FarmPlanter extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         FarmPlanter.down = FarmPlanter.down == 0 ? 0 : FarmPlanter.down-1;
                         down.setMessage(Text.of(String.valueOf(FarmPlanter.down)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         FarmPlanter.down = FarmPlanter.down == 8 ? 8 : FarmPlanter.down+1;
@@ -223,14 +223,14 @@ public class FarmPlanter extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         FarmPlanter.west = FarmPlanter.west == 0 ? 0 : FarmPlanter.west-1;
                         west.setMessage(Text.of(String.valueOf(FarmPlanter.west)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         FarmPlanter.west = FarmPlanter.west == 8 ? 8 : FarmPlanter.west+1;
@@ -253,14 +253,14 @@ public class FarmPlanter extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         FarmPlanter.east = FarmPlanter.east == 0 ? 0 : FarmPlanter.east-1;
                         east.setMessage(Text.of(String.valueOf(FarmPlanter.east)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         FarmPlanter.east = FarmPlanter.east == 8 ? 8 : FarmPlanter.east+1;
@@ -283,14 +283,14 @@ public class FarmPlanter extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         FarmPlanter.north = FarmPlanter.north == 0 ? 0 : FarmPlanter.north-1;
                         north.setMessage(Text.of(String.valueOf(FarmPlanter.north)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         FarmPlanter.north = FarmPlanter.north == 8 ? 8 : FarmPlanter.north+1;
@@ -313,14 +313,14 @@ public class FarmPlanter extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         FarmPlanter.south = FarmPlanter.south == 0 ? 0 : FarmPlanter.south-1;
                         south.setMessage(Text.of(String.valueOf(FarmPlanter.south)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         FarmPlanter.south = FarmPlanter.south == 8 ? 8 : FarmPlanter.south+1;

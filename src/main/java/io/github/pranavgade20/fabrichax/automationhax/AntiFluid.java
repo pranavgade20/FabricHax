@@ -3,7 +3,7 @@ package io.github.pranavgade20.fabrichax.automationhax;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -118,7 +118,7 @@ public class AntiFluid extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
+                addButton(new ClickableWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         enabled = !enabled;
@@ -141,14 +141,14 @@ public class AntiFluid extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.up = AntiFluid.up == 0 ? 0 : AntiFluid.up-1;
                         up.setMessage(Text.of(String.valueOf(AntiFluid.up)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.up = AntiFluid.up == 8 ? 8 : AntiFluid.up+1;
@@ -171,14 +171,14 @@ public class AntiFluid extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.down = AntiFluid.down == 0 ? 0 : AntiFluid.down-1;
                         down.setMessage(Text.of(String.valueOf(AntiFluid.down)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.down = AntiFluid.down == 8 ? 8 : AntiFluid.down+1;
@@ -201,14 +201,14 @@ public class AntiFluid extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.west = AntiFluid.west == 0 ? 0 : AntiFluid.west-1;
                         west.setMessage(Text.of(String.valueOf(AntiFluid.west)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.west = AntiFluid.west == 8 ? 8 : AntiFluid.west+1;
@@ -231,14 +231,14 @@ public class AntiFluid extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.east = AntiFluid.east == 0 ? 0 : AntiFluid.east-1;
                         east.setMessage(Text.of(String.valueOf(AntiFluid.east)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.east = AntiFluid.east == 8 ? 8 : AntiFluid.east+1;
@@ -261,14 +261,14 @@ public class AntiFluid extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.north = AntiFluid.north == 0 ? 0 : AntiFluid.north-1;
                         north.setMessage(Text.of(String.valueOf(AntiFluid.north)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.north = AntiFluid.north == 8 ? 8 : AntiFluid.north+1;
@@ -291,14 +291,14 @@ public class AntiFluid extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 20, 20, Text.of("-")) {
+                addButton(new ClickableWidget(x+110, y, 20, 20, Text.of("-")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.south = AntiFluid.south == 0 ? 0 : AntiFluid.south-1;
                         south.setMessage(Text.of(String.valueOf(AntiFluid.south)));
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
+                addButton(new ClickableWidget(x+110+25+55, y, 20, 20, Text.of("+")) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         AntiFluid.south = AntiFluid.south == 8 ? 8 : AntiFluid.south+1;

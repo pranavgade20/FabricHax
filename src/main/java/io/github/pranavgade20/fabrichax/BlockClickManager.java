@@ -74,7 +74,7 @@ public class BlockClickManager implements AttackBlockCallback {
     }
 
     public boolean isUsingEffectiveTool(ItemStack tool, BlockState block) { // adapted from net.minecraft.entity.player.PlayerEntity.class
-        return !block.isToolRequired() || tool.isEffectiveOn(block);
+        return !block.isToolRequired() || tool.isSuitableFor(block);
     }
 
     public float getBlockBreakingSpeed(ItemStack tool, BlockState block) { // adapted from net.minecraft.entity.player.PlayerEntity.class

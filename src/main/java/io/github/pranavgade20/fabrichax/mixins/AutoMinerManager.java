@@ -42,7 +42,7 @@ public class AutoMinerManager {
                 if (Settings.player.getMainHandStack().getMiningSpeedMultiplier(state) != 1.0F) {
                     ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, blockPos, Direction.UP));
                     ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, blockPos, Direction.UP));
-                    Settings.world.setBlockBreakingInfo(Settings.player.getEntityId(), blockPos, 9);
+                    Settings.world.setBlockBreakingInfo(Settings.player.getId(), blockPos, 9);
                     AutoMiner.count = (int) Math.ceil(1/state.calcBlockBreakingDelta(Settings.player, Settings.world, blockPos));
                     return;
                 }

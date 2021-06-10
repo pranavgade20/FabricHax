@@ -20,13 +20,13 @@ public class FreeCam extends RenderBase {
         if (enabled) {
             Settings.player.abilities.flying = flying;
             Settings.player.copyPositionAndRotation(e);
-            Settings.world.removeEntity(e.getEntityId());
+            Settings.world.removeEntity(e.getId());
         } else {
             e = new OtherClientPlayerEntity(Settings.world, Settings.player.getGameProfile());
             e.setGlowing(true);
             e.resetPosition(Settings.player.getX(), Settings.player.getY(), Settings.player.getZ());
             e.refreshPositionAndAngles(Settings.player.getX(), Settings.player.getY(), Settings.player.getZ(), Settings.player.yaw, Settings.player.pitch);
-            Settings.world.addEntity(e.getEntityId(), e);
+            Settings.world.addEntity(e.getId(), e);
 
             Settings.player.setBoundingBox(new Box(Settings.player.getPos(), Settings.player.getPos()));
             flying = Settings.player.abilities.flying;

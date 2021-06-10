@@ -3,7 +3,7 @@ package io.github.pranavgade20.fabrichax.clienthax;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.effect.StatusEffect;
@@ -111,7 +111,7 @@ public class Effects extends ClientBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addButton(new AbstractButtonWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
+                addButton(new ClickableWidget(x+110, y, 100, 20, Text.of(String.valueOf(enabled))) {
                     @Override
                     public void onClick(double mouseX, double mouseY) {
                         enabled = !enabled;
@@ -137,7 +137,7 @@ public class Effects extends ClientBase {
                             drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                         }
                     });
-                    addButton(new AbstractButtonWidget(x + 110, y, 20, 20, Text.of("-")) {
+                    addButton(new ClickableWidget(x + 110, y, 20, 20, Text.of("-")) {
                         @Override
                         public void onClick(double mouseX, double mouseY) {
                             StatusEffect requested = null;
@@ -169,7 +169,7 @@ public class Effects extends ClientBase {
                             stren.setMessage(Text.of(String.valueOf(amplifier+1)));
                         }
                     });
-                    addButton(new AbstractButtonWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+")) {
+                    addButton(new ClickableWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+")) {
                         @Override
                         public void onClick(double mouseX, double mouseY) {
                             StatusEffect requested = null;

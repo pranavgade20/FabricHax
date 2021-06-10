@@ -39,7 +39,7 @@ public class Fly extends ClientBase {
                     if (prevCount == Fly.count) {
                         prevCount++;
                         //sending a packet so we arent just hanging there
-                        ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerMoveC2SPacket.PositionOnly(Settings.player.getX(), Settings.player.getY(), Settings.player.getZ(), Settings.player.isOnGround()));
+                        ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerMoveC2SPacket.PositionAndOnGround(Settings.player.getX(), Settings.player.getY(), Settings.player.getZ(), Settings.player.isOnGround()));
                     } else {
                         prevCount = Fly.count;
                     }

@@ -2,11 +2,11 @@ package io.github.pranavgade20.fabrichax.gui;
 
 import io.github.pranavgade20.fabrichax.Base;
 import io.github.pranavgade20.fabrichax.Hax;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
-public class ToggleButtonWidget extends AbstractButtonWidget {
+public class ToggleButtonWidget extends ClickableWidget {
     Hax<? extends Base> module;
 
     public ToggleButtonWidget(int x, int y, int width, int height, Hax<? extends Base> module) {
