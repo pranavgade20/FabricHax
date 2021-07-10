@@ -3,8 +3,6 @@ package io.github.pranavgade20.fabrichax;
 import io.github.pranavgade20.fabrichax.automationhax.*;
 import io.github.pranavgade20.fabrichax.clienthax.*;
 import io.github.pranavgade20.fabrichax.renderhax.*;
-import io.github.pranavgade20.fabrichax.scripting.ScriptBase;
-import io.github.pranavgade20.fabrichax.scripting.TestScript;
 import io.github.pranavgade20.fabrichax.todohax.NoSprint;
 import io.github.pranavgade20.fabrichax.todohax.TodoBase;
 import io.netty.channel.Channel;
@@ -130,7 +128,6 @@ public class Settings {
         toggles.put((int)'W', Hax.of(Walker.class));
         toggles.put((int)'G', Hax.of(AntiFluid.class));
         toggles.put((int)'R', Hax.of(GUI.class));
-        toggles.put((int)'M', Hax.of(TestScript.class));
         toggles.put(-1, Hax.of(AutoHotbar.class));
         toggles.put(-2, Hax.of(Fastmine.class));
         toggles.put(-3, Hax.of(NoSprint.class));
@@ -149,6 +146,5 @@ public class Settings {
         categories.add(Hax.of(RenderBase.class));
         categories.add(Hax.of(ClientBase.class));
         categories.add(Hax.of(TodoBase.class));
-        categories.add(Hax.of(ScriptBase.class));
     }
 }
