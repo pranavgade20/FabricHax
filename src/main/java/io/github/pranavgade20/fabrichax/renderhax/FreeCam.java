@@ -1,12 +1,9 @@
 package io.github.pranavgade20.fabrichax.renderhax;
 
 import io.github.pranavgade20.fabrichax.Settings;
-import net.minecraft.client.network.OtherClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
 
 public class FreeCam extends RenderBase {
 

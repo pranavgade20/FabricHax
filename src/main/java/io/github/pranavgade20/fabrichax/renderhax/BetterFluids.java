@@ -4,7 +4,7 @@ public class BetterFluids extends RenderBase {
     public static BetterFluids INSTANCE;
     public BetterFluids() {
         INSTANCE = this;
-        enabled = true; // enabled by default
+        enabled = false;
     }
 
     @Override
