@@ -1,30 +1,19 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
-import com.sun.jna.platform.win32.COM.util.annotation.ComObject;
 import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.clienthax.AntiFall;
 import io.github.pranavgade20.fabrichax.clienthax.ElytraFly;
 import io.github.pranavgade20.fabrichax.clienthax.Fly;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.local.LocalChannel;
-import io.netty.handler.codec.MessageToMessageEncoder;
-import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import net.minecraft.entity.EntityType;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.Packet;
-import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
-import net.minecraft.network.packet.c2s.play.KeepAliveC2SPacket;
-import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
-import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.network.packet.c2s.play.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.List;
 
 @Mixin(ClientConnection.class)
 public class ChannelManager {
@@ -32,7 +21,7 @@ public class ChannelManager {
     private Packet modifyPacket(Packet packet) {
         if (Fly.INSTANCE.enabled || ElytraFly.INSTANCE.enabled) {
             if (packet instanceof PlayerMoveC2SPacket.PositionAndOnGround && Settings.player.getAbilities().flying) {
-                if (Settings.world.isSpaceEmpty(EntityType.PLAYER.createSimpleBoundingBox(Settings.player.getX(), Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)), Settings.player.getZ())))
+                if (!Settings.player.isInsideWaterOrBubbleColumn() && Settings.world.isSpaceEmpty(EntityType.PLAYER.createSimpleBoundingBox(Settings.player.getX(), Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)), Settings.player.getZ())))
                     return (new PlayerMoveC2SPacket.PositionAndOnGround(
                             Settings.player.getX(),
                             Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)),
@@ -70,7 +59,7 @@ public class ChannelManager {
                 if (!AntiFall.onGround && ((PlayerMoveC2SPacket) packet).isOnGround() && AntiFall.lastGround != null && Math.abs(AntiFall.lastGround.y-AntiFall.prevPos.y) > 3) {
                     return (new PlayerMoveC2SPacket.PositionAndOnGround(
                             AntiFall.prevPos.x,
-                            AntiFall.prevPos.y + (.1),
+                            AntiFall.prevPos.y + (.5),
                             AntiFall.prevPos.z,
                             false
                     ));

@@ -161,7 +161,7 @@ public class Digger extends AutomationBase {
 
             @Override
             public void onClose() {
-                MinecraftClient.getInstance().openScreen(parent);
+                MinecraftClient.getInstance().setScreen(parent);
             }
 
             @Override

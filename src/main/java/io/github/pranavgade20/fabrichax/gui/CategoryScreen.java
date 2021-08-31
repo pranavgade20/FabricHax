@@ -50,7 +50,7 @@ public class CategoryScreen extends Screen {
 
                         @Override
                         public void onRelease(double mouseX, double mouseY) {
-                            MinecraftClient.getInstance().openScreen(entry.getModule().getConfigScreen(CategoryScreen.this, entry.getModuleName()));
+                            MinecraftClient.getInstance().setScreen(entry.getModule().getConfigScreen(CategoryScreen.this, entry.getModuleName()));
                         }
                     });
                     y += 25;
@@ -68,6 +68,6 @@ public class CategoryScreen extends Screen {
 
     @Override
     public void onClose() {
-        MinecraftClient.getInstance().openScreen(MainScreen.INSTANCE);
+        MinecraftClient.getInstance().setScreen(MainScreen.INSTANCE);
     }
 }

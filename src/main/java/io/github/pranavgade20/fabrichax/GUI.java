@@ -13,10 +13,10 @@ public class GUI extends Base{
     public boolean toggle() {
         if (enabled) {
             enabled = false;
-            MinecraftClient.getInstance().openScreen(null);
+            MinecraftClient.getInstance().setScreen(null);
         } else {
             enabled = true;
-            MinecraftClient.getInstance().openScreen(new MainScreen(Text.of("FabricHax")));
+            MinecraftClient.getInstance().setScreen(new MainScreen(Text.of("FabricHax")));
         }
         return true;
     }

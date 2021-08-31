@@ -18,7 +18,7 @@ public class MenuButtonWidget extends ClickableWidget {
 
     @Override
     public void onRelease(double mouseX, double mouseY) {
-        MinecraftClient.getInstance().openScreen(new CategoryScreen(module));
+        MinecraftClient.getInstance().setScreen(new CategoryScreen(module));
     }
 
     @Override
