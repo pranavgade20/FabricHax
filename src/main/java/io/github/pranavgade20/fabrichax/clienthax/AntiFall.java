@@ -5,7 +5,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class AntiFall extends ClientBase {
     public static Vec3d prevPos = null;
-    public static Vec3d lastGround = null;
+//    public static Vec3d lastGround = null;
     public static boolean onGround;
 
     public static AntiFall INSTANCE;
@@ -17,7 +17,7 @@ public class AntiFall extends ClientBase {
     public boolean toggle() {
         if (enabled) {
             prevPos = null;
-            lastGround = null;
+//            lastGround = null;
             onGround = false;
         } else {
             prevPos = Settings.player.getPos();

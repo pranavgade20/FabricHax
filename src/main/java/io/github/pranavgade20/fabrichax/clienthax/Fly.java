@@ -1,6 +1,7 @@
 package io.github.pranavgade20.fabrichax.clienthax;
 
 import io.github.pranavgade20.fabrichax.Settings;
+import io.github.pranavgade20.fabrichax.Utils;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
@@ -39,7 +40,7 @@ public class Fly extends ClientBase {
                     if (prevCount == Fly.count) {
                         prevCount++;
                         //sending a packet so we arent just hanging there
-                        ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerMoveC2SPacket.PositionAndOnGround(Settings.player.getX(), Settings.player.getY(), Settings.player.getZ(), Settings.player.isOnGround()));
+                        Utils.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(Settings.player.getX(), Settings.player.getY(), Settings.player.getZ(), Settings.player.isOnGround()));
                     } else {
                         prevCount = Fly.count;
                     }

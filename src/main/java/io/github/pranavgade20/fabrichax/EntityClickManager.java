@@ -44,8 +44,8 @@ public class EntityClickManager implements AttackEntityCallback {
         }
 
         if (Criticals.INSTANCE.enabled) {
-            ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerMoveC2SPacket.PositionAndOnGround(playerEntity.getX(), playerEntity.getY() + 0.001, playerEntity.getZ(), false));
-            ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerMoveC2SPacket.PositionAndOnGround(playerEntity.getX(), playerEntity.getY() + 0.0001, playerEntity.getZ(), false));
+            Utils.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(playerEntity.getX(), playerEntity.getY() + 0.001, playerEntity.getZ(), false));
+            Utils.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(playerEntity.getX(), playerEntity.getY() + 0.0001, playerEntity.getZ(), false));
         }
         } catch (Exception e) {
             Settings.player.sendMessage(Text.of(e.toString()), false);

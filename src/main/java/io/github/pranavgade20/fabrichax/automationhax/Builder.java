@@ -1,6 +1,7 @@
 package io.github.pranavgade20.fabrichax.automationhax;
 
 import io.github.pranavgade20.fabrichax.Settings;
+import io.github.pranavgade20.fabrichax.Utils;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -35,41 +36,41 @@ public class Builder extends AutomationBase {
                 case NORTH:
                     for (int j = 1; j <= left; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.EAST).withBlockPos(pos.west(j));
-                        ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     for (int j = 1; j <= right; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.WEST).withBlockPos(pos.east(j));
-                        ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     break;
                 case SOUTH:
                     for (int j = 1; j <= right; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.EAST).withBlockPos(pos.west(j));
-                        ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     for (int j = 1; j <= left; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.WEST).withBlockPos(pos.east(j));
-                        ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     break;
                 case EAST:
                     for (int j = 1; j <= left; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.SOUTH).withBlockPos(pos.north(j));
-                        ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     for (int j = 1; j <= right; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.NORTH).withBlockPos(pos.south(j));
-                        ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     break;
                 case WEST:
                     for (int j = 1; j <= right; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.SOUTH).withBlockPos(pos.north(j));
-                        ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     for (int j = 1; j <= left; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.NORTH).withBlockPos(pos.south(j));
-                        ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
                     }
                     break;
             }

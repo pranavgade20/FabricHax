@@ -2,6 +2,7 @@ package io.github.pranavgade20.fabrichax.mixins;
 
 import io.github.pranavgade20.fabrichax.Hax;
 import io.github.pranavgade20.fabrichax.Settings;
+import io.github.pranavgade20.fabrichax.Utils;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
@@ -25,7 +26,7 @@ public class ChatManager {
                 return;
             }
             if (text.startsWith("~ ~")) {
-                ClientSidePacketRegistry.INSTANCE.sendToServer(new ChatMessageC2SPacket(text.substring(2)));
+                Utils.sendPacket(new ChatMessageC2SPacket(text.substring(2)));
             }
             try {
                 text = text.substring(2);

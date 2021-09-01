@@ -1,6 +1,7 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
 import io.github.pranavgade20.fabrichax.Settings;
+import io.github.pranavgade20.fabrichax.Utils;
 import io.github.pranavgade20.fabrichax.automationhax.AutoSneak;
 import io.github.pranavgade20.fabrichax.automationhax.Scaffold;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
@@ -73,7 +74,7 @@ public class SneakManager {
 
 
                 if (res == ActionResult.SUCCESS) {
-                    ClientSidePacketRegistry.INSTANCE.sendToServer(new PlayerInteractBlockC2SPacket(hand, hitResult));
+                    Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, hitResult));
                     if (AutoSneak.INSTANCE.enabled)
                         Settings.player.input.sneaking = false;
                 }

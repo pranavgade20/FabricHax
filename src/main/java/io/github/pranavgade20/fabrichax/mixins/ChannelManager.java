@@ -4,21 +4,36 @@ import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.clienthax.AntiFall;
 import io.github.pranavgade20.fabrichax.clienthax.ElytraFly;
 import io.github.pranavgade20.fabrichax.clienthax.Fly;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.local.LocalChannel;
+import io.netty.handler.codec.MessageToMessageDecoder;
+import io.netty.handler.codec.MessageToMessageEncoder;
+import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import net.minecraft.entity.EntityType;
 import net.minecraft.network.ClientConnection;
+import net.minecraft.network.NetworkState;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.c2s.play.*;
+import net.minecraft.network.packet.s2c.play.*;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+import java.util.List;
+import java.util.Set;
 
 @Mixin(ClientConnection.class)
 public class ChannelManager {
-    @ModifyVariable(method = "sendImmediately", at = @At("HEAD"), name = "packet")
-    private Packet modifyPacket(Packet packet) {
+    @ModifyVariable(at = @At("HEAD"), method = "sendInternal", ordinal = 0)
+    public Packet<?> sendInternal(Packet<?> packet) {
         if (Fly.INSTANCE.enabled || ElytraFly.INSTANCE.enabled) {
             if (packet instanceof PlayerMoveC2SPacket.PositionAndOnGround && Settings.player.getAbilities().flying) {
                 if (!Settings.player.isInsideWaterOrBubbleColumn() && Settings.world.isSpaceEmpty(EntityType.PLAYER.createSimpleBoundingBox(Settings.player.getX(), Settings.player.getY() + (1.25 * Math.pow(Math.sin(Fly.count++ / 20), 2)), Settings.player.getZ())))
@@ -56,35 +71,30 @@ public class ChannelManager {
         }
         if (AntiFall.INSTANCE.enabled) {
             if (packet instanceof PlayerMoveC2SPacket.Full || packet instanceof PlayerMoveC2SPacket.PositionAndOnGround) {
-                if (!AntiFall.onGround && ((PlayerMoveC2SPacket) packet).isOnGround() && AntiFall.lastGround != null && Math.abs(AntiFall.lastGround.y-AntiFall.prevPos.y) > 3) {
-                    return (new PlayerMoveC2SPacket.PositionAndOnGround(
-                            AntiFall.prevPos.x,
-                            AntiFall.prevPos.y + (.5),
-                            AntiFall.prevPos.z,
-                            false
-                    ));
-//                            out.add(new PlayerMoveC2SPacket.PositionAndOnGround(
-//                                    AntiFall.prevPos.x,
-//                                    AntiFall.prevPos.y + (0.5),
-//                                    AntiFall.prevPos.z,
-//                                    false
-//                            ));
-                }
+                float testWidth = 0.3f;
+                float height = 1.8f;
+                float max_fall = (float) (Settings.player.getVelocity().y * -2); //TODO account jump boost into calculations
+                Vec3d pos = Settings.player.getPos();
+                boolean flag = Settings.world.isSpaceEmpty(new Box(pos.getX() - (double)testWidth, pos.getY()- max_fall, pos.getZ() - (double)testWidth, pos.getX() + (double)testWidth, pos.getY() + height, pos.getZ() + (double)testWidth));
+                System.out.println(Settings.player.getVelocity().y);
+                if (Settings.player.getVelocity().y < -0.7 && !flag) {
+                    Settings.player.setVelocity(Settings.player.getVelocity().x, 0.3, Settings.player.getVelocity().z);
+                    Settings.player.velocityDirty = true;
                 AntiFall.prevPos = Settings.player.getPos();
                 AntiFall.onGround = Settings.player.isOnGround();
-                if (!AntiFall.onGround && AntiFall.lastGround == null) AntiFall.lastGround = AntiFall.prevPos;
-                if (AntiFall.onGround) AntiFall.lastGround = null;
+                }
             }
         }
         return packet;
     }
-    @Inject(at = @At("HEAD"), method = "sendImmediately")
-    public void setChannel(Packet<?> packet, GenericFutureListener callback, CallbackInfo info) {
-
-//        if (channelHandlerContext.channel() instanceof LocalChannel) return;
-//        Settings.channel = channelHandlerContext.channel();
+//    @Inject(at = @At("HEAD"), method = "channelActive")
+//    public void setChannel(ChannelHandlerContext context, CallbackInfo info) {
+//        Channel channel = context.channel();
 //
-//        Settings.channel.pipeline().addAfter("encoder", "injected-out", new MessageToMessageEncoder<Packet<?>>() {
+//        Settings.channel = channel;
+//        if (channel instanceof LocalChannel) return;
+//
+//        channel.pipeline().addAfter("encoder", "injected-out", new MessageToMessageEncoder<Packet<?>>() {
 //            @Override
 //            protected void encode(ChannelHandlerContext ctx, Packet<?> packet, List<Object> out) {
 //                boolean added = false;
@@ -104,7 +114,7 @@ public class ChannelManager {
 //            }
 //        });
 //
-//        Settings.channel.pipeline().addAfter("decoder", "injected-in", new MessageToMessageDecoder<Packet<?>>() {
+//        channel.pipeline().addAfter("decoder", "injected-in", new MessageToMessageDecoder<Packet<?>>() {
 //            @Override
 //            protected void decode(ChannelHandlerContext ctx, Packet<?> packet, List<Object> out) {
 //                out.add(packet);
@@ -132,5 +142,5 @@ public class ChannelManager {
 //                System.out.println(packet.getClass().getName());
 //            }
 //        });
-    }
+//    }
 }

@@ -1,5 +1,7 @@
 package io.github.pranavgade20.fabrichax;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.network.Packet;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.Comparator;
@@ -35,5 +37,14 @@ public class Utils {
         ret.sort(Comparator.comparingDouble(a -> a.distanceTo(origin)));
         positionsCache.put(hash, ret);
         return positionsCache.get(hash);
+    }
+
+    public static void sendPacket(Packet<?> packet) {
+        if (MinecraftClient.getInstance().getNetworkHandler() != null) {
+            MinecraftClient.getInstance().getNetworkHandler().sendPacket(packet);
+            return;
+        }
+
+        throw new IllegalStateException("Cannot send packets when not in game!");
     }
 }

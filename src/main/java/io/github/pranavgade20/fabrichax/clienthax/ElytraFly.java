@@ -1,6 +1,7 @@
 package io.github.pranavgade20.fabrichax.clienthax;
 
 import io.github.pranavgade20.fabrichax.Settings;
+import io.github.pranavgade20.fabrichax.Utils;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ElytraItem;
@@ -27,7 +28,7 @@ public class ElytraFly extends ClientBase {
             Settings.player.getAbilities().flying = false;
             Settings.player.getAbilities().allowFlying = Fly.INSTANCE.enabled;
         } else {
-            ClientSidePacketRegistry.INSTANCE.sendToServer(new ClientCommandC2SPacket(Settings.player, ClientCommandC2SPacket.Mode.START_FALL_FLYING));
+            Utils.sendPacket(new ClientCommandC2SPacket(Settings.player, ClientCommandC2SPacket.Mode.START_FALL_FLYING));
 
             Settings.player.getAbilities().flying = true;
             Settings.player.getAbilities().allowFlying = true;
