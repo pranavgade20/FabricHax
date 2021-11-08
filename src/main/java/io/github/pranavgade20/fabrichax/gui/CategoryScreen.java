@@ -68,6 +68,6 @@ public class CategoryScreen extends Screen {
 
     @Override
     public void onClose() {
-        MinecraftClient.getInstance().setScreen(MainScreen.INSTANCE);
+        MinecraftClient.getInstance().setScreen(new MainScreen(Text.of("FabricHax")));
     }
 }

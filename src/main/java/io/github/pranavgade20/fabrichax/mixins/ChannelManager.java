@@ -76,7 +76,6 @@ public class ChannelManager {
                 float max_fall = (float) (Settings.player.getVelocity().y * -2); //TODO account jump boost into calculations
                 Vec3d pos = Settings.player.getPos();
                 boolean flag = Settings.world.isSpaceEmpty(new Box(pos.getX() - (double)testWidth, pos.getY()- max_fall, pos.getZ() - (double)testWidth, pos.getX() + (double)testWidth, pos.getY() + height, pos.getZ() + (double)testWidth));
-                System.out.println(Settings.player.getVelocity().y);
                 if (Settings.player.getVelocity().y < -0.7 && !flag) {
                     Settings.player.setVelocity(Settings.player.getVelocity().x, 0.3, Settings.player.getVelocity().z);
                     Settings.player.velocityDirty = true;

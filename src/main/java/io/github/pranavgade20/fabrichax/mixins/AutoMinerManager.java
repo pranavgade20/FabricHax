@@ -39,7 +39,7 @@ public class AutoMinerManager {
                 BlockPos blockPos = new BlockPos(Settings.player.getPos().add(delta)); // gonna place on this
 
                 BlockState state = Settings.world.getBlockState(blockPos);
-                if (Settings.player.getMainHandStack().getMiningSpeedMultiplier(state) != 1.0F) {
+                if (Settings.player.getMainHandStack().getMiningSpeedMultiplier(state) != 1.0F && AutoMiner.mineable.contains(state.getBlock().asItem())) {
                     Utils.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, blockPos, Direction.UP));
                     Utils.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, blockPos, Direction.UP));
                     Settings.world.setBlockBreakingInfo(Settings.player.getId(), blockPos, 9);

@@ -1,16 +1,31 @@
 package io.github.pranavgade20.fabrichax.automationhax;
 
+import com.mojang.authlib.GameProfile;
 import io.github.pranavgade20.fabrichax.Settings;
+import io.github.pranavgade20.fabrichax.gui.MainScreen;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.GameMode;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class AutoMiner extends AutomationBase {
     public static int up = 3;
@@ -21,6 +36,13 @@ public class AutoMiner extends AutomationBase {
     public static int west = 2;
 
     public static int count = 0;
+
+    public static HashSet<Item> mineable = new HashSet<>();
+
+    static {
+        mineable.add(Blocks.STONE.asItem());
+        mineable.add(Blocks.IRON_ORE.asItem());
+    }
 
     public static AutoMiner INSTANCE;
     public AutoMiner() {
@@ -336,7 +358,87 @@ public class AutoMiner extends AutomationBase {
                         south.setMessage(Text.of(String.valueOf(AutoMiner.south)));
                     }
                 });
+                y+=25;
+
+                // select blocks we can mine
+                addDrawableChild(new ClickableWidget(x, y, 210, 20, Text.of("Mineable blocks")) {
+                    @Override
+                    public void appendNarrations(NarrationMessageBuilder builder) {
+
+                    }
+
+                    @Override
+                    public void onClick(double mouseX, double mouseY) {
+                        MinecraftClient.getInstance().setScreen(new BlocksSelectionScreen());
+                    }
+                });
+                y += 25;
+
+                //print selected blocks
+                int start_y = y;
+
+                List<Item> sorted = mineable.stream().sorted(Comparator.comparing(bi -> bi.getName().asString())).collect(Collectors.toList());
+                for (Item it : sorted) {
+                    addDrawableChild(new ClickableWidget(x, y, 100, 20, it.getName()) {
+                        @Override
+                        public void appendNarrations(NarrationMessageBuilder builder) {
+
+                        }
+
+                        @Override
+                        public void onClick(double mouseX, double mouseY) {
+                            MinecraftClient.getInstance().setScreen(getConfigScreen(new MainScreen(Text.of("FabricHax")), AutoMiner.class.getSimpleName()));
+                            mineable.remove(it);
+                        }
+                    });
+                    y += 25;
+                    if (y > this.height-20) {
+                        x += 110;
+                        y = start_y;
+                    }
+                }
             }
         };
+    }
+
+    class BlocksSelectionScreen extends CreativeInventoryScreen {
+        GameMode a, b;
+
+        public BlocksSelectionScreen() {
+            super(new PlayerEntity(Settings.world, Settings.player.getBlockPos(), 0, new GameProfile(UUID.randomUUID(), "createScreen")) {
+                @Override
+                public boolean isSpectator() {
+                    return false;
+                }
+
+                @Override
+                public boolean isCreative() {
+                    return true;
+                }
+            });
+        }
+
+        @Override
+        public void onClose() {
+            client.interactionManager.setGameModes(a, b);
+            super.onClose();
+            MinecraftClient.getInstance().setScreen(getConfigScreen(new MainScreen(Text.of("FabricHax")), AutoMiner.class.getSimpleName()));
+        }
+
+        @Override
+        protected void init() {
+            if (a == null) a = client.interactionManager.getCurrentGameMode();
+            if (b == null) b = client.interactionManager.getPreviousGameMode();
+            client.interactionManager.setGameModes(GameMode.CREATIVE, GameMode.CREATIVE);
+            super.init();
+        }
+
+        @Override
+        protected void onMouseClick(@Nullable Slot slot, int slotId, int button, SlotActionType actionType) {
+            if (actionType == SlotActionType.PICKUP) {
+                if (slot != null) mineable.add(slot.getStack().getItem());
+                onClose();
+            }
+        }
     }
 }

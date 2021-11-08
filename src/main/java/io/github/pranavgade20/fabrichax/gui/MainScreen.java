@@ -15,17 +15,14 @@ public class MainScreen extends Screen {
     static Text tooltip = null;
     static Text status = Text.of("FabricHax");
 
-    static MainScreen INSTANCE = null;
     public MainScreen(Text title) {
         super(title);
-        INSTANCE = this;
     }
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == 256 && this.shouldCloseOnEsc()) {
             GUI.INSTANCE.enabled = false;
-            INSTANCE = null;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
