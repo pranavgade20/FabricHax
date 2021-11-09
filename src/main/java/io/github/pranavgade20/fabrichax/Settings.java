@@ -100,8 +100,7 @@ public class Settings {
                 toggles.values().stream()
                         .filter(m -> m.getModuleName().equals(module))
                         .findAny()
-                        .orElse(null)
-                        .setArgs(args);
+                        .ifPresentOrElse(h -> h.setArgs(args), () -> {});
 
                 reader.read();
             }

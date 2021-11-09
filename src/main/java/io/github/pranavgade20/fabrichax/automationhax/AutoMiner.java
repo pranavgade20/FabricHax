@@ -39,11 +39,6 @@ public class AutoMiner extends AutomationBase {
 
     public static HashSet<Item> mineable = new HashSet<>();
 
-    static {
-        mineable.add(Blocks.STONE.asItem());
-        mineable.add(Blocks.IRON_ORE.asItem());
-    }
-
     public static AutoMiner INSTANCE;
     public AutoMiner() {
         INSTANCE = this;
@@ -68,6 +63,11 @@ public class AutoMiner extends AutomationBase {
         ret.put("south", String.valueOf(south));
         ret.put("east", String.valueOf(east));
         ret.put("west", String.valueOf(west));
+        ret.put("mineable", mineable.stream()
+                .map(i -> i.getName().getString())
+                .reduce((a, b) -> a + ";" + b)
+                .orElse("NOTHING"));
+        System.out.println(ret.get("mineable"));
         return ret;
     }
 
@@ -81,6 +81,10 @@ public class AutoMiner extends AutomationBase {
         south = Integer.parseInt(args.get("south"));
         east = Integer.parseInt(args.get("east"));
         west = Integer.parseInt(args.get("west"));
+        HashSet<String> set = new HashSet<>(Arrays.stream(args.get("mineable").split(";")).toList());
+        for (Block block : Registry.BLOCK) {
+            if (set.contains(block.asItem().getName().getString())) mineable.add(block.asItem());
+        }
     }
 
     @Override
