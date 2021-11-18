@@ -23,6 +23,7 @@
     "FreecamManager",
     "FastmineManager",
     "FarmPlanterManager",
+    "AnimalFeederManager",
     "HarvesterManager",
     "AutoMinerManager"
   ],

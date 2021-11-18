@@ -139,6 +139,7 @@ public class Settings {
         toggles.put(-9, Hax.of(FarmPlanter.class));
         toggles.put(-10, Hax.of(Harvester.class));
         toggles.put(-11, Hax.of(AutoMiner.class));
+        toggles.put(-12, Hax.of(AnimalFeeder.class));
 
         categories = new LinkedList<>();
         categories.add(Hax.of(AutomationBase.class));
