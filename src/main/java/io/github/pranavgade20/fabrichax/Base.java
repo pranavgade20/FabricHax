@@ -51,7 +51,7 @@ public class Base {
             }
 
             @Override
-            public void onClose() {
+            public void close() {
                 MinecraftClient.getInstance().setScreen(parent);
             }
 

@@ -111,7 +111,7 @@ public class AnimalFeeder extends AutomationBase {
             }
 
             @Override
-            public void onClose() {
+            public void close() {
                 MinecraftClient.getInstance().setScreen(parent);
             }
 

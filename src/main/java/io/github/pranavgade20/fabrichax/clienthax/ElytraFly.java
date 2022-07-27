@@ -2,7 +2,6 @@ package io.github.pranavgade20.fabrichax.clienthax;
 
 import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.Utils;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;

@@ -4,7 +4,6 @@ import io.github.pranavgade20.fabrichax.automationhax.AutoHotbar;
 import io.github.pranavgade20.fabrichax.automationhax.Digger;
 import io.github.pranavgade20.fabrichax.automationhax.Fastmine;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;

@@ -4,7 +4,6 @@ import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.Utils;
 import io.github.pranavgade20.fabrichax.automationhax.AutoSneak;
 import io.github.pranavgade20.fabrichax.automationhax.Scaffold;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.input.KeyboardInput;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemPlacementContext;
@@ -25,8 +24,8 @@ import java.util.Objects;
 
 @Mixin(KeyboardInput.class)
 public class SneakManager {
-    @Inject(at = @At("RETURN"), method = "tick(Z)V")
-    private void tick(boolean slowDown, CallbackInfo ci) {
+    @Inject(at = @At("RETURN"), method = "tick(ZF)V")
+    private void tick(boolean slowDown, float f, CallbackInfo ci) {
         if (Settings.player == null || Settings.world == null) return;
 
         float testWidth = 0.1f; // 0.2f / 2.0f (0.2f is less than 0.6f, the actual size of player)
@@ -74,7 +73,7 @@ public class SneakManager {
 
 
                 if (res == ActionResult.SUCCESS) {
-                    Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, hitResult));
+                    Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, hitResult, seq));
                     if (AutoSneak.INSTANCE.enabled)
                         Settings.player.input.sneaking = false;
                 }

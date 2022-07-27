@@ -3,7 +3,6 @@ package io.github.pranavgade20.fabrichax.mixins;
 import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.Utils;
 import io.github.pranavgade20.fabrichax.automationhax.FarmPlanter;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -59,7 +58,7 @@ public class FarmPlanterManager {
                         else res = Settings.player.getOffHandStack().useOnBlock(new ItemPlacementContext(Settings.player, hand, Settings.player.getOffHandStack(), hitResult));
 
                         if (res == ActionResult.SUCCESS) {
-                            Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, hitResult));
+                            Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, hitResult, seq));
                             return;
                         }
                     }

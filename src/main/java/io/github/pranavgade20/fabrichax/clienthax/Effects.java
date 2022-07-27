@@ -56,7 +56,7 @@ public class Effects extends ClientBase {
             String name = params.split(" ")[1].toLowerCase();
             StatusEffect requested = null;
 
-            for (Map.Entry<RegistryKey<StatusEffect>, StatusEffect> e : Registry.STATUS_EFFECT.getEntries()) {
+            for (Map.Entry<RegistryKey<StatusEffect>, StatusEffect> e : Registry.STATUS_EFFECT.getEntrySet()) {
                 if (e.getValue().getName().toString().toLowerCase().contains(name)) {
                     requested = e.getValue();
                     break;
@@ -97,7 +97,7 @@ public class Effects extends ClientBase {
             }
 
             @Override
-            public void onClose() {
+            public void close() {
                 MinecraftClient.getInstance().setScreen(parent);
             }
 
@@ -139,7 +139,7 @@ public class Effects extends ClientBase {
                     addDrawableChild(new ButtonWidget(x+110, y, 20, 20, Text.of("-"), (button) -> {
                         StatusEffect requested = null;
 
-                        for (Map.Entry<RegistryKey<StatusEffect>, StatusEffect> e : Registry.STATUS_EFFECT.getEntries()) {
+                        for (Map.Entry<RegistryKey<StatusEffect>, StatusEffect> e : Registry.STATUS_EFFECT.getEntrySet()) {
                             if (e.getValue().getName().toString().toLowerCase().contains(effect)) {
                                 requested = e.getValue();
                                 break;
@@ -169,7 +169,7 @@ public class Effects extends ClientBase {
                     addDrawableChild(new ButtonWidget(x+110 + 25 + 55, y, 20, 20, Text.of("+"), (button) -> {
                         StatusEffect requested = null;
 
-                        for (Map.Entry<RegistryKey<StatusEffect>, StatusEffect> e : Registry.STATUS_EFFECT.getEntries()) {
+                        for (Map.Entry<RegistryKey<StatusEffect>, StatusEffect> e : Registry.STATUS_EFFECT.getEntrySet()) {
                             if (e.getValue().getName().toString().toLowerCase().contains(effect)) {
                                 requested = e.getValue();
                                 break;

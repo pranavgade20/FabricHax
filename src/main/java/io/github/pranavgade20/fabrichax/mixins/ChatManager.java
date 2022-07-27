@@ -3,8 +3,10 @@ package io.github.pranavgade20.fabrichax.mixins;
 import io.github.pranavgade20.fabrichax.Hax;
 import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.Utils;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.network.encryption.NetworkEncryptionUtils;
+import net.minecraft.network.message.ChatMessageSigner;
+import net.minecraft.network.message.MessageSignature;
 import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,6 +14,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.security.SignatureException;
+import java.time.Instant;
 import java.util.Map;
 
 @Mixin(ClientPlayerEntity.class)
@@ -26,7 +30,12 @@ public class ChatManager {
                 return;
             }
             if (text.startsWith("~ ~")) {
-                Utils.sendPacket(new ChatMessageC2SPacket(text.substring(2)));
+                String text_substring = text.substring(2);
+                var message = Text.literal(text_substring);
+                ChatMessageSigner chatMessageSigner = ChatMessageSigner.create(Settings.player.getUuid());
+                MessageSignature messageSignature = MessageSignature.none();
+                chatMessageSigner.sign(Settings.client.getProfileKeys().getSigner(), message);
+                Utils.sendPacket(new ChatMessageC2SPacket(text_substring, messageSignature, false));
             }
             try {
                 text = text.substring(2);

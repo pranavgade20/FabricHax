@@ -2,7 +2,6 @@ package io.github.pranavgade20.fabrichax.automationhax;
 
 import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.Utils;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -161,7 +160,7 @@ public class Digger extends AutomationBase {
             }
 
             @Override
-            public void onClose() {
+            public void close() {
                 MinecraftClient.getInstance().setScreen(parent);
             }
 

@@ -25,13 +25,15 @@ public class AntiFluid extends AutomationBase {
         INSTANCE = this;
     }
     public String getHelpMessage() {
-        return "AntiFluid - replace fluids around you with blocks\n" +
-                "\nConfiguration information:\n" +
-                " ~ config AntiFluid <direction> <size>\n" +
-                " (to configure shape to be filled)\n" +
-                " where directions include 'up, down, north, south, east, west'\n" +
-                " for example, use `~ config AntiFluid up 2`\n" +
-                " to set this to fill 2 blocks above you.";
+        return """
+                AntiFluid - replace fluids around you with blocks
+
+                Configuration information:
+                 ~ config AntiFluid <direction> <size>
+                 (to configure shape to be filled)
+                 where directions include 'up, down, north, south, east, west'
+                 for example, use `~ config AntiFluid up 2`
+                 to set this to fill 2 blocks above you.""";
     }
 
     @Override
@@ -65,27 +67,16 @@ public class AntiFluid extends AutomationBase {
             int size = Integer.parseInt(params.split(" ")[2]);
 
             switch (direction) {
-                case "up":
-                    up = size + 1;
-                    break;
-                case "down":
-                    down = size;
-                    break;
-                case "north":
-                    north = size;
-                    break;
-                case "south":
-                    south = size;
-                    break;
-                case "east":
-                    east = size;
-                    break;
-                case "west":
-                    west = size;
-                    break;
-                default:
+                case "up" -> up = size + 1;
+                case "down" -> down = size;
+                case "north" -> north = size;
+                case "south" -> south = size;
+                case "east" -> east = size;
+                case "west" -> west = size;
+                default -> {
                     Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help AntiFluid) for more information."), false);
                     return;
+                }
             }
             Settings.player.sendMessage(Text.of("~ config AntiFluid " + params), false);
         } catch (Exception e) {
@@ -104,7 +95,7 @@ public class AntiFluid extends AutomationBase {
             }
 
             @Override
-            public void onClose() {
+            public void close() {
                 MinecraftClient.getInstance().setScreen(parent);
             }
 

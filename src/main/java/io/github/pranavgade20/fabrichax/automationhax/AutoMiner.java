@@ -132,7 +132,7 @@ public class AutoMiner extends AutomationBase {
             }
 
             @Override
-            public void onClose() {
+            public void close() {
                 MinecraftClient.getInstance().setScreen(parent);
             }
 
@@ -381,7 +381,7 @@ public class AutoMiner extends AutomationBase {
                 //print selected blocks
                 int start_y = y;
 
-                List<Item> sorted = mineable.stream().sorted(Comparator.comparing(bi -> bi.getName().asString())).collect(Collectors.toList());
+                List<Item> sorted = mineable.stream().sorted(Comparator.comparing(bi -> bi.getName().getString())).collect(Collectors.toList());
                 for (Item it : sorted) {
                     addDrawableChild(new ClickableWidget(x, y, 100, 20, it.getName()) {
                         @Override
@@ -409,7 +409,7 @@ public class AutoMiner extends AutomationBase {
         GameMode a, b;
 
         public BlocksSelectionScreen() {
-            super(new PlayerEntity(Settings.world, Settings.player.getBlockPos(), 0, new GameProfile(UUID.randomUUID(), "createScreen")) {
+            super(new PlayerEntity(Settings.world, Settings.player.getBlockPos(), 0, new GameProfile(UUID.randomUUID(), "createScreen"), null) {
                 @Override
                 public boolean isSpectator() {
                     return false;
@@ -423,9 +423,9 @@ public class AutoMiner extends AutomationBase {
         }
 
         @Override
-        public void onClose() {
+        public void close() {
             client.interactionManager.setGameModes(a, b);
-            super.onClose();
+            super.close();
             MinecraftClient.getInstance().setScreen(getConfigScreen(new MainScreen(Text.of("FabricHax")), AutoMiner.class.getSimpleName()));
         }
 
@@ -441,7 +441,7 @@ public class AutoMiner extends AutomationBase {
         protected void onMouseClick(@Nullable Slot slot, int slotId, int button, SlotActionType actionType) {
             if (actionType == SlotActionType.PICKUP) {
                 if (slot != null) mineable.add(slot.getStack().getItem());
-                onClose();
+                close();
             }
         }
     }

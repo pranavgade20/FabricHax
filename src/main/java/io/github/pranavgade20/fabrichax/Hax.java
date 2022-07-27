@@ -21,7 +21,7 @@ public class Hax<T extends Base> {
     }
 
     public void toggle() {
-        Settings.world = MinecraftClient.getInstance().world;
+Settings.world = MinecraftClient.getInstance().world;
         Settings.player = MinecraftClient.getInstance().player;
 
         if (Settings.player == null) return;

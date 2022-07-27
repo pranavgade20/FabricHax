@@ -22,11 +22,13 @@ public class Walker extends AutomationBase {
 
     @Override
     public String getHelpMessage() {
-        return "Walker - walk in the direction you are looking at.\n" +
-                "This is most effective on the nether roof\n" +
-                "Configuration information:\n" +
-                " ~ config Walker speed <speed>\n" +
-                " where <speed> is the speed you want to move with.\n";
+        return """
+                Walker - walk in the direction you are looking at.
+                This is most effective on the nether roof
+                Configuration information:
+                 ~ config Walker speed <speed>
+                 where <speed> is the speed you want to move with.
+                """;
     }
 
     @Override
@@ -74,7 +76,7 @@ public class Walker extends AutomationBase {
             }
 
             @Override
-            public void onClose() {
+            public void close() {
                 MinecraftClient.getInstance().setScreen(parent);
             }
 

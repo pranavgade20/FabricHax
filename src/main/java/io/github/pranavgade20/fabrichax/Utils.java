@@ -1,7 +1,11 @@
 package io.github.pranavgade20.fabrichax;
 
+import io.github.pranavgade20.fabrichax.mixins.InteractionManager;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.PendingUpdateManager;
+import net.minecraft.client.network.SequencedPacketCreator;
 import net.minecraft.network.Packet;
+import net.minecraft.network.listener.ServerPlayPacketListener;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.Comparator;
@@ -11,9 +15,9 @@ import java.util.List;
 
 public class Utils {
     public static HashMap<Integer, List<Vec3d>> positionsCache = new HashMap<>();
-
+    public static PendingUpdateManager pendingUpdateManager;
     public static List<Vec3d> getPositions(int up, int down, int east, int west, int north, int south) {
-        Integer hash = up;
+        int hash = up;
         hash *= 40;
         hash += down;
         hash *= 40;
@@ -46,5 +50,31 @@ public class Utils {
         }
 
         throw new IllegalStateException("Cannot send packets when not in game!");
+    }
+
+
+    public static void sendPacket(SequencedPacketCreator supplier) {
+        pendingUpdateManager.incrementSequence();
+
+        try {
+            int i = pendingUpdateManager.getSequence();
+            Packet<ServerPlayPacketListener> packet = supplier.predict(i);
+            MinecraftClient.getInstance().getNetworkHandler().sendPacket(packet);
+        } catch (Throwable var7) {
+            if (pendingUpdateManager != null) {
+                try {
+                    pendingUpdateManager.close();
+                } catch (Throwable var6) {
+                    var7.addSuppressed(var6);
+                }
+            }
+
+            throw var7;
+        }
+
+        if (pendingUpdateManager != null) {
+            pendingUpdateManager.close();
+        }
+
     }
 }

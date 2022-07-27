@@ -5,14 +5,13 @@ import io.github.pranavgade20.fabrichax.Utils;
 import io.github.pranavgade20.fabrichax.clienthax.ElytraFly;
 import io.github.pranavgade20.fabrichax.clienthax.Fly;
 import io.github.pranavgade20.fabrichax.clienthax.Jesus;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.MessageType;
+import net.minecraft.network.message.MessageType;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,7 +29,7 @@ public class FlyManager {
             ci.cancel();
             ItemStack itemStack = Settings.player.getEquippedStack(EquipmentSlot.CHEST);
             if (itemStack.getItem() != Items.ELYTRA || !ElytraItem.isUsable(itemStack)) {
-                MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, Text.of("Could not start ElytraHax. Check your elytra."), Settings.player.getUuid());
+                MinecraftClient.getInstance().inGameHud.getChatHud().queueMessage(Text.of("Could not start ElytraHax. Check your elytra."));
                 Settings.player.getAbilities().flying = false;
                 return;
             }

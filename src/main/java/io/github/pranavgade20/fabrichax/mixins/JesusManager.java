@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(KeyboardInput.class)
 public class JesusManager {
-    @Inject(at = @At("RETURN"), method = "tick(Z)V")
-    private void tick(boolean slowDown, CallbackInfo ci) {
+    @Inject(at = @At("RETURN"), method = "tick(ZF)V")
+    private void tick(boolean slowDown, float f, CallbackInfo ci) {
         if (!Jesus.INSTANCE.enabled) return;
 
         //TODO get player bounding box and check all corners

@@ -2,12 +2,12 @@ package io.github.pranavgade20.fabrichax.automationhax;
 
 import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.Utils;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.network.PendingUpdateManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
 import net.minecraft.text.Text;
@@ -36,41 +36,41 @@ public class Builder extends AutomationBase {
                 case NORTH:
                     for (int j = 1; j <= left; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.EAST).withBlockPos(pos.west(j));
-                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
                     }
                     for (int j = 1; j <= right; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.WEST).withBlockPos(pos.east(j));
-                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
                     }
                     break;
                 case SOUTH:
                     for (int j = 1; j <= right; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.EAST).withBlockPos(pos.west(j));
-                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
                     }
                     for (int j = 1; j <= left; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.WEST).withBlockPos(pos.east(j));
-                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
                     }
                     break;
                 case EAST:
                     for (int j = 1; j <= left; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.SOUTH).withBlockPos(pos.north(j));
-                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
                     }
                     for (int j = 1; j <= right; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.NORTH).withBlockPos(pos.south(j));
-                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
                     }
                     break;
                 case WEST:
                     for (int j = 1; j <= right; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.SOUTH).withBlockPos(pos.north(j));
-                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
                     }
                     for (int j = 1; j <= left; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.NORTH).withBlockPos(pos.south(j));
-                        Utils.sendPacket(new PlayerInteractBlockC2SPacket(hand, result));
+                        Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
                     }
                     break;
             }
@@ -139,7 +139,7 @@ public class Builder extends AutomationBase {
             }
 
             @Override
-            public void onClose() {
+            public void close() {
                 MinecraftClient.getInstance().setScreen(parent);
             }
 

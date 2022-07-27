@@ -25,7 +25,8 @@
     "FarmPlanterManager",
     "AnimalFeederManager",
     "HarvesterManager",
-    "AutoMinerManager"
+    "AutoMinerManager",
+    "InteractionManager"
   ],
   "injectors": {
     "defaultRequire": 1

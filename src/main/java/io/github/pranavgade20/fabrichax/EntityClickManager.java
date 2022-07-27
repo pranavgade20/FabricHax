@@ -2,7 +2,6 @@ package io.github.pranavgade20.fabrichax;
 
 import io.github.pranavgade20.fabrichax.clienthax.Criticals;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
