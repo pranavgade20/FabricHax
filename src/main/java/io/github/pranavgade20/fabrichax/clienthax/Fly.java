@@ -51,8 +51,9 @@ public class Fly extends ClientBase {
 
     @Override
     public String getHelpMessage() {
-        return "Fly - Enables creative mode flight.\n" +
-                "You will be able to fly without elytra, just double-tap jump key.\n" +
-                "note: this isn't as stable as elytrafly, so you might be kicked depending on the server. Using elytrafly is recommended over using this.";
+        return """
+                Fly - Enables creative mode flight.
+                You will be able to fly without elytra, just double-tap jump key.
+                note: this isn't as stable as elytrafly, so you might be kicked depending on the server. Using elytrafly is recommended over using this.""";
     }
 }

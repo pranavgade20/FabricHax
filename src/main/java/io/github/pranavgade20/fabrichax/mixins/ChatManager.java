@@ -41,7 +41,7 @@ public class ChatManager {
                 text = text.substring(2);
                 String command = text.split("[ :]")[0];
                 switch (command.toLowerCase()) {
-                    case "toggle": {
+                    case "toggle" -> {
                         String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
 
                         Settings.toggles.values().forEach(v -> {
@@ -51,7 +51,7 @@ public class ChatManager {
                         });
                         break;
                     }
-                    case "enable": {
+                    case "enable" -> {
                         String parameter = text.split("[ ]")[1]; // to use inside lambda
 
                         String module = parameter.toLowerCase().replace("hax", "");
@@ -67,7 +67,7 @@ public class ChatManager {
                         });
                         break;
                     }
-                    case "disable": {
+                    case "disable" -> {
                         String parameter = text.split("[ ]")[1]; // to use inside lambda
 
                         String module = parameter.toLowerCase().replace("hax", "");
@@ -83,7 +83,7 @@ public class ChatManager {
                         });
                         break;
                     }
-                    case "hotkey": {
+                    case "hotkey" -> {
                         char parameter = text.split("[ :]")[1].toUpperCase().charAt(0);
                         if (Settings.toggles.containsKey((int) parameter)) {
                             Settings.player.sendMessage(Text.of("Key already in use by " + Settings.toggles.get((int) parameter).getModuleName()), false);
@@ -100,11 +100,11 @@ public class ChatManager {
                         }
                         break;
                     }
-                    case "list":
+                    case "list" -> {
                         Settings.player.sendMessage(Text.of("Available modules are: "), false);
                         Settings.toggles.forEach((k, v) -> Settings.player.sendMessage(Text.of(v.getModuleName()), false));
-                        break;
-                    case "help": {
+                    }
+                    case "help" -> {
                         String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
 
                         Settings.toggles.values().forEach(v -> {
@@ -113,14 +113,12 @@ public class ChatManager {
                         });
                         break;
                     }
-                    case "hotkeys":
-                        Settings.toggles.forEach((key, module) -> {
-                            if (key > 0) {
-                                Settings.player.sendMessage(Text.of((char) key.intValue() + " - " + module.getModuleName()), false);
-                            }
-                        });
-                        break;
-                    case "config": {
+                    case "hotkeys" -> Settings.toggles.forEach((key, module) -> {
+                        if (key > 0) {
+                            Settings.player.sendMessage(Text.of((char) key.intValue() + " - " + module.getModuleName()), false);
+                        }
+                    });
+                    case "config" -> {
                         String module = text.split("[ ]")[1].toLowerCase().replace("hax", "");
                         String params = text.substring(text.indexOf(" ", text.indexOf(" "))).trim();
                         Settings.toggles.values().forEach(v -> {
@@ -139,18 +137,19 @@ public class ChatManager {
     }
 
     private static String getHelpMessage() {
-        return "FabricHax - a client side mod to make your life easier!\n" +
-                "Usage: ~ <command> <module>\n" +
-                "       (to execute a command)\n" +
-                "   or  ~ ~<message>\n" +
-                "       (to send a <message> starting with ~)\n" +
-                "where command includes one of\n" +
-                " toggle - toggle the module\n" +
-                " enable - enable the module\n" +
-                " disable - disable the module\n" +
-                " help - show help about the module\n" +
-                " hotkey:<key> - change hotkey to toggle the module\n" +
-                " list - list all modules\n" +
-                " config - configure the module, refer to ~ help <module> for more information";
+        return """
+                FabricHax - a client side mod to make your life easier!
+                Usage: ~ <command> <module>
+                       (to execute a command)
+                   or  ~ ~<message>
+                       (to send a <message> starting with ~)
+                where command includes one of
+                 toggle - toggle the module
+                 enable - enable the module
+                 disable - disable the module
+                 help - show help about the module
+                 hotkey:<key> - change hotkey to toggle the module
+                 list - list all modules
+                 config - configure the module, refer to ~ help <module> for more information""";
     }
 }

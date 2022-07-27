@@ -81,18 +81,19 @@ public class Digger extends AutomationBase {
 
     @Override
     public String getHelpMessage() {
-        return "Digger - mine large chunks of blocks quickly.\n" +
-                "You must be able to insta-mine the blocks for best results\n" +
-                "(for example, you need an efficiency 5 shovel to use Digger on sand)\n" +
-                "\nConfiguration information:\n" +
-                " ~ config Digger <direction> <size>\n" +
-                " (to configure shape to be dug out)\n" +
-                " where directions include 'up, down, left, right'\n" +
-                " and size is a non negative number" +
-                " for example, use `config Digger 2 left`\n" +
-                " to set this to mine 2 blocks to the left of your selected block.\n" +
-                " \n" +
-                " note: if you are kicked, try selecting a lower number for dig size";
+        return """
+                Digger - mine large chunks of blocks quickly.
+                You must be able to insta-mine the blocks for best results
+                (for example, you need an efficiency 5 shovel to use Digger on sand)
+
+                Configuration information:
+                 ~ config Digger <direction> <size>
+                 (to configure shape to be dug out)
+                 where directions include 'up, down, left, right'
+                 and size is a non negative number for example, use `config Digger 2 left`
+                 to set this to mine 2 blocks to the left of your selected block.
+                \s
+                 note: if you are kicked, try selecting a lower number for dig size""";
     }
 
     @Override
@@ -127,21 +128,14 @@ public class Digger extends AutomationBase {
             int size = Integer.parseInt(params.split(" ")[2]);
 
             switch (direction) {
-                case "up":
-                    up = size;
-                    break;
-                case "down":
-                    down = size;
-                    break;
-                case "left":
-                    left = size;
-                    break;
-                case "right":
-                    right = size;
-                    break;
-                default:
+                case "up" -> up = size;
+                case "down" -> down = size;
+                case "left" -> left = size;
+                case "right" -> right = size;
+                default -> {
                     Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help digger) for more information."), false);
                     return;
+                }
             }
             Settings.player.sendMessage(Text.of("~ config Digger " + params), false);
         } catch (Exception e) {

@@ -52,13 +52,15 @@ public class SpawnProofer extends AutomationBase {
     }
 
     public String getHelpMessage() {
-        return "SpawnProofer - spawnproof your surroundings with non full blocks or redstone components\n" +
-                "\nConfiguration information:\n" +
-                " ~ config SpawnProofer <direction> <size>\n" +
-                " (to configure shape to be built)\n" +
-                " where directions include 'up, down, north, south, east, west'\n" +
-                " for example, use `~ config SpawnProofer left 2`\n" +
-                " to set this to spawnproof 2 blocks to your left.";
+        return """
+                SpawnProofer - spawnproof your surroundings with non full blocks or redstone components
+
+                Configuration information:
+                 ~ config SpawnProofer <direction> <size>
+                 (to configure shape to be built)
+                 where directions include 'up, down, north, south, east, west'
+                 for example, use `~ config SpawnProofer left 2`
+                 to set this to spawnproof 2 blocks to your left.""";
     }
     @Override
     public void config(String params) {
@@ -67,27 +69,16 @@ public class SpawnProofer extends AutomationBase {
             int size = Integer.parseInt(params.split(" ")[2]);
 
             switch (direction) {
-                case "up":
-                    up = size + 1;
-                    break;
-                case "down":
-                    down = size;
-                    break;
-                case "north":
-                    north = size;
-                    break;
-                case "south":
-                    south = size;
-                    break;
-                case "east":
-                    east = size;
-                    break;
-                case "west":
-                    west = size;
-                    break;
-                default:
+                case "up" -> up = size + 1;
+                case "down" -> down = size;
+                case "north" -> north = size;
+                case "south" -> south = size;
+                case "east" -> east = size;
+                case "west" -> west = size;
+                default -> {
                     Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help SpawnProofer) for more information."), false);
                     return;
+                }
             }
             Settings.player.sendMessage(Text.of("~ config SpawnProofer " + params), false);
         } catch (Exception e) {

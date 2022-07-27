@@ -58,13 +58,15 @@ public class AnimalFeeder extends AutomationBase {
     }
 
     public String getHelpMessage() {
-        return "AnimalFeeder - feed animals around you.\n" +
-                "\nConfiguration information:\n" +
-                " ~ config AnimalFeeder <direction> <size>\n" +
-                " (to configure shape)\n" +
-                " where directions include 'up, down, north, south, east, west'\n" +
-                " for example, use `~ config AnimalFeeder left 2`\n" +
-                " to set this to feed animals up to 2 blocks to your left.";
+        return """
+                AnimalFeeder - feed animals around you.
+
+                Configuration information:
+                 ~ config AnimalFeeder <direction> <size>
+                 (to configure shape)
+                 where directions include 'up, down, north, south, east, west'
+                 for example, use `~ config AnimalFeeder left 2`
+                 to set this to feed animals up to 2 blocks to your left.""";
     }
     @Override
     public void config(String params) {
@@ -73,27 +75,16 @@ public class AnimalFeeder extends AutomationBase {
             int size = Integer.parseInt(params.split(" ")[2]);
 
             switch (direction) {
-                case "up":
-                    up = size + 1;
-                    break;
-                case "down":
-                    down = size;
-                    break;
-                case "north":
-                    north = size;
-                    break;
-                case "south":
-                    south = size;
-                    break;
-                case "east":
-                    east = size;
-                    break;
-                case "west":
-                    west = size;
-                    break;
-                default:
+                case "up" -> up = size + 1;
+                case "down" -> down = size;
+                case "north" -> north = size;
+                case "south" -> south = size;
+                case "east" -> east = size;
+                case "west" -> west = size;
+                default -> {
                     Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help AnimalFeeder) for more information."), false);
                     return;
+                }
             }
             Settings.player.sendMessage(Text.of("~ config AnimalFeeder " + params), false);
         } catch (Exception e) {

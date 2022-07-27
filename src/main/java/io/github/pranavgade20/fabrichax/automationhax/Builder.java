@@ -33,7 +33,7 @@ public class Builder extends AutomationBase {
 
         for (int i = -left; i < right; i++) {
             switch (Settings.player.getHorizontalFacing()) {
-                case NORTH:
+                case NORTH -> {
                     for (int j = 1; j <= left; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.EAST).withBlockPos(pos.west(j));
                         Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
@@ -42,8 +42,8 @@ public class Builder extends AutomationBase {
                         BlockHitResult result = hitResult.withSide(Direction.WEST).withBlockPos(pos.east(j));
                         Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
                     }
-                    break;
-                case SOUTH:
+                }
+                case SOUTH -> {
                     for (int j = 1; j <= right; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.EAST).withBlockPos(pos.west(j));
                         Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
@@ -52,8 +52,8 @@ public class Builder extends AutomationBase {
                         BlockHitResult result = hitResult.withSide(Direction.WEST).withBlockPos(pos.east(j));
                         Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
                     }
-                    break;
-                case EAST:
+                }
+                case EAST -> {
                     for (int j = 1; j <= left; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.SOUTH).withBlockPos(pos.north(j));
                         Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
@@ -62,8 +62,8 @@ public class Builder extends AutomationBase {
                         BlockHitResult result = hitResult.withSide(Direction.NORTH).withBlockPos(pos.south(j));
                         Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
                     }
-                    break;
-                case WEST:
+                }
+                case WEST -> {
                     for (int j = 1; j <= right; j++) {
                         BlockHitResult result = hitResult.withSide(Direction.SOUTH).withBlockPos(pos.north(j));
                         Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
@@ -72,21 +72,23 @@ public class Builder extends AutomationBase {
                         BlockHitResult result = hitResult.withSide(Direction.NORTH).withBlockPos(pos.south(j));
                         Utils.sendPacket(seq -> new PlayerInteractBlockC2SPacket(hand, result, seq));
                     }
-                    break;
+                }
             }
         }
     }
 
     @Override
     public String getHelpMessage() {
-        return "Builder - place large chunks of blocks quickly.\n" +
-                "Do not stand where the blocks will be placed for best results\n" +
-                "\nConfiguration information:\n" +
-                " ~ config Builder <direction> <size>\n" +
-                " (to configure shape to be built)\n" +
-                " where directions include 'left, right'\n" +
-                " for example, use `~ config Builder left 2`\n" +
-                " to set this to place 2 blocks to the left of your placed block.";
+        return """
+                Builder - place large chunks of blocks quickly.
+                Do not stand where the blocks will be placed for best results
+
+                Configuration information:
+                 ~ config Builder <direction> <size>
+                 (to configure shape to be built)
+                 where directions include 'left, right'
+                 for example, use `~ config Builder left 2`
+                 to set this to place 2 blocks to the left of your placed block.""";
     }
 
     @Override

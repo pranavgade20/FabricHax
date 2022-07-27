@@ -39,7 +39,6 @@ public class BlockClickManager implements AttackBlockCallback {
         }
 
         if (slot == -1) {
-            maxSpeed = Float.MIN_VALUE;
             for (int i = 0; i < 9; i++) {
                 ItemStack tool = inventory.getStack(i);
                 float speed = getBlockBreakingSpeed(tool, block);

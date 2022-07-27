@@ -43,11 +43,13 @@ public class Effects extends ClientBase {
 
     @Override
     public String getHelpMessage() {
-        return "Effects - control the status effects you have.\n" +
-                "\nConfiguration information:\n" +
-                " ~ config Effects <effect_name> <amplifier>\n" +
-                " (select amplifier to 0 to remove the effect)\n" +
-                "Currently supported effects are-speed, slowness, jump_boost, nausea, night_vision, blindness, levitation, slow_falling, conduit_power, dolphins_grace";
+        return """
+                Effects - control the status effects you have.
+
+                Configuration information:
+                 ~ config Effects <effect_name> <amplifier>
+                 (select amplifier to 0 to remove the effect)
+                Currently supported effects are-speed, slowness, jump_boost, nausea, night_vision, blindness, levitation, slow_falling, conduit_power, dolphins_grace""";
     }
 
     @Override

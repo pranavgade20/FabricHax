@@ -45,13 +45,15 @@ public class AutoMiner extends AutomationBase {
     }
 
     public String getHelpMessage() {
-        return "AutoMiner - automatically mine blocks around you\n" +
-                "\nConfiguration information:\n" +
-                " ~ config AutoMiner <direction> <size>\n" +
-                " (to configure shape to be built)\n" +
-                " where directions include 'up, down, north, south, east, west'\n" +
-                " for example, use `~ config AutoMiner left 2`\n" +
-                " to set this to plant 2 blocks to your left.";
+        return """
+                AutoMiner - automatically mine blocks around you
+
+                Configuration information:
+                 ~ config AutoMiner <direction> <size>
+                 (to configure shape to be built)
+                 where directions include 'up, down, north, south, east, west'
+                 for example, use `~ config AutoMiner left 2`
+                 to set this to plant 2 blocks to your left.""";
     }
 
     @Override
@@ -94,27 +96,16 @@ public class AutoMiner extends AutomationBase {
             int size = Integer.parseInt(params.split(" ")[2]);
 
             switch (direction) {
-                case "up":
-                    up = size + 1;
-                    break;
-                case "down":
-                    down = size;
-                    break;
-                case "north":
-                    north = size;
-                    break;
-                case "south":
-                    south = size;
-                    break;
-                case "east":
-                    east = size;
-                    break;
-                case "west":
-                    west = size;
-                    break;
-                default:
+                case "up" -> up = size + 1;
+                case "down" -> down = size;
+                case "north" -> north = size;
+                case "south" -> south = size;
+                case "east" -> east = size;
+                case "west" -> west = size;
+                default -> {
                     Settings.player.sendMessage(Text.of("Invalid use: refer to help(~ help AutoMiner) for more information."), false);
                     return;
+                }
             }
             Settings.player.sendMessage(Text.of("~ config AutoMiner " + params), false);
         } catch (Exception e) {
@@ -381,7 +372,7 @@ public class AutoMiner extends AutomationBase {
                 //print selected blocks
                 int start_y = y;
 
-                List<Item> sorted = mineable.stream().sorted(Comparator.comparing(bi -> bi.getName().getString())).collect(Collectors.toList());
+                List<Item> sorted = mineable.stream().sorted(Comparator.comparing(bi -> bi.getName().getString())).toList();
                 for (Item it : sorted) {
                     addDrawableChild(new ClickableWidget(x, y, 100, 20, it.getName()) {
                         @Override
