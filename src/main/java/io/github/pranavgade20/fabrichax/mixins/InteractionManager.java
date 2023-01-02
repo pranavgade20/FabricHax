@@ -1,6 +1,8 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
 import io.github.pranavgade20.fabrichax.Utils;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.network.PendingUpdateManager;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.registry.RegistryKey;

@@ -107,7 +107,7 @@ public class AnimalFeeder extends AutomationBase {
             }
 
             @Override
-            private void init() {
+            public void init() {
                 int x = 10;
                 int y = 30;
                 addDrawableChild(new TextFieldWidget(this.textRenderer, x, y, 100, 20, Text.of("Enabled")) {

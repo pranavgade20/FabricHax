@@ -124,7 +124,7 @@ public class AutoMiner extends AutomationBase {
             }
 
             @Override
-            private void init() {
+            public void init() {
                 int x = 10;
                 int y = 30;
                 addDrawableChild(new TextFieldWidget(this.textRenderer, x, y, 100, 20, Text.of("Enabled")) {
@@ -136,7 +136,7 @@ public class AutoMiner extends AutomationBase {
                 });
                 addDrawableChild(new ClickableWidget(x + 110, y, 100, 20, Text.of(String.valueOf(enabled))) {
                     @Override
-                    private void appendClickableNarrations(NarrationMessageBuilder builder) {
+                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
                     }
 
                     @Override
@@ -169,13 +169,13 @@ public class AutoMiner extends AutomationBase {
                     }
 
                     @Override
-                    private void appendClickableNarrations(NarrationMessageBuilder builder) {
+                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
 
                     }
                 });
                 addDrawableChild(new ClickableWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+")) {
                     @Override
-                    private void appendClickableNarrations(NarrationMessageBuilder builder) {
+                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
                     }
 
                     @Override
@@ -193,7 +193,7 @@ public class AutoMiner extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget down = addDrawableChild(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AutoMiner.down))) {
+                final TextFieldWidget down = addDrawableChild(new TextFieldWidget(textRenderer, x + 110 + 25, y, 50, 20, Text.of(String.valueOf(AutoMiner.down))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
@@ -220,7 +220,7 @@ public class AutoMiner extends AutomationBase {
                         down.setMessage(Text.of(String.valueOf(AutoMiner.down)));
                     }
                 });
-                y+=25;
+                y += 25;
 
                 addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("West")) {
                     @Override
@@ -229,7 +229,7 @@ public class AutoMiner extends AutomationBase {
                         drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                final TextFieldWidget west = addDrawableChild(new TextFieldWidget(textRenderer, x+110+25, y, 50, 20, Text.of(String.valueOf(AutoMiner.west))) {
+                final TextFieldWidget west = addDrawableChild(new TextFieldWidget(textRenderer, x + 110 + 25, y, 50, 20, Text.of(String.valueOf(AutoMiner.west))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
@@ -256,7 +256,7 @@ public class AutoMiner extends AutomationBase {
                         west.setMessage(Text.of(String.valueOf(AutoMiner.west)));
                     }
                 });
-                y+=25;
+                y += 25;
 
                 addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("East")) {
                     public void appendClickableNarrations(NarrationMessageBuilder builder) {
@@ -298,7 +298,7 @@ public class AutoMiner extends AutomationBase {
                         east.setMessage(Text.of(String.valueOf(AutoMiner.east)));
                     }
                 });
-                y+=25;
+                y += 25;
 
                 addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("North")) {
                     @Override
@@ -362,7 +362,7 @@ public class AutoMiner extends AutomationBase {
 
                     @Override
                     public void onClick(double mouseX, double mouseY) {
-                        AutoMiner.south = AutoMiner.south == 0 ? 0 : AutoMiner.south-1;
+                        AutoMiner.south = AutoMiner.south == 0 ? 0 : AutoMiner.south - 1;
                         south.setMessage(Text.of(String.valueOf(AutoMiner.south)));
                     }
                 });
@@ -376,7 +376,7 @@ public class AutoMiner extends AutomationBase {
                         south.setMessage(Text.of(String.valueOf(AutoMiner.south)));
                     }
                 });
-                y+=25;
+                y += 25;
 
                 // select blocks we can mine
                 addDrawableChild(new ClickableWidget(x, y, 210, 20, Text.of("Mineable blocks")) {
