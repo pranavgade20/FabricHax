@@ -11,7 +11,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.message.MessageType;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,7 +28,7 @@ public class FlyManager {
             ci.cancel();
             ItemStack itemStack = Settings.player.getEquippedStack(EquipmentSlot.CHEST);
             if (itemStack.getItem() != Items.ELYTRA || !ElytraItem.isUsable(itemStack)) {
-                MinecraftClient.getInstance().inGameHud.getChatHud().queueMessage(Text.of("Could not start ElytraHax. Check your elytra."));
+                MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Could not start ElytraHax. Check your elytra."));
                 Settings.player.getAbilities().flying = false;
                 return;
             }

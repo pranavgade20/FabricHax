@@ -1,19 +1,16 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
+import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.Utils;
 import io.github.pranavgade20.fabrichax.automationhax.AntiFluid;
-import io.github.pranavgade20.fabrichax.Settings;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -21,8 +18,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Objects;
 
 @Mixin(ClientPlayerEntity.class)
 public class AntiFluidManager {
@@ -38,9 +33,9 @@ public class AntiFluidManager {
 
         if (AntiFluid.INSTANCE.enabled) {
             Hand hand;
-            if (Objects.equals(Settings.player.getMainHandStack().getItem().getGroup(), ItemGroup.BUILDING_BLOCKS)) {
+            if (ItemGroups.BUILDING_BLOCKS.contains(Settings.player.getMainHandStack())) {
                 hand = Hand.MAIN_HAND;
-            } else if (Objects.equals(Settings.player.getOffHandStack().getItem().getGroup(), ItemGroup.BUILDING_BLOCKS)) {
+            } else if (ItemGroups.BUILDING_BLOCKS.contains(Settings.player.getOffHandStack())) {
                 hand = Hand.OFF_HAND;
             } else return;
 

@@ -5,7 +5,7 @@ import io.github.pranavgade20.fabrichax.Utils;
 import io.github.pranavgade20.fabrichax.automationhax.AutoSneak;
 import io.github.pranavgade20.fabrichax.automationhax.Scaffold;
 import net.minecraft.client.input.KeyboardInput;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
 import net.minecraft.util.ActionResult;
@@ -19,8 +19,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Objects;
 
 @Mixin(KeyboardInput.class)
 public class SneakManager {
@@ -44,9 +42,9 @@ public class SneakManager {
         if (Scaffold.INSTANCE.enabled && flag && !Settings.player.getAbilities().flying) {
             try {
                 Hand hand;
-                if (Objects.equals(Settings.player.getMainHandStack().getItem().getGroup(), ItemGroup.BUILDING_BLOCKS)) {
+                if (ItemGroups.BUILDING_BLOCKS.contains(Settings.player.getMainHandStack())) {
                     hand = Hand.MAIN_HAND;
-                } else if (Objects.equals(Settings.player.getOffHandStack().getItem().getGroup(), ItemGroup.BUILDING_BLOCKS)) {
+                } else if (ItemGroups.BUILDING_BLOCKS.contains(Settings.player.getOffHandStack())) {
                     hand = Hand.OFF_HAND;
                 } else return;
 

@@ -44,7 +44,7 @@ public class CategoryScreen extends Screen {
 
                     addDrawableChild(new ClickableWidget(x, y, 100, 20, Text.of(entry.getModuleName())) {
                         @Override
-                        public void appendNarrations(NarrationMessageBuilder builder) {
+                        public void appendClickableNarrations(NarrationMessageBuilder builder) {
 
                         }
 
