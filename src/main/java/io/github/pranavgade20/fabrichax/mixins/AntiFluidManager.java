@@ -14,6 +14,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3i;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,7 +25,7 @@ public class AntiFluidManager {
     @Inject(at = @At("RETURN"), method = "tick")
     public void tick(CallbackInfo ci) {
         try {
-            if (!Settings.world.isChunkLoaded(new BlockPos(Settings.player.getX(), 0.0D, Settings.player.getZ()))) {
+            if (!Settings.world.isChunkLoaded(new BlockPos((int) Settings.player.getX(), 0, (int) Settings.player.getZ()))) {
                 return;
             }
         } catch (Exception e) {
@@ -42,7 +43,7 @@ public class AntiFluidManager {
             for (int y = -AntiFluid.down; y <= AntiFluid.up; y++) {
                 for (int x = -AntiFluid.west; x <= AntiFluid.east; x++) {
                     for (int z = -AntiFluid.north; z <= AntiFluid.south; z++) {
-                        BlockPos blockPos = new BlockPos(Settings.player.getPos().add(x, y, z));
+                        BlockPos blockPos = new BlockPos((new Vec3i((int) Settings.player.getPos().x, (int) Settings.player.getPos().x, (int) Settings.player.getPos().x)).add(x, y, z));
 
                         BlockHitResult hitResult = new BlockHitResult(
                                 Settings.player.getPos(),

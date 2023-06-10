@@ -4,13 +4,12 @@ import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.Utils;
 import io.github.pranavgade20.fabrichax.automationhax.AutoMiner;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,7 +25,7 @@ public class AutoMinerManager {
         }
         AutoMiner.count = 2; // once every two ticks
         try {
-            if (!Settings.world.isChunkLoaded(new BlockPos(Settings.player.getX(), 0.0D, Settings.player.getZ()))) {
+            if (!Settings.world.isChunkLoaded(new BlockPos((int) Settings.player.getX(), 0, (int) Settings.player.getZ()))) {
                 return;
             }
         } catch (Exception e) {
@@ -35,7 +34,7 @@ public class AutoMinerManager {
 
         if (AutoMiner.INSTANCE.enabled) {
             for (Vec3d delta : Utils.getPositions(AutoMiner.up, AutoMiner.down, AutoMiner.east, AutoMiner.west, AutoMiner.north, AutoMiner.south)) {
-                BlockPos blockPos = new BlockPos(Settings.player.getPos().add(delta)); // gonna place on this
+                BlockPos blockPos = new BlockPos((new Vec3i((int) Settings.player.getPos().x, (int) Settings.player.getPos().x, (int) Settings.player.getPos().x)).add(new Vec3i((int) delta.x, (int) delta.y, (int) delta.z))); // gonna place on this
 
                 BlockState state = Settings.world.getBlockState(blockPos);
                 if (Settings.player.getMainHandStack().getMiningSpeedMultiplier(state) != 1.0F && AutoMiner.mineable.contains(state.getBlock().asItem())) {

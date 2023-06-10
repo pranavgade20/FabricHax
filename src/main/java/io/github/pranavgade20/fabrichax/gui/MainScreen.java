@@ -31,7 +31,7 @@ public class MainScreen extends Screen {
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
 
-        drawCenteredText(matrices, this.textRenderer, status, this.width / 2, 10, 16777215);
+        drawCenteredTextWithShadow(matrices, this.textRenderer, status, this.width / 2, 10, 16777215);
 
         if (tooltip != null) renderTooltip(matrices, tooltip, mouseX, mouseY);
         super.render(matrices, mouseX, mouseY, delta);
@@ -47,7 +47,7 @@ public class MainScreen extends Screen {
                 x = 10;
                 y += 25;
             }
-            addDrawableChild(new MenuButtonWidget(x, y, width, 20, category));
+            addDrawableChild(new MenuButtonWidget(x, y, width, 20, category, textRenderer));
             x += width + 5;
 
         }
@@ -58,7 +58,7 @@ public class MainScreen extends Screen {
         Arrays.sort(sortedEntries, Comparator.comparing(Hax::getModuleName));
         for (Hax<? extends Base> entry : sortedEntries) {
             try {
-                addDrawableChild(new ToggleButtonWidget(x, y, 100, 20, entry));
+                addDrawableChild(new ToggleButtonWidget(x, y, 100, 20, entry, textRenderer));
                 y += 25;
                 if (y > this.height-20) {
                     x += 110;

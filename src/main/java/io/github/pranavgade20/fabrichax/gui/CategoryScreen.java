@@ -5,8 +5,7 @@ import io.github.pranavgade20.fabrichax.Hax;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
-import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.gui.widget.PressableTextWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
@@ -27,7 +26,7 @@ public class CategoryScreen extends Screen {
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
 
-        drawCenteredText(matrices, this.textRenderer, status, this.width / 2, 10, 16777215);
+        drawCenteredTextWithShadow(matrices, this.textRenderer, status, this.width / 2, 10, 16777215);
 
         super.render(matrices, mouseX, mouseY, delta);
     }
@@ -42,17 +41,9 @@ public class CategoryScreen extends Screen {
             try {
                 if (module.getModuleClass().isInstance(entry.getModule())){
 
-                    addDrawableChild(new ClickableWidget(x, y, 100, 20, Text.of(entry.getModuleName())) {
-                        @Override
-                        public void appendClickableNarrations(NarrationMessageBuilder builder) {
-
-                        }
-
-                        @Override
-                        public void onRelease(double mouseX, double mouseY) {
-                            MinecraftClient.getInstance().setScreen(entry.getModule().getConfigScreen(CategoryScreen.this, entry.getModuleName()));
-                        }
-                    });
+                    addDrawableChild(new PressableTextWidget(x, y, 100, 20, Text.of(entry.getModuleName()), button -> {
+                        MinecraftClient.getInstance().setScreen(entry.getModule().getConfigScreen(CategoryScreen.this, entry.getModuleName()));
+                    }, textRenderer));
                     y += 25;
                     if (y > this.height - 20) {
                         x += 110;

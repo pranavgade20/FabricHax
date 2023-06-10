@@ -3,8 +3,7 @@ package io.github.pranavgade20.fabrichax.automationhax;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
-import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.gui.widget.PressableTextWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -71,7 +70,7 @@ public class Walker extends AutomationBase {
             @Override
             public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                 this.renderBackground(matrices);
-                drawCenteredText(matrices, this.textRenderer, getTitle(), this.width / 2, 10, 16777215);
+                drawCenteredTextWithShadow(matrices, this.textRenderer, getTitle(), this.width / 2, 10, 16777215);
                 super.render(matrices, mouseX, mouseY, delta);
             }
 
@@ -88,55 +87,37 @@ public class Walker extends AutomationBase {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addDrawableChild(new ClickableWidget(x + 110, y, 100, 20, Text.of(String.valueOf(enabled))) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        enabled = !enabled;
-                        setMessage(Text.of(String.valueOf(enabled)));
-                    }
-                });
+                addDrawableChild(new PressableTextWidget(x + 110, y, 100, 20, Text.of(String.valueOf(enabled)), button -> {
+                    enabled = !enabled;
+                    button.setMessage(Text.of(String.valueOf(enabled)));
+                }, textRenderer));
                 y += 25;
 
                 addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Speed")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
                 final TextFieldWidget speed = addDrawableChild(new TextFieldWidget(textRenderer, x + 110 + 25, y, 50, 20, Text.of(String.valueOf(Walker.speed))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addDrawableChild(new ClickableWidget(x + 110, y, 20, 20, Text.of("-")) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        Walker.speed = Walker.speed == 0 ? 0 : Walker.speed - 1;
-                        speed.setMessage(Text.of(String.valueOf(Walker.speed)));
-                    }
-                });
-                addDrawableChild(new ClickableWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+")) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        Walker.speed = Walker.speed + 1;
-                        speed.setMessage(Text.of(String.valueOf(Walker.speed)));
-                    }
-                });
+                addDrawableChild(new PressableTextWidget(x + 110, y, 20, 20, Text.of("-"), button -> {
+                    Walker.speed = Walker.speed == 0 ? 0 : Walker.speed - 1;
+                    speed.setMessage(Text.of(String.valueOf(Walker.speed)));
+                }, textRenderer));
+                addDrawableChild(new PressableTextWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+"), button -> {
+                    Walker.speed = Walker.speed + 1;
+                    speed.setMessage(Text.of(String.valueOf(Walker.speed)));
+                }, textRenderer));
             }
         };
     }

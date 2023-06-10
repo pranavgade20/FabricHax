@@ -45,7 +45,7 @@ public class Base {
             @Override
             public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                 this.renderBackground(matrices);
-                drawCenteredText(matrices, this.textRenderer, getTitle(), this.width / 2, 10, 16777215);
+                drawCenteredTextWithShadow(matrices, this.textRenderer, getTitle(), this.width / 2, 10, 16777215);
                 super.render(matrices, mouseX, mouseY, delta);
             }
 
@@ -62,7 +62,7 @@ public class Base {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
                 addDrawableChild(new ButtonWidget.Builder(Text.of(String.valueOf(enabled)), (button) -> {

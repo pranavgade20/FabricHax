@@ -8,6 +8,7 @@ import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3i;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,7 +24,7 @@ public class HarvesterManager {
         }
         Harvester.count = 1; // once every two ticks
         try {
-            if (!Settings.world.isChunkLoaded(new BlockPos(Settings.player.getX(), 0.0D, Settings.player.getZ()))) {
+            if (!Settings.world.isChunkLoaded(new BlockPos((int) Settings.player.getX(), 0, (int) Settings.player.getZ()))) {
                 return;
             }
         } catch (Exception e) {
@@ -34,7 +35,7 @@ public class HarvesterManager {
             for (int y = -Harvester.down; y <= Harvester.up; y++) {
                 for (int x = -Harvester.west; x <= Harvester.east; x++) {
                     for (int z = -Harvester.north; z <= Harvester.south; z++) {
-                        BlockPos blockPos = new BlockPos(Settings.player.getPos().add(x, y, z)); // gonna place on this
+                        BlockPos blockPos = new BlockPos((new Vec3i((int) Settings.player.getPos().x, (int) Settings.player.getPos().x, (int) Settings.player.getPos().x)).add(x, y, z)); // gonna place on this
 
                         BlockHitResult hitResult = new BlockHitResult(
                                 Settings.player.getPos(),

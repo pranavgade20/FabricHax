@@ -11,10 +11,7 @@ import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -49,14 +46,14 @@ public class SneakManager {
                 } else return;
 
                 Direction direction = Direction.DOWN;
-                BlockPos blockPos = new BlockPos(Settings.player.getPos().subtract(0, 1, 0));
-                if (!Settings.world.getBlockState(new BlockPos(Settings.player.getPos().add(0, -1, 1))).isAir())
+                BlockPos blockPos = new BlockPos((new Vec3i((int) Settings.player.getPos().x, (int) Settings.player.getPos().x, (int) Settings.player.getPos().x)).subtract(new Vec3i(0, 1, 0)));
+                if (!Settings.world.getBlockState(new BlockPos((new Vec3i((int) Settings.player.getPos().x, (int) Settings.player.getPos().x, (int) Settings.player.getPos().x)).add(0, -1, 1))).isAir())
                     direction = Direction.getFacing(0, 0, -1);
-                if (!Settings.world.getBlockState(new BlockPos(Settings.player.getPos().add(0, -1, -1))).isAir())
+                if (!Settings.world.getBlockState(new BlockPos((new Vec3i((int) Settings.player.getPos().x, (int) Settings.player.getPos().x, (int) Settings.player.getPos().x)).add(0, -1, -1))).isAir())
                     direction = Direction.getFacing(0, 0, 1);
-                if (!Settings.world.getBlockState(new BlockPos(Settings.player.getPos().add(1, -1, 0))).isAir())
+                if (!Settings.world.getBlockState(new BlockPos((new Vec3i((int) Settings.player.getPos().x, (int) Settings.player.getPos().x, (int) Settings.player.getPos().x)).add(1, -1, 0))).isAir())
                     direction = Direction.getFacing(-1, 0, 0);
-                if (!Settings.world.getBlockState(new BlockPos(Settings.player.getPos().add(-1, -1, 0))).isAir())
+                if (!Settings.world.getBlockState(new BlockPos((new Vec3i((int) Settings.player.getPos().x, (int) Settings.player.getPos().x, (int) Settings.player.getPos().x)).add(-1, -1, 0))).isAir())
                     direction = Direction.getFacing(1, 0, 0);
                 BlockHitResult hitResult = new BlockHitResult(
                         Settings.player.getPos(),

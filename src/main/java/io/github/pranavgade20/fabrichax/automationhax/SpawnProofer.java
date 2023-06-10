@@ -3,8 +3,7 @@ package io.github.pranavgade20.fabrichax.automationhax;
 import io.github.pranavgade20.fabrichax.Settings;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
-import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.gui.widget.PressableTextWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -92,7 +91,7 @@ public class SpawnProofer extends AutomationBase {
             @Override
             public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                 this.renderBackground(matrices);
-                drawCenteredText(matrices, this.textRenderer, getTitle(), this.width / 2, 10, 16777215);
+                drawCenteredTextWithShadow(matrices, this.textRenderer, getTitle(), this.width / 2, 10, 16777215);
                 super.render(matrices, mouseX, mouseY, delta);
             }
 
@@ -109,235 +108,157 @@ public class SpawnProofer extends AutomationBase {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addDrawableChild(new ClickableWidget(x + 110, y, 100, 20, Text.of(String.valueOf(enabled))) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        enabled = !enabled;
-                        setMessage(Text.of(String.valueOf(enabled)));
-                    }
-                });
+                addDrawableChild(new PressableTextWidget(x + 110, y, 100, 20, Text.of(String.valueOf(enabled)), button -> {
+                    enabled = !enabled;
+                    button.setMessage(Text.of(String.valueOf(enabled)));
+                }, textRenderer));
                 y += 25;
 
                 addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Up")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
                 final TextFieldWidget up = addDrawableChild(new TextFieldWidget(textRenderer, x + 110 + 25, y, 50, 20, Text.of(String.valueOf(SpawnProofer.up))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addDrawableChild(new ClickableWidget(x + 110, y, 20, 20, Text.of("-")) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.up = SpawnProofer.up == 0 ? 0 : SpawnProofer.up - 1;
-                        up.setMessage(Text.of(String.valueOf(SpawnProofer.up)));
-                    }
-                });
-                addDrawableChild(new ClickableWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+")) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.up = SpawnProofer.up == 8 ? 8 : SpawnProofer.up + 1;
-                        up.setMessage(Text.of(String.valueOf(SpawnProofer.up)));
-                    }
-                });
+                addDrawableChild(new PressableTextWidget(x + 110, y, 20, 20, Text.of("-"), button -> {
+                    SpawnProofer.up = SpawnProofer.up == 0 ? 0 : SpawnProofer.up - 1;
+                    up.setMessage(Text.of(String.valueOf(SpawnProofer.up)));
+                }, textRenderer));
+                addDrawableChild(new PressableTextWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+"), button -> {
+                    SpawnProofer.up = SpawnProofer.up == 8 ? 8 : SpawnProofer.up + 1;
+                    up.setMessage(Text.of(String.valueOf(SpawnProofer.up)));
+                }, textRenderer));
                 y += 25;
 
                 addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("Down")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
                 final TextFieldWidget down = addDrawableChild(new TextFieldWidget(textRenderer, x + 110 + 25, y, 50, 20, Text.of(String.valueOf(SpawnProofer.down))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addDrawableChild(new ClickableWidget(x + 110, y, 20, 20, Text.of("-")) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.down = SpawnProofer.down == 0 ? 0 : SpawnProofer.down - 1;
-                        down.setMessage(Text.of(String.valueOf(SpawnProofer.down)));
-                    }
-                });
-                addDrawableChild(new ClickableWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+")) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.down = SpawnProofer.down == 8 ? 8 : SpawnProofer.down + 1;
-                        down.setMessage(Text.of(String.valueOf(SpawnProofer.down)));
-                    }
-                });
+                addDrawableChild(new PressableTextWidget(x + 110, y, 20, 20, Text.of("-"), button -> {
+                    SpawnProofer.down = SpawnProofer.down == 0 ? 0 : SpawnProofer.down - 1;
+                    down.setMessage(Text.of(String.valueOf(SpawnProofer.down)));
+                }, textRenderer));
+                addDrawableChild(new PressableTextWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+"), button -> {
+                    SpawnProofer.down = SpawnProofer.down == 8 ? 8 : SpawnProofer.down + 1;
+                    down.setMessage(Text.of(String.valueOf(SpawnProofer.down)));
+                }, textRenderer));
                 y += 25;
 
                 addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("West")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
                 final TextFieldWidget west = addDrawableChild(new TextFieldWidget(textRenderer, x + 110 + 25, y, 50, 20, Text.of(String.valueOf(SpawnProofer.west))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addDrawableChild(new ClickableWidget(x + 110, y, 20, 20, Text.of("-")) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.west = SpawnProofer.west == 0 ? 0 : SpawnProofer.west - 1;
-                        west.setMessage(Text.of(String.valueOf(SpawnProofer.west)));
-                    }
-                });
-                addDrawableChild(new ClickableWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+")) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.west = SpawnProofer.west == 8 ? 8 : SpawnProofer.west + 1;
-                        west.setMessage(Text.of(String.valueOf(SpawnProofer.west)));
-                    }
-                });
+                addDrawableChild(new PressableTextWidget(x + 110, y, 20, 20, Text.of("-"), button -> {
+                    SpawnProofer.west = SpawnProofer.west == 0 ? 0 : SpawnProofer.west - 1;
+                    west.setMessage(Text.of(String.valueOf(SpawnProofer.west)));
+                }, textRenderer));
+                addDrawableChild(new PressableTextWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+"), button -> {
+                    SpawnProofer.west = SpawnProofer.west == 8 ? 8 : SpawnProofer.west + 1;
+                    west.setMessage(Text.of(String.valueOf(SpawnProofer.west)));
+                }, textRenderer));
                 y += 25;
 
                 addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("East")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
                 final TextFieldWidget east = addDrawableChild(new TextFieldWidget(textRenderer, x + 110 + 25, y, 50, 20, Text.of(String.valueOf(SpawnProofer.east))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addDrawableChild(new ClickableWidget(x + 110, y, 20, 20, Text.of("-")) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.east = SpawnProofer.east == 0 ? 0 : SpawnProofer.east - 1;
-                        east.setMessage(Text.of(String.valueOf(SpawnProofer.east)));
-                    }
-                });
-                addDrawableChild(new ClickableWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+")) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.east = SpawnProofer.east == 8 ? 8 : SpawnProofer.east + 1;
-                        east.setMessage(Text.of(String.valueOf(SpawnProofer.east)));
-                    }
-                });
+                addDrawableChild(new PressableTextWidget(x + 110, y, 20, 20, Text.of("-"), button -> {
+                    SpawnProofer.east = SpawnProofer.east == 0 ? 0 : SpawnProofer.east - 1;
+                    east.setMessage(Text.of(String.valueOf(SpawnProofer.east)));
+                }, textRenderer));
+                addDrawableChild(new PressableTextWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+"), button -> {
+                    SpawnProofer.east = SpawnProofer.east == 8 ? 8 : SpawnProofer.east + 1;
+                    east.setMessage(Text.of(String.valueOf(SpawnProofer.east)));
+                }, textRenderer));
                 y += 25;
 
                 addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("North")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
                 final TextFieldWidget north = addDrawableChild(new TextFieldWidget(textRenderer, x + 110 + 25, y, 50, 20, Text.of(String.valueOf(SpawnProofer.north))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addDrawableChild(new ClickableWidget(x + 110, y, 20, 20, Text.of("-")) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.north = SpawnProofer.north == 0 ? 0 : SpawnProofer.north - 1;
-                        north.setMessage(Text.of(String.valueOf(SpawnProofer.north)));
-                    }
-                });
-                addDrawableChild(new ClickableWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+")) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.north = SpawnProofer.north == 8 ? 8 : SpawnProofer.north + 1;
-                        north.setMessage(Text.of(String.valueOf(SpawnProofer.north)));
-                    }
-                });
+                addDrawableChild(new PressableTextWidget(x + 110, y, 20, 20, Text.of("-"), button -> {
+                    SpawnProofer.north = SpawnProofer.north == 0 ? 0 : SpawnProofer.north - 1;
+                    north.setMessage(Text.of(String.valueOf(SpawnProofer.north)));
+                }, textRenderer));
+                addDrawableChild(new PressableTextWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+"), button -> {
+                    SpawnProofer.north = SpawnProofer.north == 8 ? 8 : SpawnProofer.north + 1;
+                    north.setMessage(Text.of(String.valueOf(SpawnProofer.north)));
+                }, textRenderer));
                 y += 25;
 
                 addDrawableChild(new TextFieldWidget(textRenderer, x, y, 100, 20, Text.of("South")) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
                 final TextFieldWidget south = addDrawableChild(new TextFieldWidget(textRenderer, x + 110 + 25, y, 50, 20, Text.of(String.valueOf(SpawnProofer.south))) {
                     @Override
                     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
                         int j = this.active ? 16777215 : 10526880;
-                        drawCenteredText(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
                     }
                 });
-                addDrawableChild(new ClickableWidget(x + 110, y, 20, 20, Text.of("-")) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.south = SpawnProofer.south == 0 ? 0 : SpawnProofer.south - 1;
-                        south.setMessage(Text.of(String.valueOf(SpawnProofer.south)));
-                    }
-                });
-                addDrawableChild(new ClickableWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+")) {
-                    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-                    }
-
-                    @Override
-                    public void onClick(double mouseX, double mouseY) {
-                        SpawnProofer.south = SpawnProofer.south == 8 ? 8 : SpawnProofer.south + 1;
-                        south.setMessage(Text.of(String.valueOf(SpawnProofer.south)));
-                    }
-                });
+                addDrawableChild(new PressableTextWidget(x + 110, y, 20, 20, Text.of("-"), button -> {
+                    SpawnProofer.south = SpawnProofer.south == 0 ? 0 : SpawnProofer.south - 1;
+                    south.setMessage(Text.of(String.valueOf(SpawnProofer.south)));
+                }, textRenderer));
+                addDrawableChild(new PressableTextWidget(x + 110 + 25 + 55, y, 20, 20, Text.of("+"), button -> {
+                    SpawnProofer.south = SpawnProofer.south == 8 ? 8 : SpawnProofer.south + 1;
+                    south.setMessage(Text.of(String.valueOf(SpawnProofer.south)));
+                }, textRenderer));
             }
         };
     }

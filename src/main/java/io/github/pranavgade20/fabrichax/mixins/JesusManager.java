@@ -4,6 +4,7 @@ import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.clienthax.Jesus;
 import net.minecraft.client.input.KeyboardInput;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,8 +17,8 @@ public class JesusManager {
         if (!Jesus.INSTANCE.enabled) return;
 
         //TODO get player bounding box and check all corners
-        if (!Settings.world.getBlockState(new BlockPos(Settings.player.getPos())).getFluidState().isEmpty() ||
-                !Settings.world.getBlockState(new BlockPos(Settings.player.getPos().add(0, 1, 0))).getFluidState().isEmpty()) {
+        if (!Settings.world.getBlockState(new BlockPos(new Vec3i((int) Settings.player.getPos().x, (int) Settings.player.getPos().x, (int) Settings.player.getPos().x))).getFluidState().isEmpty() ||
+                !Settings.world.getBlockState(new BlockPos((new Vec3i((int) Settings.player.getPos().x, (int) Settings.player.getPos().x, (int) Settings.player.getPos().x)).add(0, 1, 0))).getFluidState().isEmpty()) {
             Settings.player.getAbilities().flying = true;
             Jesus.flyLock = true;
         } else if (Jesus.flyLock) {

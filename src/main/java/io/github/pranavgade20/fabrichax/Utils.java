@@ -1,11 +1,10 @@
 package io.github.pranavgade20.fabrichax;
 
-import io.github.pranavgade20.fabrichax.mixins.InteractionManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.PendingUpdateManager;
 import net.minecraft.client.network.SequencedPacketCreator;
-import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ServerPlayPacketListener;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.Comparator;

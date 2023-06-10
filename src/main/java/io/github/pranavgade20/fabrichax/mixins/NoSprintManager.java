@@ -1,7 +1,7 @@
 package io.github.pranavgade20.fabrichax.mixins;
 
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.network.Packet;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket.Mode;
 import org.spongepowered.asm.mixin.Mixin;

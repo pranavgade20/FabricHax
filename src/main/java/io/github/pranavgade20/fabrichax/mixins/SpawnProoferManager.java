@@ -14,6 +14,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.SpawnHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,7 +31,7 @@ public class SpawnProoferManager {
         }
         SpawnProofer.count = 1; // once every 2 ticks
         try {
-            if (!Settings.world.isChunkLoaded(new BlockPos(Settings.player.getX(), 0.0D, Settings.player.getZ()))) {
+            if (!Settings.world.isChunkLoaded(new BlockPos((int) Settings.player.getX(), 0, (int) Settings.player.getZ()))) {
                 return;
             }
         } catch (Exception e) {
@@ -46,7 +47,7 @@ public class SpawnProoferManager {
             for (int y = -SpawnProofer.down; y <= SpawnProofer.up; y++) {
                 for (int x = -SpawnProofer.west; x <= SpawnProofer.east; x++) {
                     for (int z = -SpawnProofer.north; z <= SpawnProofer.south; z++) {
-                        BlockPos blockPos = new BlockPos(Settings.player.getPos().add(x, y, z)); // gonna place on this
+                        BlockPos blockPos = new BlockPos((new Vec3i((int) Settings.player.getPos().x, (int) Settings.player.getPos().x, (int) Settings.player.getPos().x)).add(new Vec3i(x, y, z))); // gonna place on this
 
                         BlockHitResult hitResult = new BlockHitResult(
                                 Settings.player.getPos(),

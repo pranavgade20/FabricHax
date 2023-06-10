@@ -4,31 +4,15 @@ import io.github.pranavgade20.fabrichax.Settings;
 import io.github.pranavgade20.fabrichax.clienthax.AntiFall;
 import io.github.pranavgade20.fabrichax.clienthax.ElytraFly;
 import io.github.pranavgade20.fabrichax.clienthax.Fly;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.local.LocalChannel;
-import io.netty.handler.codec.MessageToMessageDecoder;
-import io.netty.handler.codec.MessageToMessageEncoder;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
 import net.minecraft.entity.EntityType;
 import net.minecraft.network.ClientConnection;
-import net.minecraft.network.NetworkState;
-import net.minecraft.network.Packet;
-import net.minecraft.network.packet.c2s.play.*;
-import net.minecraft.network.packet.s2c.play.*;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
-import java.util.List;
-import java.util.Set;
 
 @Mixin(ClientConnection.class)
 public class ChannelManager {

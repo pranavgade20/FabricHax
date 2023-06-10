@@ -52,7 +52,7 @@ public class AnimalFeederManager {
             System.out.println(AnimalFeeder.toFeed);
         }
         try {
-            if (!Settings.world.isChunkLoaded(new BlockPos(Settings.player.getX(), 0.0D, Settings.player.getZ()))) {
+            if (!Settings.world.isChunkLoaded(new BlockPos((int) Settings.player.getX(), 0, (int) Settings.player.getZ()))) {
                 return;
             }
         } catch (Exception e) {
