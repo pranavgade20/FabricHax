@@ -6,6 +6,8 @@ A collection of Minecraft life hacks to automate repetitive stuff and make your 
 Go to https://github.com/pranavgade20/FabricHax/releases and grab the latest jar asset. Drop it into a folder named mods in your default minecraft directory. You need to install https://fabricmc.net/ before this.  
 You also need to get https://www.curseforge.com/minecraft/mc-mods/fabric-api in the mods folder.
 
+Need help? Join the [discord](https://discord.gg/M8mXRTHZrS)!
+
 ## Usage
 The mod has few modules active by default. You can access the full list of toggles using the keys `p+r`.  
 The GUI also has tabs for configuring the modules.
