@@ -8,6 +8,7 @@ import net.minecraft.client.input.KeyboardInput;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -39,9 +40,9 @@ public class SneakManager {
         if (Scaffold.INSTANCE.enabled && flag && !Settings.player.getAbilities().flying) {
             try {
                 Hand hand;
-                if (ItemGroups.BUILDING_BLOCKS.contains(Settings.player.getMainHandStack())) {
+                if (Settings.world.getRegistryManager().get(RegistryKeys.ITEM_GROUP).get(ItemGroups.BUILDING_BLOCKS).contains(Settings.player.getMainHandStack())) {
                     hand = Hand.MAIN_HAND;
-                } else if (ItemGroups.BUILDING_BLOCKS.contains(Settings.player.getOffHandStack())) {
+                } else if (Settings.world.getRegistryManager().get(RegistryKeys.ITEM_GROUP).get(ItemGroups.BUILDING_BLOCKS).contains(Settings.player.getOffHandStack())) {
                     hand = Hand.OFF_HAND;
                 } else return;
 

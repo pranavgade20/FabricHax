@@ -3,9 +3,9 @@ package io.github.pranavgade20.fabrichax.gui;
 import io.github.pranavgade20.fabrichax.Base;
 import io.github.pranavgade20.fabrichax.Hax;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.PressableTextWidget;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 public class ToggleButtonWidget extends PressableTextWidget {
@@ -24,7 +24,7 @@ public class ToggleButtonWidget extends PressableTextWidget {
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(DrawContext matrices, int mouseX, int mouseY, float delta) {
         super.render(matrices, mouseX, mouseY, delta);
         if (isHovered()) MainScreen.tooltip = Text.of(module.getToolTip());
         else MainScreen.tooltip = null;

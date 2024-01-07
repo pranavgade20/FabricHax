@@ -7,10 +7,8 @@ import io.github.pranavgade20.fabrichax.clienthax.Fly;
 import io.github.pranavgade20.fabrichax.renderhax.FreeCam;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlayerRespawnS2CPacket;
-import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -41,19 +39,13 @@ public class PlayerManager {
         }
     }
 
-    @Inject(at = @At("RETURN"), method = "onDisconnect")
-    public void setPlayer(DisconnectS2CPacket p, CallbackInfo ci) {
+    @Inject(at = @At("RETURN"), method = "clearWorld")
+    public void clearWorld(CallbackInfo ci) {
         Settings.player = null;
         Settings.world = null;
         Settings.saveToggles();
     }
 
-    @Inject(at = @At("RETURN"), method = "onDisconnected")
-    public void setPlayer(Text reason, CallbackInfo ci) {
-        Settings.player = null;
-        Settings.world = null;
-        Settings.saveToggles();
-    }
 
     @Inject(at = @At("RETURN"), method = "onPlayerRespawn")
     public void setPlayer(PlayerRespawnS2CPacket p, CallbackInfo ci) {

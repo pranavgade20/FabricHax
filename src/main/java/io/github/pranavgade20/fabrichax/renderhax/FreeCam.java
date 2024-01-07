@@ -23,7 +23,7 @@ public class FreeCam extends RenderBase {
         } else {
             e = new ZombieEntity(Settings.world);
             e.updatePositionAndAngles(Settings.player.getX(), Settings.player.getY(), Settings.player.getZ(), Settings.player.getYaw(), Settings.player.getPitch());
-            Settings.world.addEntity(e.getId(), e);
+            Settings.world.addEntity(e);
 //            e = new OtherClientPlayerEntity(Settings.world, Settings.player.getGameProfile());
 //            e.setGlowing(true);
 //            e.updatePositionAndAngles(Settings.player.getX(), Settings.player.getY(), Settings.player.getZ(), Settings.player.getYaw(), Settings.player.getPitch());
